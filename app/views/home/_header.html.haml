@@ -12,11 +12,7 @@
       %li.selected
         = link_to "Home",root_url
       %li#opener
-        - if user_signed_in?
-          - @style_val = 'pointer-events: auto;'
-        -else
-          - @style_val = 'pointer-events: none;'
-        %a{:href => "/facebook_connect",:style => @style_val} How to use
+        %a#opener{:href => "javascript:void(0);",:style => "pointer-events: auto;"} How to use
       %li
         - if user_signed_in?
           - @style_val = 'pointer-events: auto;'

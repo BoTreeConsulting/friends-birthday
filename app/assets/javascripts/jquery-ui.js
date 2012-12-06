@@ -9106,7 +9106,7 @@ $.widget("ui.dialog", {
 		show: null,
 		stack: true,
 		title: "",
-		width: 400,
+		width: 500,
 		zIndex: 1000
 	},
 

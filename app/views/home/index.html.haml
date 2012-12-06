@@ -46,7 +46,7 @@
     - else
       %h3
         = flash[:notice]
-      - auth = current_user.authentication
+      - auth = current_user.fb_authentication
       - if auth
         %h5{:style => 'color:white'}
           #{t 'home.connected_message'}
