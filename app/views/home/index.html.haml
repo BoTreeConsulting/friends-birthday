@@ -1,0 +1,76 @@
+#site_content
+  #sidebar_container
+    .sidebar
+      %h3 Latest News
+      %h4 Facebook apps for Virtue Info family will be available on
+      %h5 December 10st, 2012
+      %p
+        2012 sees the redesign of our website. Take a look around and let us know what you think.
+        %br/
+        %a{:href => "#"} Read more
+  .content
+    - unless current_user.present?
+      %h3
+        = flash[:notice]
+      %h1 Welcome to FriendsBirthday Apps
+      %p
+        Hi friends last time i made an apps for birthday wishing with a single click. Now i made a new version of this application.
+        In this version i added some functionality in it.
+      .sidebar{:style => 'width:500px;'}
+        %h4 New features
+        %ul
+          %li{:style => 'padding: 0 0 22px 28px;'}
+            Only once you need to connect with facebook.
+          %li{:style => 'padding: 0 0 22px 28px;'}
+            It take care of your friends birthday wishing. If you forget to wish, then this apps wish them automatically on behalf of you.
+          %li{:style => 'padding: 0 0 22px 28px;'}
+            You can set your own message before coming your friends birthday.(If not set your message then a system generated wishing message will send at your friends wall)
+          %li{:style => 'padding: 0 0 22px 28px;'}
+            If you add your email address then this apps will also send a notification mail that you have wished your friends birthday successfully.(optional)
+          %li{:style => 'padding: 0 0 22px 28px;'}
+            If this apps get something wrong then it will disconnect you from facebook in this app and an email notification will be send to you for Reconnect with this apps.
+          %li{:style => 'padding: 0 0 22px 28px;'}
+            You have also an option for disconnect.
+      #dialog{:title => "How to Use FriendsBirthday apps"}
+        %p
+          To use this application you need to connect with facebook so
+          at Top Menu there is a option UseFbApps then click on it and
+          login with facebook my apps when you successfully authenticated by
+          facebook then it will ask some permission related to birthday wishing please allow all permissions
+          so that apps
+      %h4{:style => 'margin-top:10px;'}
+        Your suggestions
+
+      .fb-comments{"data-colorscheme" => "dark", "data-href" => "http://viinfo-employees-birthday.heroku.com", "data-num-posts" => "10", "data-width" => "470"}
+
+    - else
+      %h3
+        = flash[:notice]
+      - auth = current_user.authentication
+      - if auth
+        %h5{:style => 'color:white'}
+          #{t 'home.connected_message'}
+        - if @today_birthday.present?
+          %h4
+            #{t 'home.list_of_friends_heading'}
+          = render :partial => 'birthday_list',:locals => {:friends => @today_birthday,:flag => 'today_birthday'}
+        - else
+          %h4
+            Hi
+            = "#{@me["first_name"]},"
+            %br
+            %div{:style => 'margin-left:30%;'}
+              #{t 'home.no_one_birthday_message'}
+            %br
+        - if @nxt_upcoming_birthdays.present?
+          %h4
+            #{t 'home.list_of_upcoming_heading'}
+          = render :partial => 'birthday_list',:locals => {:friends => @nxt_upcoming_birthdays,:flag => 'upcoming_birthday'}
+        - else
+          %h4
+            %div{:style => 'margin-left:30%;'}
+              #{t 'home.no_upcoming_birthday_heading'}
+      - else
+        %p
+          if you want to use automated birthday wishing for facebook friends. Please connect with facebook app.
+          Click On Use FB APP at top menu.

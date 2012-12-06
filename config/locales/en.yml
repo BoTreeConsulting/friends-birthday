@@ -1,0 +1,13 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  hello: "Hello world"
+  home:
+    viinfo-message: "Hi friends last time i made an apps for birthday wishing apps with a single click.Now i made a new version of this application This is the application for birthday wishing of your facebook friends with new features.This."
+    connected_message: "Congratulations..! You have connected with facebook apps. You Don't  need to connect again."
+    list_of_friends_heading: "List of friends who have birthday today...."
+    no_one_birthday_message: "No One have birthday Today."
+    list_of_upcoming_heading: "List of upcoming birthday on facebook..."
+    no_upcoming_birthday_heading: "You have no friends who has birthday within 10 Days."
+

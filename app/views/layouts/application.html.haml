@@ -1,0 +1,37 @@
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}/
+    %title FriendsBirthday
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    -#%link{:href => "http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css", :rel => "stylesheet"}/
+    = csrf_meta_tags
+    :javascript
+      // increase the default animation speed to exaggerate the effect
+      $.fx.speeds._default = 1000;
+      $(function() {
+          $( "#dialog" ).dialog({
+              autoOpen: false,
+              show: "blind",
+              hide: "blind"
+          });
+
+          $( "#opener" ).click(function() {
+              $( "#dialog" ).dialog( "open" );
+              return false;
+          });
+      });
+  %body
+    #fb-root
+    :javascript
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=458294460883826";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    #main
+      = render :partial => '/home/header'
+      = yield
+      = render :partial => '/home/footer'

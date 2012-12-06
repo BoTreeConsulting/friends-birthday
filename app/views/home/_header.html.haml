@@ -1,0 +1,40 @@
+%header
+  #logo
+    #logo_text
+      / class="logo_colour", allows you to change the colour of the text
+      %h1
+        %a{:href => "#{root_url}"}
+          Facebook
+          %span.logo_colour FriendsBirthday Apps
+      %h2 Simple. Secure. Automated.
+  %nav
+    %ul#nav.sf-menu
+      %li.selected
+        = link_to "Home",root_url
+      %li#opener
+        - if user_signed_in?
+          - @style_val = 'pointer-events: auto;'
+        -else
+          - @style_val = 'pointer-events: none;'
+        %a{:href => "/facebook_connect",:style => @style_val} How to use
+      %li
+        - if user_signed_in?
+          - @style_val = 'pointer-events: auto;'
+        -else
+          - @style_val = 'pointer-events: none;'
+        = link_to "Use FB Apps",user_omniauth_authorize_path(:facebook)
+        -#%a{:href => "/facebook_connect",:style => 'pointer-events: auto;'} Use FB Apps
+
+      %li
+        %a{:href => "#"} update profile
+        %ul
+          %li
+            - if user_signed_in?
+              = link_to "Logout",destroy_user_session_path
+            - else
+              -#= link_to "An admin",rails_admin_path
+          %li
+            - if user_signed_in?
+              = link_to "Logout",destroy_user_session_path
+            - else
+              = link_to "Virtue-Info Family",new_user_session_path
