@@ -1,4 +1,6 @@
 FriendsBirthday::Application.routes.draw do
+  resources :custom_messages
+
   devise_for :users , :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
     match '/users/sign_out' => 'devise/sessions#destroy'
     match '/users/sign_in' => 'users/sessions#create'

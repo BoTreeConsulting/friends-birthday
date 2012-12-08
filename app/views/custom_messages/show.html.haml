@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @custom_message.user_id
+%p
+  %b Friend uid:
+  = @custom_message.friend_uid
+%p
+  %b Message:
+  = @custom_message.message
+
+= link_to 'Edit', edit_custom_message_path(@custom_message)
+\|
+= link_to 'Back', custom_messages_path

@@ -1,0 +1,23 @@
+%h1 Listing custom_messages
+
+%table
+  %tr
+    %th User
+    %th Friend uid
+    %th Message
+    %th
+    %th
+    %th
+
+  - @custom_messages.each do |custom_message|
+    %tr
+      %td= custom_message.user_id
+      %td= custom_message.friend_uid
+      %td= custom_message.message
+      %td= link_to 'Show', custom_message
+      %td= link_to 'Edit', edit_custom_message_path(custom_message)
+      %td= link_to 'Destroy', custom_message, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Custom message', new_custom_message_path

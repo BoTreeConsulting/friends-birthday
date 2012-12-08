@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121205182421) do
+ActiveRecord::Schema.define(:version => 20121208052511) do
+
+  create_table "custom_messages", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "friend_uid"
+    t.text     "message"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "fb_authentications", :force => true do |t|
     t.integer  "user_id"
