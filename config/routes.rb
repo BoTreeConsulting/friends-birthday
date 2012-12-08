@@ -7,6 +7,7 @@ FriendsBirthday::Application.routes.draw do
   end
 
   get "home/index"
+  match '/analysis/:provider' => 'home#analysis'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

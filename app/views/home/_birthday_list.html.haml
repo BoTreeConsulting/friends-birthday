@@ -26,31 +26,13 @@
           - else
             Set Message
           %span.modalboxContent
-            = form_for @custom_message do |f|
-              - if @custom_message.errors.any?
-                #error_explanation
-                  %h2= "#{pluralize(@custom_message.errors.count, "error")} prohibited this custom_message from being saved:"
-                  %ul
-                    - @custom_message.errors.full_messages.each do |msg|
-                      %li= msg
-
-              .field
-                -#= f.label :friend_uid
-                = hidden_field_tag 'custom_message[friend_uid]',friend["id"]
-                = hidden_field_tag 'is_birthday_today',(flag == 'today_birthday')
-              .field
-                %h2{:style => 'text-align:center'}
-                  = "Please Set message for your friend's Birthday"
-
-                = image_tag(@graph.get_picture(friend["id"]))
-                %br
-                %br
-                %h4
-                  = "#{friend["name"]} will get this message on #{(friend["gender"] == "male")? "his":"her"} birthday"
-                %br
-                = text_area_tag 'custom_message[message]',"#{(get_custom_message.nil?)? "": get_custom_message.message}",:rows=>6, :cols=>60,:style => 'resize:none'
-              .actions{:Style => 'margin:10px 224px'}
-                = f.submit (flag == 'today_birthday')? 'Send Message' : 'Save Message'
+            = render :partial => 'message_form',:locals => {:graph => @graph,
+                                                            :custom_message => @custom_message,
+                                                            :uid => friend["id"],
+                                                            :name => friend["name"],
+                                                            :gender => friend["gender"],
+                                                            :get_custom_message => get_custom_message,
+                                                            :flag => flag}
         &nbsp;
         - unless get_custom_message.nil?
           = link_to 'Delete Message', get_custom_message, method: :delete, data: { confirm: 'Are you sure?' }

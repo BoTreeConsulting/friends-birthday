@@ -20,7 +20,9 @@
           - @style_val = 'pointer-events: none;'
         = link_to "Use FB Apps",user_omniauth_authorize_path(:facebook)
         -#%a{:href => "/facebook_connect",:style => 'pointer-events: auto;'} Use FB Apps
-
+      %li
+        - if user_signed_in?
+          = link_to "My Facebook Analysis","/analysis/provider?facebook=my-data"
       %li
         = link_to "Logout",destroy_user_session_path
         -#%ul

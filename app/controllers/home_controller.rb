@@ -7,11 +7,9 @@ class HomeController < ApplicationController
           current_month, token, uid = initialise_objects()
 
           get_fb_graph_api_object(token)
-
-          get_my_fb_profile(uid)
+          fields = ""
+          get_my_fb_profile(uid,fields)
           get_fb_friends_profile(uid)
-          #render :text => @me.inspect and return false
-
           @today_birthday = []
           get_todays_and_next_birthdays(current_month)
         end
@@ -22,19 +20,21 @@ class HomeController < ApplicationController
     end
   end
 
-  def get_fb_friends_profile(uid)
-    begin
-      @friends_profile = @graph.get_connections("#{uid}", "friends", "fields" => "name,birthday,gender,link")
-    rescue Exception => e
-      Rails.logger.info("======================================> Error while getting friends profile: #{e.message}")
-    end
-  end
 
-  def get_my_fb_profile(uid)
-    begin
-      @me = @graph.get_object("#{uid}","fields" => "likes,hometown,relationship_status,birthday,education,location,gender,")
-    rescue Exception => e
-      Rails.logger.info("=============================>Error while fetching My facebook profile : #{e.message}")
+  def analysis
+    if current_user.present?
+      fb_authentication = current_user.fb_authentication
+      if fb_authentication.present?
+        token = fb_authentication.token
+        uid =   fb_authentication.uid
+        get_fb_graph_api_object(token)
+        fields = "likes,hometown,relationship_status,birthday,education,location,gender,statuses"
+        get_my_fb_profile(uid,fields)
+        render :text => @me.inspect and return false
+      else
+        flash[:notice] = "Please Connect with facebook Apps"
+        redirect_to root_url
+      end
     end
   end
 
@@ -45,6 +45,24 @@ class HomeController < ApplicationController
       Rails.logger.info("=======================================> Error while initialise graph object: #{e.message} ")
     end
   end
+
+  def get_my_fb_profile(uid,fields)
+    begin
+      @me = @graph.get_object("#{uid}","fields" => "#{fields}")
+    rescue Exception => e
+      Rails.logger.info("=============================>Error while fetching My facebook profile : #{e.message}")
+    end
+  end
+
+
+  def get_fb_friends_profile(uid)
+    begin
+      @friends_profile = @graph.get_connections("#{uid}", "friends", "fields" => "name,birthday,gender,link")
+    rescue Exception => e
+      Rails.logger.info("======================================> Error while getting friends profile: #{e.message}")
+    end
+  end
+
 
   def initialise_objects
     @current_date = DateTime.now.new_offset(5.5/24).strftime('%m-%d-%Y').split('-')
