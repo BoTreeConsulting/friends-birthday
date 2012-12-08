@@ -43,7 +43,7 @@ class HomeController < ApplicationController
           calculate_friends_relationship_status(friend)
           analyse_friends_location(friend)
         end
-        render :text => @user_extra_profile_details.inspect and return false
+        #render :text => @user_extra_profile_details.inspect and return false
       else
         flash[:notice] = "Please Connect with facebook Apps"
         redirect_to root_url
