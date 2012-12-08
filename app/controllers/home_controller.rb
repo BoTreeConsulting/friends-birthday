@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+
   def index
     @custom_message = CustomMessage.new
     begin
@@ -28,15 +29,122 @@ class HomeController < ApplicationController
         token = fb_authentication.token
         uid =   fb_authentication.uid
         get_fb_graph_api_object(token)
-        fields = "likes,hometown,relationship_status,birthday,education,location,gender,statuses"
-        get_my_fb_profile(uid,fields)
-        render :text => @me.inspect and return false
+        fields = "statuses"
+        @user_default_profile = get_my_fb_profile(uid,"")
+        calculate_user_present_and_future_birthday()
+        @user_profile_image = @graph.get_picture(uid,:type=>"large")
+        @user_extra_profile_details = get_my_fb_profile(uid,fields)
+        get_fb_friends_profile(uid)
+        initialize_objects_for_relationship_status()
+        @friends_location = {}
+
+        @friends_profile.each do |friend|
+          calculate_total_male_female_friends(friend)
+          calculate_friends_relationship_status(friend)
+          analyse_friends_location(friend)
+        end
+        render :text => @user_extra_profile_details.inspect and return false
       else
         flash[:notice] = "Please Connect with facebook Apps"
         redirect_to root_url
       end
     end
   end
+
+  def analyse_friends_location(friend)
+    unless friend["location"].nil?
+      if @friends_location.has_key?(friend["location"]["id"])
+        @friends_location[friend["location"]["id"]]["count"] = @friends_location[friend["location"]["id"]]["count"] + 1
+        @friends_location[friend["location"]["id"]]["location_name"] = friend["location"]["name"]
+        @friends_location[friend["location"]["id"]]["picture_urls"] << friend["picture"]["data"]["url"]
+      else
+        @friends_location[friend["location"]["id"]] = {}
+        @friends_location[friend["location"]["id"]]["picture_urls"] = []
+        @friends_location[friend["location"]["id"]]["count"] = 1
+        @friends_location[friend["location"]["id"]]["location_name"] = friend["location"]["name"]
+        @friends_location[friend["location"]["id"]]["picture_urls"] << friend["picture"]["data"]["url"]
+      end
+    end
+  end
+
+  def calculate_friends_relationship_status(friend)
+    unless friend["relationship_status"].nil?
+      case friend["relationship_status"]
+        when "Married"
+          @married_count = @married_count + 1
+        when "Single"
+          @single_count = @single_count + 1
+        when "It's complicated"
+          @its_complicated_count = @its_complicated_count + 1
+        when "In a relationship"
+          @relationship_count = @relationship_count + 1
+        when "In an open relationship"
+          @open_relatonship_count = @open_relatonship_count + 1
+        when "Engaged"
+          @engaged_count = @engaged_count + 1
+      end
+    else
+      @other_count = @other_count + 1
+    end
+  end
+
+  def initialize_objects_for_relationship_status
+    @male_count = 0
+    @female_count = 0
+    @married_count = 0
+    @single_count = 0
+    @its_complicated_count = 0
+    @other_count = 0
+    @open_relatonship_count = 0
+    @engaged_count = 0
+    @relationship_count = 0
+  end
+
+  def calculate_total_male_female_friends(friend)
+    unless friend["gender"].nil?
+      if friend["gender"] == "male"
+        @male_count = @male_count+1
+
+      end
+      if friend["gender"] == "female"
+        @female_count = @female_count+1
+      end
+    end
+  end
+
+  def calculate_user_present_and_future_birthday
+    unless @user_default_profile["birthday"].nil?
+      @user_birthday = @user_default_profile["birthday"].gsub('/', '-')
+      get_user_age(@user_birthday)
+      next_birthdate_diff = get_user_next_birthday_detail()
+      if next_birthdate_diff.present?
+        @next_bithday = []
+        @next_bithday << "#{next_birthdate_diff[:year]} years" unless next_birthdate_diff[:year] == 0
+        @next_bithday << "#{next_birthdate_diff[:month]} months" unless next_birthdate_diff[:month] == 0
+        @next_bithday << "#{next_birthdate_diff[:day]} day" unless next_birthdate_diff[:day] == 0
+      end
+      @next_bithday = @next_bithday.join(",")
+    end
+  end
+
+  def get_user_next_birthday_detail
+    birthdate = @user_birthday.split('-')
+    next_birthday_date = birthdate[1]+'-'+birthdate[0]+'-'+(DateTime.now + 1.year).year.to_s
+    Time.diff(Time.now, Time.parse(next_birthday_date))
+  end
+
+  def get_user_age(birthday)
+    birthday = birthday.split('-')
+    birthdate = birthday[1]+'-'+birthday[0]+'-'+birthday[2]
+    @user_total_age = Time.diff(Time.parse(birthdate), Time.now)
+    @user_current_age = []
+    @user_current_age << "#{@user_total_age[:year]} years" unless @user_total_age[:year] == 0
+    @user_current_age << " #{@user_total_age[:month]} month" unless @user_total_age[:month] == 0
+    @user_current_age << " #{@user_total_age[:day]} day " unless @user_total_age[:day] == 0
+    @user_current_age << " old"
+    @user_current_age = @user_current_age.join(",")
+  end
+
 
   def get_fb_graph_api_object(token)
     begin
@@ -57,7 +165,7 @@ class HomeController < ApplicationController
 
   def get_fb_friends_profile(uid)
     begin
-      @friends_profile = @graph.get_connections("#{uid}", "friends", "fields" => "name,birthday,gender,link")
+      @friends_profile = @graph.get_connections("#{uid}", "friends", "fields" => "name,birthday,gender,link,relationship_status,location,picture")
     rescue Exception => e
       Rails.logger.info("======================================> Error while getting friends profile: #{e.message}")
     end

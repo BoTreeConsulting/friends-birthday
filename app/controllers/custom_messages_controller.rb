@@ -40,23 +40,44 @@ class CustomMessagesController < ApplicationController
   # POST /custom_messages
   # POST /custom_messages.json
   def create
-    @custom_message = CustomMessage.new(params[:custom_message])
-
-    respond_to do |format|
-      if @custom_message.save
-        format.html { redirect_to @custom_message, notice: 'Custom message was successfully created.' }
-        format.json { render json: @custom_message, status: :created, location: @custom_message }
+    current_id = current_user.id
+    friend_uid = params[:custom_message]["friend_uid"]
+    no_message_available = CustomMessage.find_by_friend_uid_and_user_id(params[:custom_message]["friend_uid"],current_id).nil?
+    unless params[:is_birthday_today] == "true"
+      if no_message_available
+        @custom_message = CustomMessage.new(params[:custom_message])
+        @custom_message.user_id = current_user.id
+        if @custom_message.save
+          flash[:notice] = "Your message has been successfully added"
+        end
       else
-        format.html { render action: "new" }
-        format.json { render json: @custom_message.errors, status: :unprocessable_entity }
+        @custom_message = CustomMessage.find_by_friend_uid_and_user_id(friend_uid,current_id)
+        if @custom_message.update_attributes(params[:custom_message])
+          flash[:notice] = "Your message has been updated successfully"
+        else
+          flash[:error] = "We are sorry, please update again."
+        end
+      end
+    else
+      token = current_user.fb_authentication.token
+      @graph = Koala::Facebook::API.new("#{token}")
+      begin
+        unless params[:custom_message][:message].blank?
+          @graph.put_object(friend_uid, "feed", :message => "#{params[:custom_message][:message]}")
+          flash[:notice] = "Message posted at facebook wall"
+          puts "==================================Successfully updated wall"
+        end
+      rescue Exception => e
+        puts "==================================Facebook api graph error: #{e.message}"
       end
     end
+    redirect_to root_url and return
   end
 
   # PUT /custom_messages/1
   # PUT /custom_messages/1.json
   def update
-    @custom_message = CustomMessage.find(params[:id])
+    @custom_message = CustomMessage.find_by_friend_uid(params[:custom_message]["friend_uid"])
 
     respond_to do |format|
       if @custom_message.update_attributes(params[:custom_message])
@@ -74,10 +95,6 @@ class CustomMessagesController < ApplicationController
   def destroy
     @custom_message = CustomMessage.find(params[:id])
     @custom_message.destroy
-
-    respond_to do |format|
-      format.html { redirect_to custom_messages_url }
-      format.json { head :no_content }
-    end
+    redirect_to root_url
   end
 end

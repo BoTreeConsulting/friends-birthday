@@ -1,0 +1,16 @@
+%table{:style => "width:100%"}
+  %tr
+    %th{:width => "30%"}
+      Location name
+    %th
+      Friends with common location
+  - @friends_location.each do |location_hsh,location_hsh_val|
+    - if location_hsh_val["count"]>0
+      %tr
+        %th
+          = location_hsh_val["location_name"]
+        %td
+          = location_hsh_val["count"]
+          - if location_hsh_val["picture_urls"].size > 0
+            - location_hsh_val["picture_urls"].each do |picture_url|
+              = image_tag(picture_url)

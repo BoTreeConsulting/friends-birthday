@@ -30,7 +30,7 @@ gem 'devise'
 gem 'omniauth-facebook'
 gem 'koala'
 gem "haml-rails"
-
+gem 'time_diff'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
