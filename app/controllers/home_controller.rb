@@ -28,7 +28,7 @@ class HomeController < ApplicationController
         token = fb_authentication.token
         uid =   fb_authentication.uid
         get_fb_graph_api_object(token)
-        fields = "statuses"
+        fields = "statuses,albums"
         @user_default_profile = get_my_fb_profile(uid,"")
         calculate_user_present_and_future_birthday()
         @user_profile_image = @graph.get_picture(uid,:type=>"large")
@@ -162,7 +162,7 @@ class HomeController < ApplicationController
 
   def get_my_fb_profile(uid,fields)
     begin
-      @me = @graph.get_object("#{uid}","fields" => "#{fields}")
+      @me = @graph.get_object("#{uid}","fields" => "#{fields}","limit" => 200)
     rescue Exception => e
       Rails.logger.info("=============================>Error while fetching My facebook profile : #{e.message}")
     end

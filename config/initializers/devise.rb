@@ -206,7 +206,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
-  user_scopes = "user_birthday,user_education_history,user_likes,user_location,user_relationships,user_status,user_religion_politics"
+  user_scopes = "user_birthday,user_education_history,user_likes,user_location,user_relationships,user_status,user_religion_politics,user_photos"
   friends_scope = "publish_stream, offline_access,friends_birthday,email,friends_education_history,friends_location,friends_relationships,friends_status,friends_religion_politics"
   config.omniauth :facebook, "206656552803930", "7d5737d80a56961ac38907dd104730ec",{:scope => "#{user_scopes},#{friends_scope}", :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
 
