@@ -8,7 +8,7 @@ FriendsBirthday::Application.routes.draw do
 
   get "home/index"
   match '/analysis/:provider' => 'home#analysis'
-
+  match 'destroy_fb_authentication' => 'home#destroy_fb_authentication'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

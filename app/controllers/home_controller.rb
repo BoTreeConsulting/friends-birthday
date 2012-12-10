@@ -6,7 +6,6 @@ class HomeController < ApplicationController
       if current_user.present?
         if current_user.fb_authentication.present?
           current_month, token, uid = initialise_objects()
-
           get_fb_graph_api_object(token)
           fields = ""
           get_my_fb_profile(uid,fields)
@@ -33,7 +32,7 @@ class HomeController < ApplicationController
         @user_default_profile = get_my_fb_profile(uid,"")
         calculate_user_present_and_future_birthday()
         @user_profile_image = @graph.get_picture(uid,:type=>"large")
-        @user_extra_profile_details = get_my_fb_profile(uid,fields)
+        @user_extra_details = get_my_fb_profile(uid,fields)
         get_fb_friends_profile(uid)
         initialize_objects_for_relationship_status()
         @friends_location = {}
@@ -145,6 +144,13 @@ class HomeController < ApplicationController
     @user_current_age = @user_current_age.join(",")
   end
 
+
+
+  def destroy_fb_authentication
+    fb_authentication = FbAuthentication.find(current_user.fb_authentication.id)
+    fb_authentication.destroy
+    redirect_to root_path
+  end
 
   def get_fb_graph_api_object(token)
     begin

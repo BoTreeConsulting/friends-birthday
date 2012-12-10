@@ -4,8 +4,8 @@
       / class="logo_colour", allows you to change the colour of the text
       %h1
         %a{:href => "#{root_url}"}
-          Facebook
-          %span.logo_colour FriendsBirthday Apps
+          My
+          %span.logo_colour FriendsBirthday
       %h2 Simple. Secure. Automated.
   %nav
     %ul#nav.sf-menu
@@ -15,24 +15,25 @@
         %a#opener{:href => "javascript:void(0);",:style => "pointer-events: auto;"} How to use
       %li
         - if user_signed_in?
-          - @style_val = 'pointer-events: auto;'
+          - if current_user.fb_authentication.present?
+            = link_to "Disconnect from FB Apps","/destroy_fb_authentication",:action => "destroy_fb_authentication", method: :delete, data: { confirm: 'Are you sure?' }
+          - else
+            = link_to "Use FB Apps",user_omniauth_authorize_path(:facebook)
         -else
-          - @style_val = 'pointer-events: none;'
-        = link_to "Use FB Apps",user_omniauth_authorize_path(:facebook)
+          = link_to "facebook connect",user_omniauth_authorize_path(:facebook)
+
         -#%a{:href => "/facebook_connect",:style => 'pointer-events: auto;'} Use FB Apps
       %li
         - if user_signed_in?
           = link_to "My Facebook Analysis","/analysis/provider?facebook=my-data"
       %li
-        = link_to "Logout",destroy_user_session_path
-        -#%ul
-        -#  %li
-        -#    - if user_signed_in?
-        -#      = link_to "Logout",destroy_user_session_path
-        -#    - else
-        -#      -#= link_to "An admin",rails_admin_path
-        -#  %li
-        -#    - if user_signed_in?
-        -#      = link_to "Logout",destroy_user_session_path
-        -#    - else
-        -#      = link_to "Virtue-Info Family",new_user_session_path
+        - if user_signed_in?
+          = link_to "Logout",destroy_user_session_path
+        - else
+          %a{:href => "#"} Login with
+          %ul
+            %li
+              = link_to "Facebook",user_omniauth_authorize_path(:facebook)
+            %li
+              - if user_signed_in?
+                = link_to "Logout",destroy_user_session_path

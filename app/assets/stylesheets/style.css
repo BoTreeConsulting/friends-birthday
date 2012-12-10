@@ -24,7 +24,7 @@ article, aside, figure, footer, header, hgroup, nav, section {
   display:block;
 }
 
-body { 
+body {
   font: normal .80em arial, sans-serif;
   background: #222;
   color: #AAA;
@@ -159,7 +159,7 @@ header {
 }
 
 #logo h1, #logo h2 { 
-  font: normal 210% 'News Cycle', arial, sans-serif;
+  font: normal 242% 'News Cycle', arial, sans-serif;
   border-bottom: 0;
   text-transform: none;
   margin: 0;
@@ -587,4 +587,16 @@ ul#images li {
     top: 141px!important;
     width: 438px!important;
     z-index: 1015;
+}
+
+#dvLoading
+{
+    background:#000 url("http://www.mcso.us/paid/images/ajax_load.gif") no-repeat center center;
+    height: 100px;
+    width: 100px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    margin: -25px 0 0 -25px;
 }

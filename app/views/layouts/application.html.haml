@@ -7,6 +7,9 @@
     = javascript_include_tag "https://www.google.com/jsapi"
     = csrf_meta_tags
     :javascript
+      $(window).load(function(){
+      $('#dvLoading').fadeOut(2000);
+      });
       // increase the default animation speed to exaggerate the effect
       $.fx.speeds._default = 1000;
       $(function() {
@@ -32,6 +35,7 @@
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
     #main
+      #dvLoading
       = render :partial => '/home/header'
       = yield
       = render :partial => '/home/footer'
