@@ -104,6 +104,13 @@
   %tr
     %td{:align=> 'center',:colspan => '3'}
       %a.openmodalbox{:href => "javascript:void(0);"}
-        My Recent Status
+        My Most Commented  Status
         %span.modalboxContent
-          = render :partial => 'my_recent_status'
+          = render :partial => 'my_most_commented_status'
+
+  %tr
+    %td{:align=> 'center',:colspan => '3'}
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        My Most Liked  Status
+        %span.modalboxContent
+          = render :partial => 'my_most_liked_status'

@@ -33,6 +33,8 @@ class HomeController < ApplicationController
         calculate_user_present_and_future_birthday()
         @user_profile_image = @graph.get_picture(uid,:type=>"large")
         @user_extra_details = get_my_fb_profile(uid,fields)
+        get_most_liked_and_commented_status()
+        #render :text => @user_most_liked_status.reverse.inspect and return false
         get_fb_friends_profile(uid)
         initialize_objects_for_relationship_status()
         @friends_location = {}
@@ -48,6 +50,27 @@ class HomeController < ApplicationController
         redirect_to root_url
       end
     end
+  end
+
+  def get_most_liked_and_commented_status
+    if @user_extra_details["statuses"].present?
+      if @user_extra_details["statuses"]["data"].present?
+        @user_statues = []
+        @user_extra_details["statuses"]["data"].each do |status|
+          user_status = {}
+          user_status["message"] = status["message"]
+          user_status["comments_count"] = (status["comments"].present?) ? status["comments"]["data"].size : 0
+          user_status["likes_count"] = (status["likes"].present?) ? status["likes"]["data"].size : 0
+          unless user_status.blank?
+            @user_statues << user_status
+          end
+        end
+      end
+    end
+    user_most_commented_status = @user_statues.sort_by { |hsh| hsh["comments_count"] }
+    @user_most_commented_status = user_most_commented_status.reverse[0..9]
+    user_most_liked_status = @user_statues.sort_by { |hsh| hsh["likes_count"] }
+    @user_most_liked_status = user_most_liked_status.reverse[0..9]
   end
 
   def analyse_friends_location(friend)

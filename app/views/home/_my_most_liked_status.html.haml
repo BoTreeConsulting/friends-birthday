@@ -1,0 +1,20 @@
+%h3{:style => "color:#FCAB19"}
+  Your latest 10 most Liked status
+- if @user_most_liked_status.present?
+  %table{:style => "width:100%"}
+    %tr
+      %th{:width => "80%"}
+        Status at wall
+      %th
+        Total Likes
+    - @user_most_liked_status.each_with_index do |status,index|
+      %tr
+        %td{:id => "#{index+1}",:width => "30%",:title => "#{status["message"]}",:style => "cursor: pointer;",:class => "tdCell"}
+          %div{:style => "width:100px;background:black;height:100px"}
+          = "#{status["message"][0..40]}..."
+        %td{:style => "text-align:center"}
+          = status["likes_count"]
+- else
+  %tr
+    %td{:rowspan=>2}
+      No data available

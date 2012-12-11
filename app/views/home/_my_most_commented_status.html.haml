@@ -1,0 +1,19 @@
+%h3{:style => "color:#FCAB19"}
+  Your latest 10 most commented status
+- if @user_most_commented_status.present?
+  %table{:style => "width:100%"}
+    %tr
+      %th{:width => "80%"}
+        Status at wall
+      %th
+        Total Comments
+    - @user_most_commented_status.each do |status|
+      %tr
+        %td{:width => "30%"}
+          = "#{status["message"][0..40]}..."
+        %td{:style => "text-align:center"}
+          = status["comments_count"]
+- else
+  %tr
+    %td{:rowspan=>2}
+      No data available

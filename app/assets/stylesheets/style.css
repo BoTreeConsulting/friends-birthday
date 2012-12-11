@@ -592,11 +592,12 @@ ul#images li {
 #dvLoading
 {
     background:transparent url(/assets/ajax_load.gif) no-repeat center center;
-    height: 100px;
-    width: 100px;
+    height: 350px;
+    width: 350px;
     position: fixed;
     z-index: 1000;
-    left: 50%;
-    top: 50%;
+    left: 40%;
+    top: 25%;
     margin: -25px 0 0 -25px;
+    display: block;
 }
