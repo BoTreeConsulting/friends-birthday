@@ -1,3 +1,5 @@
+-#.abc{:style => "display:block;background:#98bf21;height:22px;width:0px;position:absolute;border-radius:6px;"}
+-#$("#friends_gender").click(function(){ // alert('123'); // $(".abc").animate({width:'250px'},2000); });
 -#:javascript
 -#  // Load the Visualization API and the piechart package.
 -#  google.load('visualization', '1.0', {'packages':['corechart']});
@@ -52,7 +54,7 @@
 %table{:style => "width:100%"}
   %tr
     %td
-      %a.openmodalbox{:href => "javascript:void(0);"}
+      %a.openmodalbox{:href => "javascript:void(0);",:id => "basic_details"}
         Basic Details
         %span.modalboxContent
           = render :partial => 'basic_details'
@@ -67,7 +69,7 @@
           = render :partial => 'basic_place',:locals => {:hometown => hometown,:residence => residence}
   %tr
     %td{:align=> 'center',:colspan => '3'}
-      %a.openmodalbox{:href => "javascript:void(0);"}
+      %a.openmodalbox{:href => "javascript:void(0);",:id => "friends_gender"}
         Friends Gender
         %span.modalboxContent
           = render :partial => 'friends_gender'

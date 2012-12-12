@@ -8,10 +8,10 @@ $ ->
 #    true
   $(window).load ->
     $("#dvLoading").fadeOut 2000
+    alert "#{@male_count}"
+  $(".tdCell").live "mouseover", ->
+    alert "tdCall-"+this.id
+    $("div-"+this.id).css "display", "block"
 
-#  $(".tdCell").live "mouseover", ->
-#    alert "tdCall-"+this.id
-#    $("div-"+this.id).css "display", "block"
-#
-#  $(".tdCell").live "mouseout", ->
-#    $(".tdCell").css "display", "none"
+  $(".tdCell").live "mouseout", ->
+    $(".tdCell").css "display", "none"
