@@ -50,28 +50,13 @@
 -#  }
 -#
 %table{:style => "width:100%"}
-  -#%tr
-  -#  %th
-  -#    Basic Profile Information
   %tr
-    %td{:width=>'10%',:rowspan => '4'}
-      = image_tag(@user_profile_image,:size => '100x100')
-  %tr
-    %th{:align=> 'center'}
-      Birthday
-    %td{:align=> 'center'}
-      = @user_birthday
-  %tr
-    %th{:align=> 'center'}
-      Age
-    %td{:align=> 'center'}
-      = @user_current_age
+    %td
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        Basic Details
+        %span.modalboxContent
+          = render :partial => 'basic_details'
 
-  %tr
-    %th{:align=> 'center'}
-      Next Birthday
-    %td{:align=> 'center'}
-      = @next_bithday
   %tr
     %td{:align=> 'center',:colspan => '3'}
       %a.openmodalbox{:href => "javascript:void(0);"}

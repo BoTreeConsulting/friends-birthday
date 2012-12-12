@@ -1,0 +1,25 @@
+%table
+  %tr
+  %tr
+    %td
+      = image_tag(@user_profile_image,:size => '100x100')
+    %td
+      %b
+        username:
+      = @user_default_profile["username"]
+  %tr
+    %th{:align=> 'center',:width => '20%'}
+      Birthday
+    %td{:align=> 'center'}
+      = @user_birthday
+  %tr
+    %th{:align=> 'center'}
+      Age
+    %td{:align=> 'center'}
+      = @user_current_age
+  %tr
+    %th{:align=> 'center'}
+      Next Birthday
+    %td{:align=> 'center'}
+      = @next_bithday
+

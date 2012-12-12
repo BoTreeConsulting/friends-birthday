@@ -392,14 +392,14 @@ table {
 
 table tr th, table tr td { 
   background: #BBB;
-  color: #FFF;
+  color: #000;
   padding: 7px 4px;
   text-align: left;
 }
   
 table tr td { 
   background: #DDD;
-  color: #444;
+  color: #000;
   border-top: 1px solid #FFF;
 }
 
