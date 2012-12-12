@@ -1,7 +1,7 @@
-namespace :viinfo  do
+namespace :friends_birthday  do
   require 'koala'
   desc "Post a wishing message at friend's facebook wall who has birthday today."
-  task :birthday_wish_on_facebook => :environment do
+  task :wish_on_facebook => :environment do
   users  = User.all(:joins =>:fb_authentication)
     if users.present?
       wishing_at_facebook_wall(users)
