@@ -9,9 +9,9 @@ $ ->
   $(window).load ->
     $("#dvLoading").fadeOut 2000
 
-  $(".tdCell").live "mouseover", ->
-    alert "tdCall-"+this.id
-    $("div-"+this.id).css "display", "block"
-
-  $(".tdCell").live "mouseout", ->
-    $(".tdCell").css "display", "none"
+#  $(".tdCell").live "mouseover", ->
+#    alert "tdCall-"+this.id
+#    $("div-"+this.id).css "display", "block"
+#
+#  $(".tdCell").live "mouseout", ->
+#    $(".tdCell").css "display", "none"
