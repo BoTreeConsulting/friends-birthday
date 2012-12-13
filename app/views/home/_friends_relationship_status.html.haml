@@ -1,37 +1,74 @@
-%table{:style => "width:80%;margin-left:52px;"}
+%table{:style => "width:100%;background: none repeat scroll 0 0 #DDDDDD;"}
   %tr
-    %th{:width => "50%"}
-      Married
-    %td
-      = @married_count
-  %tr
-    %th
-      Single
-    %td
+    %td{:style => " text-align: center;width: 14%;"}
       = @single_count
-  %tr
-    %th
-      In a relationship
-    %td
+      %div{:style => "height:300px;background:#B94A48;margin: auto;width: 50px;border-radius: 12px;"}
+    %td{:style => " text-align: center;width: 14%;"}
+      = @married_count
+      %div{:style => "height:300px;background:green;margin: auto;width: 50px;border-radius: 12px;"}
+    %td{:style => " text-align: center;width: 14%;"}
       = @relationship_count
-  %tr
-    %th
-      It's complicated
-    %td
+      %div{:style => "height:300px;background:#F89406;margin: auto;width: 50px;border-radius: 12px;"}
+    %td{:style => " text-align: center;width: 14%;"}
       = @its_complicated_count
-  %tr
-    %th
-      Engaged
-    %td
+      %div{:style => "height:300px;background:#F89406;margin: auto;width: 50px;border-radius: 12px;"}
+    %td{:style => " text-align: center;width: 14%;"}
       = @engaged_count
-  %tr
-    %th
-      In an open relationship
-    %td
+      %div{:style => "height:300px;background:green;margin: auto;width: 50px;border-radius: 12px;"}
+    %td{:style => " text-align: center;width: 14%;"}
       = @open_relatonship_count
-
-  %tr
-    %th
-      Not Defiend
-    %td
+      %div{:style => "height:300px;background:#F89406;margin: auto;width: 50px;border-radius: 12px;"}
+    %td{:style => " text-align: center;width: 14%;"}
       = @other_count
+      %div{:style => "height:300px;background:#3A87AD;margin: auto;width: 50px;border-radius: 12px;"}
+  %tr
+    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+      Single
+    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+      Married
+    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+      Relationship
+    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+      It's complicated
+    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+      Engaged
+    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+      Open relationship
+    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+      Not Defiend
+  -#%tr
+  -#  %th{:width => "40%"}
+  -#    Single
+  -#  %td
+  -#    = @single_count
+  -#%tr
+  -#  %th
+  -#    Married
+  -#  %td
+  -#    = @married_count
+  -#%tr
+  -#  %th
+  -#    In a relationship
+  -#  %td
+  -#    = @relationship_count
+  -#%tr
+  -#  %th
+  -#    It's complicated
+  -#  %td
+  -#    = @its_complicated_count
+  -#%tr
+  -#  %th
+  -#    Engaged
+  -#  %td
+  -#    = @engaged_count
+  -#%tr
+  -#  %th
+  -#    In an open relationship
+  -#  %td
+  -#    = @open_relatonship_count
+  -#
+  -#%tr
+  -#  %th
+  -#    Not Defiend
+  -#  %td
+  -#    = @other_count

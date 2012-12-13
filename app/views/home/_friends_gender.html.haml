@@ -3,11 +3,27 @@
     %th{:width => "30%"}
       Male
     %td
-      -#= @male_count
+      - male_percent  = ((@male_count*100)/(@male_count+@female_count).to_f).round
+      - width_cal = (284*male_percent/100)
+      .male_female_count{:style => "width:#{width_cal}px;"}
+        = @male_count
+      .male_female_percent
+        = "#{male_percent}%"
+
   %tr
     %th
       Female
     %td
-      = @female_count
+      - female_percent = ((@female_count)*100/(@female_count+@male_count).to_f).round
+      - width_cal = (284*female_percent/100)
+      .male_female_count{:style => "width:#{width_cal}px;"}
+        = @female_count
+      .male_female_percent
+        = "#{female_percent}%"
+  %tr
+    %td{:colspan=>2}
+      %em
+        = "based on #{(@male_count+@female_count)} friends who have active profile."
+
 
 
