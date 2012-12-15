@@ -55,18 +55,27 @@
   %tr
     %td
       %a.openmodalbox{:href => "javascript:void(0);",:id => "basic_details"}
-        Basic Details
+        My Basic Details
         %span.modalboxContent
           = render :partial => 'basic_details'
 
   %tr
     %td{:align=> 'center',:colspan => '3'}
       %a.openmodalbox{:href => "javascript:void(0);"}
-        Basic Place
+        My Basic Place
         - hometown = (@user_default_profile["hometown"].nil?)? 'Not Available': @user_default_profile["hometown"]["name"]
         - residence = (@user_default_profile["location"].nil?)? 'Not Available': @user_default_profile["location"]["name"]
         %span.modalboxContent
           = render :partial => 'basic_place',:locals => {:hometown => hometown,:residence => residence}
+  %tr
+    %td{:align=> 'center',:colspan => '3'}
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        My Groups
+        - hometown = (@user_default_profile["hometown"].nil?)? 'Not Available': @user_default_profile["hometown"]["name"]
+        - residence = (@user_default_profile["location"].nil?)? 'Not Available': @user_default_profile["location"]["name"]
+        %span.modalboxContent
+          = render :partial => 'my_groups',:locals => {:hometown => hometown,:residence => residence}
+
   %tr
     %td{:align=> 'center',:colspan => '3'}
       %a.openmodalbox{:href => "javascript:void(0);",:id => "friends_gender"}

@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121208052511) do
+ActiveRecord::Schema.define(:version => 20121214222947) do
+
+  create_table "birthday_avatars", :force => true do |t|
+    t.string   "avatar"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "custom_messages", :force => true do |t|
     t.integer  "user_id"

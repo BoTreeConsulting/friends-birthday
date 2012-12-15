@@ -1,4 +1,10 @@
 FriendsBirthday::Application.routes.draw do
+  get "birthday_avatars/index"
+
+  get "birthday_avatars/new"
+
+  get "birthday_avatars/edit"
+  match "/birthday_avatars/create" => "birthday_avatars#create"
   resources :custom_messages
 
   devise_for :users , :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do

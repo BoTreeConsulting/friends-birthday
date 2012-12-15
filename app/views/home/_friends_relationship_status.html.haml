@@ -1,40 +1,60 @@
 %table{:style => "width:100%;background: none repeat scroll 0 0 #DDDDDD;"}
   %tr
-    %td{:style => " text-align: center;width: 14%;"}
-      = @single_count
-      %div{:style => "height:300px;background:#B94A48;margin: auto;width: 50px;border-radius: 12px;"}
-    %td{:style => " text-align: center;width: 14%;"}
-      = @married_count
-      %div{:style => "height:300px;background:green;margin: auto;width: 50px;border-radius: 12px;"}
-    %td{:style => " text-align: center;width: 14%;"}
-      = @relationship_count
-      %div{:style => "height:300px;background:#F89406;margin: auto;width: 50px;border-radius: 12px;"}
-    %td{:style => " text-align: center;width: 14%;"}
-      = @its_complicated_count
-      %div{:style => "height:300px;background:#F89406;margin: auto;width: 50px;border-radius: 12px;"}
-    %td{:style => " text-align: center;width: 14%;"}
-      = @engaged_count
-      %div{:style => "height:300px;background:green;margin: auto;width: 50px;border-radius: 12px;"}
-    %td{:style => " text-align: center;width: 14%;"}
-      = @open_relatonship_count
-      %div{:style => "height:300px;background:#F89406;margin: auto;width: 50px;border-radius: 12px;"}
-    %td{:style => " text-align: center;width: 14%;"}
-      = @other_count
-      %div{:style => "height:300px;background:#3A87AD;margin: auto;width: 50px;border-radius: 12px;"}
+    %td{:colspan => 7}
+      %em
+        = "based on your #{@friends_profile.count} friends who have active profile"
+
   %tr
-    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+    - a = ((@single_count*100/@max_count.to_f)*300/100).round
+    - b = ((@married_count*100/@max_count.to_f)*300/100).round
+    - c = ((@relationship_count*100/@max_count.to_f)*300/100).round
+    - d = ((@its_complicated_count*100/@max_count.to_f)*300/100).round
+    - e = ((@engaged_count*100/@max_count.to_f)*300/100).round
+    - f = ((@open_relationship_count*100/@max_count.to_f)*300/100).round
+    - g = ((@other_count*100/@max_count.to_f)*300/100).round
+
+    %td.realtionshipTd{:valign=> "bottom"}
+      = "#{(@single_count*100/@friends_profile.count.to_f).round(1)}%"
+      %div.relationship_bar{:style => "height:#{(a < 25 && a != 0)? (a*3+20).to_i : a.to_i }px;background:#B94A48;"}
+        = @single_count
+    %td.realtionshipTd{:valign=> "bottom"}
+      = "#{(@married_count*100/@friends_profile.count.to_f).round(1)}%"
+      %div.relationship_bar{:style => "height:#{(b < 25 && b != 0)? (b*3+20).to_i : b.to_i}px;background:green;"}
+        = @married_count unless @married_count == 0
+    %td.realtionshipTd{:valign=> "bottom"}
+      = "#{(@relationship_count*100/@friends_profile.count.to_f).round(1)}%"
+      %div.relationship_bar{:style => "height:#{(c < 25 && c != 0)? (c*3+20).to_i : c.to_i}px;background:#843DBA;"}
+        = @relationship_count unless @relationship_count == 0
+    %td.realtionshipTd{:valign=> "bottom"}
+      = "#{(@its_complicated_count*100/@friends_profile.count.to_f).round(1)}%"
+      %div.relationship_bar{:style => "height:#{(d < 25 && d != 0)? (d*3+20).to_i : d.to_i}px;background:#F89406;"}
+        = @its_complicated_count unless @its_complicated_count == 0
+    %td.realtionshipTd{:valign=> "bottom"}
+      = "#{(@engaged_count*100/@friends_profile.count.to_f).round(1)}%"
+      %div.relationship_bar{:style => "height:#{(e < 25 && e != 0)? (e*3+20).to_i : e.to_i}px;background:#10C4D1;"}
+        = @engaged_count unless  @engaged_count == 0
+    %td.realtionshipTd{:valign=> "bottom"}
+      = "#{(@open_relationship_count*100/@friends_profile.count.to_f).round(1)}%"
+      %div.relationship_bar{:style => "height:#{(f < 20 && f != 0)? (f*3+20).to_i : f.to_i}px;background:#FC6832;"}
+        = @open_relationship_count unless @open_relationship_count == 0
+    %td.realtionshipTd{:valign=> "bottom"}
+      = "#{(@other_count*100/@friends_profile.count.to_f).round(1)}%"
+      %div.relationship_bar{:style => "height:#{(g < 25 && g != 0)? (g*3+20).to_i : g.to_i}px;background:#3A87AD;"}
+        = @other_count unless @other_count == 0
+  %tr
+    %th{:Style => "padding: 7px 3px;font-size: 11px;text-align: center;"}
       Single
-    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+    %th{:Style => "padding: 7px 3px;font-size: 11px;text-align: center;"}
       Married
-    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+    %th{:Style => "padding: 7px 3px;font-size: 11px;text-align: center;"}
       Relationship
-    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+    %th{:Style => "padding: 7px 3px;font-size: 11px;text-align: center;"}
       It's complicated
-    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+    %th{:Style => "padding: 7px 3px;font-size: 11px;text-align: center;"}
       Engaged
-    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+    %th{:Style => "padding: 7px 3px;font-size: 11px;text-align: center;"}
       Open relationship
-    %th{:Style => "padding: 7px 3px;font-size: 11px"}
+    %th{:Style => "padding: 7px 3px;font-size: 11px;text-align: center;"}
       Not Defiend
   -#%tr
   -#  %th{:width => "40%"}

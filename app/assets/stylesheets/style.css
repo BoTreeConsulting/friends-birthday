@@ -278,8 +278,8 @@ nav {
 
 footer { 
   width: 760px;
-  font: 170% 'Yanone Kaffeesatz', arial, sans-serif;
-  height: 30px;
+  font: 117% 'Yanone Kaffeesatz', arial, sans-serif;
+  height: 10px;
   padding: 5px 0 20px 0;
   text-align: center;
   background: #444; /* Show a solid color for older browsers */
@@ -293,7 +293,7 @@ footer {
   border-radius: 7px 7px 7px 7px;
   -moz-border-radius: 7px 7px 7px 7px;
   -webkit-border: 7px 7px 7px 7px;
-  color: #AAA;
+  color: #fff;
 }
 
 footer p { 
@@ -617,4 +617,21 @@ ul#images li {
 }
 .male_female_percent{
     float:right;font-size: 12px;font-weight: bold;
+}
+
+.relationship_bar{
+    margin: auto;
+    width: 5    0px;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+    padding-top: 5px;
+    font-weight: bold;
+    min-height:0px;
+}
+.realtionshipTd{
+    text-align: center;
+    width: 14%;
+    font-weight: bold;
+    font-weight: bold;
 }

@@ -28,13 +28,13 @@ class HomeController < ApplicationController
         token = fb_authentication.token
         uid =   fb_authentication.uid
         get_fb_graph_api_object(token)
-        fields = "statuses,albums"
+        fields = "statuses,albums,groups"
         @user_default_profile = get_my_fb_profile(uid,"")
         calculate_user_present_and_future_birthday()
         @user_profile_image = @graph.get_picture(uid,:type=>"large")
         @user_extra_details = get_my_fb_profile(uid,fields)
         get_most_liked_and_commented_status()
-        #render :text => @user_most_liked_status.reverse.inspect and return false
+        #render :text => @user_extra_details["groups"].inspect and return false
         get_fb_friends_profile(uid)
         initialize_objects_for_relationship_status()
         @friends_location = {}
@@ -44,6 +44,8 @@ class HomeController < ApplicationController
           calculate_friends_relationship_status(friend)
           analyse_friends_location(friend)
         end
+        #render :text => "#{@arr} ::  #{@max_count}"  and return false
+
         #render :text => @user_extra_profile_details.inspect and return false
       else
         flash[:notice] = "Please Connect with facebook Apps"
@@ -101,13 +103,18 @@ class HomeController < ApplicationController
         when "In a relationship"
           @relationship_count = @relationship_count + 1
         when "In an open relationship"
-          @open_relatonship_count = @open_relatonship_count + 1
+          @open_relationship_count = @open_relationship_count + 1
         when "Engaged"
           @engaged_count = @engaged_count + 1
+      else
+        @other_count = @other_count + 1
       end
     else
       @other_count = @other_count + 1
     end
+
+    @arr = [@married_count,@single_count,@relationship_count,@open_relationship_count,@engaged_count,@other_count].sort
+    @max_count = @arr[-1]
   end
 
   def initialize_objects_for_relationship_status
@@ -117,7 +124,8 @@ class HomeController < ApplicationController
     @single_count = 0
     @its_complicated_count = 0
     @other_count = 0
-    @open_relatonship_count = 0
+    @not_defined = 0
+    @open_relationship_count = 0
     @engaged_count = 0
     @relationship_count = 0
   end
