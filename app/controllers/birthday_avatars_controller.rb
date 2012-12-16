@@ -11,7 +11,7 @@ class BirthdayAvatarsController < ApplicationController
   def create
     @birthday_avatar = BirthdayAvatar.new(params[:birthday_avatar])
     if @birthday_avatar.save
-      redirect_to "new"
+      redirect_to "/birthday_avatars/new"
     else
       render :action => 'new'
     end

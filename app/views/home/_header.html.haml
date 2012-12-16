@@ -27,6 +27,15 @@
         - if user_signed_in?
           = link_to "My Facebook Analysis","/analysis/provider?facebook=my-data"
       %li
+        = link_to "Setting","javascript:void(0)"
+        - if user_signed_in?
+          %ul
+            %li
+              = link_to "Don't want to wish","/restricted_friends/new"
+            %li
+              = link_to "Restricted Friends list","/restricted_friends"
+
+      %li
         - if user_signed_in?
           = link_to "Logout",destroy_user_session_path
         - else

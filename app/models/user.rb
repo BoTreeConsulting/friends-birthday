@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
   # attr_accessible :title, :body
 
   has_one :fb_authentication
+  has_many :restricted_friends
 end

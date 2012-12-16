@@ -11,15 +11,15 @@
     = hidden_field_tag 'custom_message[friend_uid]',uid
     = hidden_field_tag 'is_birthday_today',(flag == 'today_birthday')
   .field
-    %h2{:style => 'text-align:center'}
+    %h2{:style => 'text-align:center;font-weight: bold;font-size: 22px;color: #0F0C0C;'}
       = "Please Set message for your friend's Birthday"
 
     = image_tag(graph.get_picture(uid))
     %br
     %br
-    %h4
+    %h4{:style => 'text-align:center;font-weight: bold;color: #0F0C0C;'}
       = "#{name} will get this message on #{(gender == "male")? "his":"her"} birthday"
     %br
-    = text_area_tag 'custom_message[message]',"#{(get_custom_message.nil?)? "": get_custom_message.message}",:rows=>6, :cols=>60,:style => 'resize:none'
-  .actions{:Style => 'margin:10px 224px'}
-    = f.submit (flag == 'today_birthday')? 'Send Message' : 'Save Message'
+  = text_area_tag 'custom_message[message]',"#{(get_custom_message.nil?)? "": get_custom_message.message}",:rows=>6, :cols=>60,:style => 'resize:none;width: 100%;'
+  .actions{:style => 'margin:10px 0px;padding-left: 33%;'}
+    = f.submit (flag == 'today_birthday')? 'Send Message' : 'Save Message',:class => "button"

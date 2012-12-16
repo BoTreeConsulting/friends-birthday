@@ -1,0 +1,14 @@
+%h1 Listing Restricted friends
+%em
+  If you remove any friend from the list then removed friends will be enable for the automated system.
+%table{:width => '100%'}
+  %tr
+    %th
+    %th
+
+  - @restricted_friends.each do |restricted_friend|
+    %tr
+      %td= image_tag @graph.get_picture(restricted_friend.uid)
+      %td{:style => "text-align:center"}= link_to 'Remove from the list', restricted_friend, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br

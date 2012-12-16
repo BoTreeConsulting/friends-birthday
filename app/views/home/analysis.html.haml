@@ -1,90 +1,37 @@
-
--#$("#friends_gender").click(function(){ // alert('123'); // $(".abc").animate({width:'250px'},2000); });
--#:javascript
--#  // Load the Visualization API and the piechart package.
--#  google.load('visualization', '1.0', {'packages':['corechart']});
--#
--#  // Set a callback to run when the Google Visualization API is loaded.
--#  google.setOnLoadCallback(drawChart);
--#
--#  // Callback that creates and populates a data table,
--#  // instantiates the pie chart, passes in the data and
--#  // draws it.
--#  function drawChart() {
--#
--#    // Create the data table.
--#    var data = new google.visualization.DataTable();
--#    data.addColumn('string', 'Topping');
--#    data.addColumn('number', 'Slices');
--#    data.addRows([
--#      ['Mushrooms', 3],
--#      ['Pepperoni', 2]
--#    ]);
--#    // Create the data table.
--#    var data2 = new google.visualization.DataTable();
--#    data2.addColumn('string', 'Topping');
--#    data2.addColumn('number', 'Slices');
--#    data2.addRows([
--#      ['Mushrooms', 3],
--#      ['Onions', 1],
--#      ['Olives', 15],
--#      ['Zucchini', 1],
--#      ['Pepperoni', 2]
--#    ]);
--#
--#
--#    // Set chart options
--#    var options = {'title':'friends gender analysis',
--#                   'width':400,
--#                   'height':300};
--#    // Set chart options
--#    var options2 = {'title':'How Much Pizza You Ate Last Night',
--#                   'width':400,
--#                   'height':300};
--#    // Set chart options
--#
--#    // Instantiate and draw our chart, passing in some options.
--#    var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
--#    chart.draw(data, options);
--#    var chart2 = new google.visualization.PieChart(document.getElementById('chart_div2'));
--#    chart2.draw(data2, options2);
--#
--#  }
--#
 %table{:style => "width:100%;text-align:center;"}
   %tr
-    %td
+    %td{:style => "text-align:center;"}
       %a.openmodalbox{:href => "javascript:void(0);",:id => "basic_details"}
         My Basic Details
         %span.modalboxContent
           = render :partial => 'basic_details'
   %tr
-    %td{:align=> 'center',:colspan => '3'}
+    %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
       %a.openmodalbox{:href => "javascript:void(0);"}
         My Groups
         %span.modalboxContent
           = render :partial => 'my_groups'
   %tr
-    %td{:align=> 'center',:colspan => '3'}
+    %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
       %a.openmodalbox{:href => "javascript:void(0);"}
         My Most Commented  Status
         %span.modalboxContent
           = render :partial => 'my_most_commented_status'
 
   %tr
-    %td{:align=> 'center',:colspan => '3'}
+    %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
       %a.openmodalbox{:href => "javascript:void(0);"}
         My Most Liked  Status
         %span.modalboxContent
           = render :partial => 'my_most_liked_status'
   %tr
-    %td{:align=> 'center',:colspan => '3'}
+    %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
       %a.openmodalbox{:href => "javascript:void(0);"}
         My Latest Best Commented Album
         %span.modalboxContent
           = render :partial => 'my_albums'
   %tr
-    %td{:align=> 'center',:colspan => '3'}
+    %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
       %a.openmodalbox{:href => "javascript:void(0);"}
         My Latest Best Liked Album
         %span.modalboxContent
@@ -93,7 +40,7 @@
 
 
   %tr
-    %td{:align=> 'center',:colspan => '3'}
+    %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
       %a.openmodalbox{:href => "javascript:void(0);",:id => "friends_gender"}
         Friends Gender
         %span.modalboxContent
@@ -101,13 +48,13 @@
           #chart_div{:style => 'width:300px;height400px;'}
 
   %tr
-    %td{:align=> 'center',:colspan => '3'}
+    %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
       %a.openmodalbox{:href => "javascript:void(0);"}
         Friends Relationship Status
         %span.modalboxContent
           = render :partial => 'friends_relationship_status'
   %tr
-    %td{:align=> 'center',:colspan => '3'}
+    %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
       %a.openmodalbox{:href => "javascript:void(0);"}
         Friend's Locations
         %span.modalboxContent

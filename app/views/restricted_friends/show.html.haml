@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Uid:
+  = @restricted_friend.uid
+%p
+  %b User:
+  = @restricted_friend.user_id
+
+= link_to 'Edit', edit_restricted_friend_path(@restricted_friend)
+\|
+= link_to 'Back', restricted_friends_path

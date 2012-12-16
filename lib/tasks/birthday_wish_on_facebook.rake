@@ -20,7 +20,7 @@ def wishing_at_facebook_wall(users)
       @friends_profile = @graph.get_connections(user.fb_authentication.uid, "friends", "fields"=>"name,birthday,gender,link")
       me = @graph.get_object("#{user.fb_authentication.uid}")
       puts "I m #{me["first_name"]} who is wishing my friend's birthday."
-      puts "Employee Email who is wishing birthday #{user.email}"
+      puts "Person Email who is wishing birthday #{user.email}"
       @friends_profile.each do |friend|
         if !friend["birthday"].nil?
           birthday = friend["birthday"].split('/')
@@ -43,9 +43,11 @@ def wishing_at_facebook_wall(users)
           else
             @message = custom_message.message
           end
-          #@graph.put_wall_post("Happy Birthday..!!!!",birthday_person["id"])
+          image_link = BirthdayAvatar.find((1..44).to_a.sample).avatar.url
+
           begin
-            @graph.put_object(birthday_person["id"], "feed", :message => "#{@message}")
+            @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "Wishing you a very special Birthday :))" }, birthday_person["id"])
+            #@graph.put_object(birthday_person["id"], "feed", :message => "#{@message}")
             puts "Posted on wall successfully"
           rescue Exception => e
             puts "==================================Facebook api graph error: #{e.message}"
