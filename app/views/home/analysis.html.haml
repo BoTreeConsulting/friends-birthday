@@ -51,30 +51,46 @@
 -#
 -#  }
 -#
-%table{:style => "width:100%"}
+%table{:style => "width:100%;text-align:center;"}
   %tr
     %td
       %a.openmodalbox{:href => "javascript:void(0);",:id => "basic_details"}
         My Basic Details
         %span.modalboxContent
           = render :partial => 'basic_details'
-
-  %tr
-    %td{:align=> 'center',:colspan => '3'}
-      %a.openmodalbox{:href => "javascript:void(0);"}
-        My Basic Place
-        - hometown = (@user_default_profile["hometown"].nil?)? 'Not Available': @user_default_profile["hometown"]["name"]
-        - residence = (@user_default_profile["location"].nil?)? 'Not Available': @user_default_profile["location"]["name"]
-        %span.modalboxContent
-          = render :partial => 'basic_place',:locals => {:hometown => hometown,:residence => residence}
   %tr
     %td{:align=> 'center',:colspan => '3'}
       %a.openmodalbox{:href => "javascript:void(0);"}
         My Groups
-        - hometown = (@user_default_profile["hometown"].nil?)? 'Not Available': @user_default_profile["hometown"]["name"]
-        - residence = (@user_default_profile["location"].nil?)? 'Not Available': @user_default_profile["location"]["name"]
         %span.modalboxContent
-          = render :partial => 'my_groups',:locals => {:hometown => hometown,:residence => residence}
+          = render :partial => 'my_groups'
+  %tr
+    %td{:align=> 'center',:colspan => '3'}
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        My Most Commented  Status
+        %span.modalboxContent
+          = render :partial => 'my_most_commented_status'
+
+  %tr
+    %td{:align=> 'center',:colspan => '3'}
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        My Most Liked  Status
+        %span.modalboxContent
+          = render :partial => 'my_most_liked_status'
+  %tr
+    %td{:align=> 'center',:colspan => '3'}
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        My Latest Best Commented Album
+        %span.modalboxContent
+          = render :partial => 'my_albums'
+  %tr
+    %td{:align=> 'center',:colspan => '3'}
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        My Latest Best Liked Album
+        %span.modalboxContent
+          = render :partial => 'my_most_liked_album'
+
+
 
   %tr
     %td{:align=> 'center',:colspan => '3'}
@@ -97,16 +113,3 @@
         %span.modalboxContent
           = render :partial => 'friends_location'
 
-  %tr
-    %td{:align=> 'center',:colspan => '3'}
-      %a.openmodalbox{:href => "javascript:void(0);"}
-        My Most Commented  Status
-        %span.modalboxContent
-          = render :partial => 'my_most_commented_status'
-
-  %tr
-    %td{:align=> 'center',:colspan => '3'}
-      %a.openmodalbox{:href => "javascript:void(0);"}
-        My Most Liked  Status
-        %span.modalboxContent
-          = render :partial => 'my_most_liked_status'

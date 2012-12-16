@@ -1,0 +1,26 @@
+%h3{:style => "color:#000;font-weight:bold;"}
+  Your Most Commented Album
+- if @user_most_commented_album.present?
+  %table{:style => "width:100%"}
+    %tr
+      %th{:width => "46%",:align => "center"}
+        = image_tag(@graph.get_picture("#{@user_most_commented_album['cover_photo']}"),:size => '200x200',:style => "text-align:center;")
+      %td
+        %table
+          %tr
+            %td{:style => "text-align:center;font-size: 18px;font-weight: bold;"}
+              Album name:
+          %tr
+            %td
+              = @user_most_commented_album["name"]
+    %tr
+      %th
+        Comments
+      %td{:style => "text-align:center;font-size: 18px;font-weight: bold;max-width: 252px;"}
+        %div
+          = image_tag "comment.png"
+        = @user_most_commented_album["comments_count"]
+- else
+  %tr
+    %td{:rowspan=>2}
+      No data available

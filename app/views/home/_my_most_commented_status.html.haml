@@ -1,17 +1,27 @@
-%h3{:style => "color:#FCAB19"}
-  Your latest 10 most commented status
+- if @total_user_statuses_count.present?
+  %table{:style => "margin: 10px 0 5px;width: 30%;"}
+    %tr
+      %th
+        Total Statues
+      %td
+        = @total_user_statuses_count
+
+%h3{:style => "color:#000;font-weight:bold;"}
+  Your latest 10 most commented statuses
 - if @user_most_commented_status.present?
   %table{:style => "width:100%"}
     %tr
-      %th{:width => "80%"}
+      %th{:width => "82%"}
         Status at wall
       %th
-        Total Comments
+        Comments
     - @user_most_commented_status.each do |status|
       %tr
-        %td{:width => "30%"}
-          = "#{status["message"][0..40]}..."
-        %td{:style => "text-align:center"}
+        %td{:width => "30%",:style => "font-size:12px;font-weight:bold;padding-left: 10px;cursor:pointer",:title => "#{status['message']}"}
+          = "#{status['message']}".truncate(70, :separator => ' ')
+        %td{:style => "text-align:center;font-size:12px;font-weight:bold;"}
+          %div
+            = image_tag "comment.png"
           = status["comments_count"]
 - else
   %tr

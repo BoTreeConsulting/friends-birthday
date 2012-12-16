@@ -1,0 +1,31 @@
+%h3{:style => "color:#000;font-weight:bold;"}
+  Your Most Liked Album
+- if @user_most_liked_album.present?
+  %table{:style => "width:100%"}
+    %tr
+      %th{:width => "46%",:align => "center"}
+        - cover_image = @graph.get_picture("#{@user_most_liked_album['cover_photo']}")
+        - if cover_image.present?
+          = image_tag(cover_image,:size => '200x200',:style => "text-align:center;")
+        - else
+          %b
+            No Cover Image Available
+      %td
+        %table
+          %tr
+            %td{:style => "text-align:center;font-size: 18px;font-weight: bold;"}
+              Album name:
+          %tr
+            %td
+              = @user_most_liked_album["name"]
+    %tr
+      %th
+        Likes
+      %td{:style => "text-align:center;font-size: 18px;font-weight: bold;max-width: 252px;"}
+        %div
+          = image_tag "comment.png"
+        = @user_most_liked_album["likes_count"]
+- else
+  %tr
+    %td{:rowspan=>2}
+      No data available

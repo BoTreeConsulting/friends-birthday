@@ -1,3 +1,23 @@
-- if @user_extra_details["groups"].present?
-  - unless @user_extra_details["groups"]["data"].present?
+%table{:width=> "100%"}
+  - if @user_groups_details.present?
+    %tr
+      %th
+        Group Title
+      %th
+        Admin
+      %th
+        Description
+    - @user_groups_details.each do |group|
+      %tr
+        %td{:style => "font-size: 13px;font-weight: bold;color: #171E16;"}
+          = group["name"].present? ? group["name"] : "Not Available"
+        %td{:style => "font-size: 13px;cursor:pointer;text-align: center;",:title => "#{group['owner'].present? && group['owner']['name'].present? ? group['owner']['name'] : 'Not Available'}"}
+          - if group["owner"].present? && group[ "owner"]["id"].present?
+            = image_tag @graph.get_picture(group['owner']['id'])
+          - else
+            = "Not Available"
+        %td{:style => "cursor:pointer;font-size: 13px;",:title => "#{group["description"].present? ? group["description"] : "Not Available"}"}
+          = group["description"].present? ? group["description"][0..80]+"...": "Not Available"
 
+  - else
+    = "You have no group"

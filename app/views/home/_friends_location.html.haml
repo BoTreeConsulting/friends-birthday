@@ -1,4 +1,5 @@
 %table{:style => "width:100%"}
+  - total = 0
   %tr
     %th{:width => "30%"}
       Location name
@@ -7,10 +8,12 @@
   - @friends_location.each do |location_hsh,location_hsh_val|
     - if location_hsh_val["count"]>0
       %tr
-        %th
+        %th{:style=> "font-size:12px;"}
           = location_hsh_val["location_name"]
         %td
-          = location_hsh_val["count"]
           - if location_hsh_val["picture_urls"].size > 0
             - location_hsh_val["picture_urls"].each do |picture_url|
               = image_tag(picture_url)
+          .location_count{:style => "#{(location_hsh_val["location_name"] == 'Location Not Defined')? 'background:red;':''}"}
+            %div{:style => "margin-top:18px;padding: 0 5px;"}
+              = location_hsh_val["count"]

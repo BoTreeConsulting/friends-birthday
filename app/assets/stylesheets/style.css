@@ -635,3 +635,16 @@ ul#images li {
     font-weight: bold;
     font-weight: bold;
 }
+.location_count{
+    background: none repeat scroll 0 0 green;
+    border-radius: 3px 3px 3px 3px;
+    color: white;
+    float: right;
+    font-size: 12px;
+    font-weight: bold;
+    height: 49px;
+    margin-left: -3px;
+    min-width: 20px;
+    padding: 0;
+    text-align: center;
+}

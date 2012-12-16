@@ -1,5 +1,4 @@
-%table
-  %tr
+%table{:style => "font-size: 13px;"}
   %tr
     %td
       = image_tag(@user_profile_image,:size => '100x100')
@@ -21,5 +20,56 @@
     %th{:align=> 'center'}
       Next Birthday
     %td{:align=> 'center'}
-      = @next_bithday
+      = "after #{@next_birthday}"
 
+  %tr
+    %td
+      %strong
+        Education
+    %td
+      - if !@user_default_profile["education"].nil? && !@user_default_profile["education"].blank?
+        - if @user_default_profile["education"].size > 0
+          %table{:style => "font-size: 13px;"}
+            - @user_default_profile["education"].each do |education|
+              %tr
+                %td
+                  = education["type"]
+                %td{:width => '20px;'}
+                %td
+                  - degree = "#{(education["degree"].present?)? "(#{education['degree']['name']})" : ""}"
+                  = education["school"]["name"]
+                  %strong
+                    = degree
+
+  %tr
+    %th{:align=> 'center'}
+      Hometown
+    %td
+      = @user_default_profile["hometown"].present? ? @user_default_profile["hometown"]["name"] : "Not Available"
+  %tr
+    %th{:align=> 'center'}
+      Residence
+    %td
+      = @user_default_profile["location"].present? ? @user_default_profile["location"]["name"] : "Not Available"
+  %tr
+    %th{:align=> 'center'}
+      Friends
+    %td
+      %strong
+        = @friends_profile.count unless @friends_profile.nil?
+      %br
+      %em
+        = "(Total friends who have their Active profile.)"
+
+  %tr
+    %td
+      %strong
+        Languages
+      %td
+        - if @user_default_profile["languages"].present?
+          - if @user_default_profile["languages"].size > 0
+            - @user_default_profile["languages"].each_with_index do |language,index|
+              %strong
+                = "#{index+1} :"
+              = language["name"]
+              %br
