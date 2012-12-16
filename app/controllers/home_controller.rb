@@ -34,9 +34,7 @@ class HomeController < ApplicationController
         calculate_user_present_and_future_birthday()
         @user_profile_image = @graph.get_picture(uid,:type=>"large")
         @user_statuses_details = get_my_fb_extra_details(uid,"statuses")
-        user_statues =  @user_statuses_details
-        @total_user_statuses_count =  @user_statuses_details.size
-        @total_user_statuses_count = user_next_page_data(user_statues,@user_statuses_details.size)
+        @total_user_statuses_count =  @user_statuses_details["statuses"].present? ? @user_statuses_details["statuses"]["data"].size : 0
 
         get_user_album_with_most_likes_and_comments(uid)
         get_most_liked_and_commented_status()
@@ -105,9 +103,9 @@ class HomeController < ApplicationController
   end
 
   def get_most_liked_and_commented_status
-    if @user_statuses_details.present?
+    if @user_statuses_details.present? && @user_statuses_details["statuses"].present?
       @user_statues = []
-      @user_statuses_details.each do |status|
+      @user_statuses_details["statuses"]["data"].each do |status|
         user_status = {}
         user_status["message"] = status["message"]
         user_status["comments_count"] = (status["comments"].present?) ? status["comments"]["data"].size : 0
@@ -249,7 +247,8 @@ class HomeController < ApplicationController
 
   def get_my_fb_extra_details(uid,fields)
     begin
-      @extra_details = @graph.get_connections("#{uid}","#{fields}","limit" => 10000)
+
+      @extra_details = @graph.get_connections("#{uid}","?fields=statuses.limit(100000).fields(comments.limit(1000000),message,likes.limit(1000000))")
     rescue Exception => e
       Rails.logger.info("=============================>Error while fetching My facebook profile : #{e.message}")
     end
