@@ -27,8 +27,8 @@
         - if user_signed_in?
           = link_to "My Facebook Analysis","/analysis/provider?facebook=my-data"
       %li
-        = link_to "Setting","javascript:void(0)"
         - if user_signed_in?
+          = link_to "Setting","javascript:void(0)"
           %ul
             %li
               = link_to "Don't want to wish","/restricted_friends/new"
@@ -38,20 +38,18 @@
       %li
         - if user_signed_in?
           = link_to "Logout",destroy_user_session_path
-        - else
-          %a{:href => "#"} Login with
-          %ul
-            %li
-              = link_to "Facebook",user_omniauth_authorize_path(:facebook)
-            %li
-              - if user_signed_in?
-                = link_to "Logout",destroy_user_session_path
+        -#- else
+        -#  %a{:href => "#"} Login with
+        -#  %ul
+        -#    %li
+        -#      = link_to "Facebook",user_omniauth_authorize_path(:facebook)
+        -#    %li
+        -#      - if user_signed_in?
+        -#        = link_to "Logout",destroy_user_session_path
 
   #dialog{:title => "How to Use FriendsBirthday apps"}
     %p
       To use this application you need to connect with facebook.
       At the top in Menu there is a option UseFbApps then click on it and
       login with facebook my apps when you successfully authenticated by
-      facebook then it will ask some permission related to birthday wishing please allow all permissions
-      so that apps
-
+      facebook then it will ask some permission related to birthday wishing please allow all permissions.

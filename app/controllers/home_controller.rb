@@ -11,7 +11,7 @@ class HomeController < ApplicationController
           get_my_fb_profile(uid,fields)
           get_fb_friends_profile(uid)
           @today_birthday = []
-          get_todays_and_next_birthdays(current_month)
+          get_today_and_next_birthdays(current_month)
         end
       end
     rescue Exception => e
@@ -277,7 +277,7 @@ class HomeController < ApplicationController
     return current_month, token, uid
   end
 
-  def get_todays_and_next_birthdays(current_month)
+  def get_today_and_next_birthdays(current_month)
     @friends_profile.each do |friend|
       if !friend["birthday"].nil?
         birthday = friend["birthday"].split('/')
