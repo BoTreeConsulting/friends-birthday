@@ -12,7 +12,7 @@
       %li.selected
         = link_to "Home",root_url
       %li#opener
-        %a#opener{:href => "javascript:void(0);",:style => "pointer-events: auto;"} How to use
+        %a#opener{:href => "javascript:void();",:style => "pointer-events: auto;",:onclick => "alert()"} How to use
       %li
         - if user_signed_in?
           - if current_user.fb_authentication.present?
