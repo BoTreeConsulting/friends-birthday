@@ -1,7 +1,10 @@
 #site_content
   #sidebar_container
     .sidebar
+
       %h3 Latest News
+      -#%div{:style => "background:white;"}
+      -#  .fb-activity{"data-action" => "like", "data-app-id" => "206656552803930", "data-header" => "true", "data-height" => "300", "data-recommendations" => "true", "data-site" => "http://friends-birthday.herokuapp.com", "data-width" => "200"}
       %h4 Facebook apps for Virtue Info family will be available on
       %h5 December 10st, 2012
       %p
@@ -15,7 +18,7 @@
       %h1 Welcome to FriendsBirthday Apps
       %p
         Hi friends last time I made an apps for birthday wishing with a single click. Now I made a new version of this application.
-        In this version I added some functionality in it.
+        In this version I added some functionality.
       .sidebar{:style => 'width:500px;'}
         %h4 New features
         %ul
@@ -33,9 +36,9 @@
             You have also an option for disconnect.
       %h4{:style => 'margin-top:10px;'}
         Your suggestions
-      %div{:style => "background:white;padding: 20px;"}
+      %div{:style => "background:white;padding: 20px;border-radius: 10px 10px 0 0;"}
         .fb-like{"data-href" => "http://friends-birthday.heroku.com/", "data-send" => "true", "data-show-faces" => "true", "data-width" => "450"}
-      %div{:style => "background:white;"}
+      %div{:style => "background:#E7EBF2;"}
         .fb-comments{"data-href" => "http://friends-birthday.herokuapp.com/", "data-num-posts" => "10", "data-width" => "470"}
 
     - else
