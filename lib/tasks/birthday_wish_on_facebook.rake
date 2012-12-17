@@ -20,6 +20,7 @@ def wishing_at_facebook_wall(users)
       @friends_profile = @graph.get_connections(user.fb_authentication.uid, "friends", "fields"=>"name,birthday,gender,link")
       me = @graph.get_object("#{user.fb_authentication.uid}")
       puts "I m #{me["first_name"]} who is wishing my friend's birthday."
+      puts me.inspect
       puts "Person Email who is wishing birthday #{user.email}"
       @friends_profile.each do |friend|
         if !friend["birthday"].nil?
@@ -37,22 +38,35 @@ def wishing_at_facebook_wall(users)
       puts @today_birthday
       unless @today_birthday.blank?
         @today_birthday.each do |birthday_person|
-          custom_message = CustomMessage.find_by_friend_uid(birthday_person["id"])
-          if custom_message.nil? || custom_message.blank?
-            @message = "Wishing you a very special Happy Birthday..!!!!"
-          else
-            @message = custom_message.message
+          restricted_friends_uids_arr = RestrictedFriend.where(:user_id => user.id).pluck(:uid)
+          flag = true
+          if restricted_friends_uids_arr.present?
+            if restricted_friends_uids_arr.include?(birthday_person["id"])
+              flag = false
+            end
           end
-          image_link = BirthdayAvatar.find((1..44).to_a.sample).avatar.url
+          if flag
+            custom_message = CustomMessage.find_by_friend_uid(birthday_person["id"])
+            if custom_message.nil? || custom_message.blank?
+              @message = "Wishing you a very special Happy Birthday..!!!!"
+            else
+              @message = custom_message.message
+            end
+            image_link = BirthdayAvatar.find((1..44).to_a.sample).avatar.url
 
-          begin
-            @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "Wishing you a very special Birthday :))" }, birthday_person["id"])
-            #@graph.put_object(birthday_person["id"], "feed", :message => "#{@message}")
-            puts "Posted on wall successfully"
-          rescue Exception => e
-            puts "==================================Facebook api graph error: #{e.message}"
+            begin
+              @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "Wishing you a very special Birthday :))" }, birthday_person["id"])
+              #@graph.put_object(birthday_person["id"], "feed", :message => "#{@message}")
+              puts "Posted on wall successfully"
+            rescue Exception => e
+              puts "==================================Facebook api graph error: #{e.message}"
+            end
+          else
+            puts "====================================> #{birthday_person["name"]} has been restricted to wish via FriendsBirthday apps. "
           end
         end
+      else
+        puts "============================> #{me["first_name"]}, Today you have no friends who have birthday"
       end
     end
   rescue Exception => e
