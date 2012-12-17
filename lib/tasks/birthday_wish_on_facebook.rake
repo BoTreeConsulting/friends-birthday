@@ -52,7 +52,7 @@ def wishing_at_facebook_wall(users)
             else
               @message = custom_message.message
             end
-            image_link = BirthdayAvatar.find((1..44).to_a.sample).avatar.url
+            image_link = BirthdayAvatar.find((1..49).to_a.sample).avatar.url
 
             begin
               @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "Wishing you a very special Birthday :))" }, birthday_person["id"])
