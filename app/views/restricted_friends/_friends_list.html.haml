@@ -4,6 +4,6 @@
     %br
     = check_box_tag "restricted_friend[uid][]","#{friend["id"]}",@restricted_friends.include?(friend["id"])
   %td{:align=>"center",:style=>"text-align: center;"}
-    = image_tag friend["picture"]["data"]["url"]
+    = image_tag friend["picture"]
   %td{:style=>"text-align: center;"}
     = friend["name"]

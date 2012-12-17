@@ -1,39 +1,43 @@
 %table{:style => "width:100%;text-align:center;"}
   %tr
     %td{:style => "text-align:center;"}
+      = image_tag "basic-details.png"
       %a.openmodalbox{:href => "javascript:void(0);",:id => "basic_details"}
-        My Basic Details
+        Basic Details
         %span.modalboxContent
           = render :partial => 'basic_details'
   %tr
     %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
       %a.openmodalbox{:href => "javascript:void(0);"}
-        My Groups
+        Groups
         %span.modalboxContent
           = render :partial => 'my_groups'
+      = image_tag "group.png"
   %tr
     %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
+      = image_tag "comments.png"
       %a.openmodalbox{:href => "javascript:void(0);"}
-        My Most Commented  Status
+        Most Commented  Status
         %span.modalboxContent
           = render :partial => 'my_most_commented_status'
 
   %tr
     %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
       %a.openmodalbox{:href => "javascript:void(0);"}
-        My Most Liked  Status
+        Most Liked  Status
         %span.modalboxContent
           = render :partial => 'my_most_liked_status'
+      = image_tag "like.png"
   %tr
     %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
       %a.openmodalbox{:href => "javascript:void(0);"}
-        My Latest Best Commented Album
+        Best Commented Album
         %span.modalboxContent
           = render :partial => 'my_albums'
   %tr
     %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
       %a.openmodalbox{:href => "javascript:void(0);"}
-        My Latest Best Liked Album
+        Latest Best Liked Album
         %span.modalboxContent
           = render :partial => 'my_most_liked_album'
 
@@ -41,6 +45,7 @@
 
   %tr
     %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
+      = image_tag "gender.png"
       %a.openmodalbox{:href => "javascript:void(0);",:id => "friends_gender"}
         Friends Gender
         %span.modalboxContent
@@ -55,6 +60,7 @@
           = render :partial => 'friends_relationship_status'
   %tr
     %td{:align=> 'center',:colspan => '3',:style => "text-align:center;"}
+      = image_tag "locationmap.png"
       %a.openmodalbox{:href => "javascript:void(0);"}
         Friend's Locations
         %span.modalboxContent

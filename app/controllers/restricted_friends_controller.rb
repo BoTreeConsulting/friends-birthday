@@ -41,7 +41,22 @@ class RestrictedFriendsController < ApplicationController
       token = fb_authentication.token
       uid = fb_authentication.uid
       @graph = Koala::Facebook::API.new("#{token}")
-      @friends_profile = @graph.get_connections("#{uid}", "friends", "fields" => "name,picture,gender", "offset" => 0, "limit" => 500000)
+      friends_profiles = @graph.get_connections("#{uid}", "friends", "fields" => "name,picture,gender", "offset" => 0, "limit" => 500000)
+      @friends_profile = []
+      if friends_profiles.present?
+        friends_profiles.each do |friend|
+          friend_profile = {}
+          friend_profile["id"] = friend["id"]
+          friend_profile["name"] = friend["name"]
+          friend_profile["picture"] = friend["picture"]["data"]["url"]
+          unless friend_profile.blank?
+            @friends_profile << friend_profile
+          end
+        end
+        unless @friends_profile.blank?
+          @friends_profile = @friends_profile.sort_by { |hsh| hsh["name"] }
+        end
+      end
     end
   end
 
