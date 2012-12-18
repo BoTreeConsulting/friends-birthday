@@ -47,6 +47,7 @@ class RestrictedFriendsController < ApplicationController
         friends_profiles.each do |friend|
           friend_profile = {}
           friend_profile["id"] = friend["id"]
+          friend_profile["gender"] = friend["gender"]
           friend_profile["name"] = friend["name"]
           friend_profile["picture"] = friend["picture"]["data"]["url"]
           unless friend_profile.blank?

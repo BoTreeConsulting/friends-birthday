@@ -55,7 +55,7 @@ def wishing_at_facebook_wall(users)
             image_link = BirthdayAvatar.find((1..49).to_a.sample).avatar.url
 
             begin
-              @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "Wishing you a very special Birthday :))" }, birthday_person["id"])
+              @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "#{@message}" }, birthday_person["id"])
               #@graph.put_object(birthday_person["id"], "feed", :message => "#{@message}")
               puts "Posted on wall successfully"
             rescue Exception => e

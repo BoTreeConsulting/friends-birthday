@@ -62,10 +62,21 @@ class CustomMessagesController < ApplicationController
       token = current_user.fb_authentication.token
       @graph = Koala::Facebook::API.new("#{token}")
       begin
-        unless params[:custom_message][:message].blank?
-          @graph.put_object(friend_uid, "feed", :message => "#{params[:custom_message][:message]}")
-          flash[:notice] = "Message posted at facebook wall"
-          puts "==================================Successfully updated wall"
+        restricted_friends_uids_arr = RestrictedFriend.where(:user_id =>current_id).pluck(:uid)
+        flag = true
+        if restricted_friends_uids_arr.present?
+          if restricted_friends_uids_arr.include?(friend_uid)
+            flag = false
+          end
+        end
+        if flag
+          unless params[:custom_message][:message].blank?
+            image_link = BirthdayAvatar.find((1..49).to_a.sample).avatar.url
+            @graph.put_object(friend_uid, "feed", :message => "#{params[:custom_message][:message]}")
+            @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "#{params[:custom_message][:message]}" }, friend_uid)
+            flash[:notice] = "Message posted at facebook wall"
+            puts "==================================Successfully updated wall"
+          end
         end
       rescue Exception => e
         puts "==================================Facebook api graph error: #{e.message}"
