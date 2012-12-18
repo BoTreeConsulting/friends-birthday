@@ -25,14 +25,16 @@ article, aside, figure, footer, header, hgroup, nav, section {
 }
 
 body {
-  font: normal .80em arial, sans-serif;
-  background: #222;
-  color: #AAA;
+  font: normal 14px  arial, sans-serif;
+  background: #C9CED8;
+    /*#C9CED8  */
+  /*none repeat scroll 0 0 #99AFDB*/
+  color: #000;
 }
 
 p { 
-  padding: 0 0 20px 0;
-  line-height: 1.7em;
+  padding: 0 0 10px 20px;
+  line-height: 22px;
 }
 
 img { 
@@ -65,9 +67,9 @@ h3 {
 }
 
 h4, h6 { 
-  color: #F67400;
+  color: #3B5998;
   padding: 0 0 5px 0;
-  font: normal 130% arial, sans-serif;
+  font: normal 104% arial, sans-serif;
 }
 
 h5, h6 { 
@@ -138,9 +140,9 @@ ol li {
 
 #main {
   margin: 0px auto;
-  width: 760px;
+  width: 815px;
   background: transparent;
-  padding-bottom: 30px;
+  padding-bottom: 0px;
 }
 
 
@@ -149,8 +151,8 @@ header {
   height: 130px;
 }
 
-#logo { 
-  width: 760px;
+#logo {
+  width: 815px;
   height: 130px;
   background: transparent;
   color: #888;
@@ -167,48 +169,51 @@ header {
 
 #logo_text h1, #logo_text h1 a, #logo_text h1 a:hover { 
   padding: 0;
-  color: #FFF;
+  color: #3B5998;
   text-decoration: none;
+
 }
 
 #logo_text h1 a .logo_colour { 
-  color: #09D4FF;
+  color: #3B5998;
 }
 
 #logo_text a:hover .logo_colour { 
-  color: #FFF;
+  color: #3B5998;
 }
 
 #logo_text h2 { 
-  font-size: 140%;
+  font-size: 112%;
   padding: 0 0 0 0;
-  color: #DDD;
+  color: #545454;
 }
 
 nav { 
   height: 35px;
-  width: 760px;
+  width: 815px;
   float: right;
   margin: -45px auto 0 auto;
   color: #222;
   background: #444; /* Show a solid color for older browsers */
-  background: -moz-linear-gradient(#666, #444);
+  background: -moz-linear-gradient(#3B5998, #3B5998);
   background: -o-linear-gradient(#666, #444);
   background: -webkit-linear-gradient(#666, #444);
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
-  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;
-  border: 1px solid #000;
+  /*-webkit-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;*/
+  /*-moz-box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;*/
+  /*box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 2px;*/
+  /*border: 1px solid #000;*/
   border-radius: 7px 7px 7px 7px;
   -moz-border-radius: 7px 7px 7px 7px;
   -webkit-border: 7px 7px 7px 7px;
 } 
 
 #site_content { 
-  width: 760px;
+  width: 815px;
   overflow: hidden;
   margin: 0px auto 0 auto;
-  padding: 15px 0 15px 0;
+  /*padding: 15px 0 15px 0;*/
+  border-radius: 10px;
+  background: #fff;
 } 
 
 #sidebar_container { 
@@ -222,20 +227,20 @@ nav {
   width: 200px;
   padding: 5px 20px;
   margin: 0 0 -10px 0;
-  color: window;
+  color: #000;
 }
   
 .sidebar h3, .content h1 { 
-  padding: 0 15px 20px 0;
-  font: 160% 'News Cycle', arial, sans-serif;
-  text-shadow:  #000 1px 1px;
-  margin: 0 1px;
-  color: #FFF;
+  padding: 0 15px 10px 17px;
+  font: 145%  arial,'News Cycle', sans-serif;
+  /*text-shadow:  #000 1px 1px;*/
+  margin: 15px 1px;
+  color: #3B5998;
 }
 
 .sidebar h3 { 
-  color: #FFF;
-  font: 270% 'News Cycle', arial, sans-serif;
+  color: #000;
+  font: 25px; arial,'News Cycle', sans-serif;
   padding: 0 15px 5px 0;
 }
 
@@ -261,7 +266,7 @@ nav {
   width: 536px;
   margin: 0px 0 0 0;
   float: left;
-  font-size: 120%;
+  font-size: 97%;
 }
   
 .content ul { 
@@ -270,14 +275,14 @@ nav {
 
 .content ul li, .sidebar ul li { 
   list-style-type: none;
-  background: url(/assets/bullet.png) no-repeat;
+  background: url(/assets/bullet_go.png) no-repeat;
   margin: 0 0 0 0; 
   padding: 0 0 4px 28px;
   line-height: 1.5em;
 }
 
 footer { 
-  width: 760px;
+  width: 815px;
   font: 117% 'Yanone Kaffeesatz', arial, sans-serif;
   height: 10px;
   padding: 5px 0 20px 0;
@@ -294,6 +299,7 @@ footer {
   -moz-border-radius: 7px 7px 7px 7px;
   -webkit-border: 7px 7px 7px 7px;
   color: #fff;
+  margin-top:30px;
 }
 
 footer p { 
@@ -404,7 +410,7 @@ table tr td {
 }
 
 ul.images {
-  width:760px;
+  width:815px;
   height:300px;
   overflow:hidden;
   position:relative;
@@ -541,15 +547,15 @@ ul#nav ul {
 
 ul#nav li a { 
   padding: 5px 25px 6px 25px;
-  font: 140% 'Yanone Kaffeesatz', arial, sans-serif;
-  text-shadow: 1px 1px #000;
+  font: 140%  arial, sans-serif,'Yanone Kaffeesatz',;
+  /*text-shadow: 1px 1px #000;*/
   text-decoration: none;
   color: #FFF;
   margin-right: 2px;
 }
 
 ul#nav li a:hover, ul#nav li a:focus, ul#nav li.selected a, ul#nav li.selected a:hover, ul#nav li.selected a:focus { 
-  color: #09D4FF;
+  color: #fff;
   text-shadow: none;
 }
 

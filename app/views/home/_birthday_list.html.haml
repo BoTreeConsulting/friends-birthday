@@ -2,18 +2,18 @@
 
 %table{:style => "width:100%;font-size: 14px;"}
   %tr
-    %th{:style => 'text-align:center;color:black'}
-      fb image
-    %th{:style => 'text-align:center;color:black'}
+    %th{:style => 'color: #3B5998; text-align: center; font-weight: normal;'}
+      Image
+    %th{:style => 'color: #3B5998; text-align: center; font-weight: normal;'}
       Name
-    %th{:style => 'text-align:center;color:black'}
+    %th{:style => 'color: #3B5998; text-align: center; font-weight: normal;'}
       BithDate
-    %th{:style => 'text-align:center;color:black'}
+    %th{:style => 'color: #3B5998; text-align: center; font-weight: normal; '}
       Set your message
   - friends.each do |friend|
     - get_custom_message = CustomMessage.find_by_friend_uid_and_user_id(friend["id"],current_user.id)
     %tr
-      %td{:style => 'text-align:center;width: 13%;background: none repeat scroll 0 0 #FFFFFF;'}
+      %td{:style => 'text-align:center;width: 13%;'}
         = link_to image_tag(@graph.get_picture(friend["id"])),friend["link"],:target => "_blank"
       %td{:style => 'text-align:center;width: 25%;'}
         = friend["name"]
