@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-
+  require 'gchart'
   def index
     @custom_message = CustomMessage.new
     begin
@@ -48,6 +48,7 @@ class HomeController < ApplicationController
           calculate_friends_relationship_status(friend)
           analyse_friends_location(friend)
         end
+       #render :text => @ratio_img_male_female.inspect and return false
       else
         flash[:notice] = "Please Connect with facebook Apps"
         redirect_to root_url
@@ -170,6 +171,7 @@ class HomeController < ApplicationController
   def initialize_objects_for_relationship_status
     @male_count = 0
     @female_count = 0
+    @gender_not_defined = 0
     @married_count = 0
     @single_count = 0
     @its_complicated_count = 0
@@ -182,21 +184,26 @@ class HomeController < ApplicationController
 
   def calculate_total_male_female_friends(friend)
     unless friend["gender"].nil?
-      if friend["gender"] == "male"
-        @male_count = @male_count+1
-
+      case friend["gender"]
+        when "male"
+          @male_count = @male_count+1
+        when "female"
+          @female_count = @female_count + 1
+        else
+          @gender_not_defined = @gender_not_defined + 1
       end
-      if friend["gender"] == "female"
-        @female_count = @female_count+1
-      end
+      data = [10,100,300]
+      @ratio_img_male_female = Gchart.pie_3d(data: data, size: '300x200', bar_colors: '1277bd,519bcf,90c0e0,b0d2e9,ffdfaf,ffc875,ffb03a,7C0808', bg_color: 'fff')
     end
   end
 
   def calculate_user_present_and_future_birthday
     unless @user_default_profile["birthday"].nil?
-      @user_birthday = @user_default_profile["birthday"].gsub('/', '-')
-      get_user_age(@user_birthday)
-      next_birthdate_diff = get_user_next_birthday_detail()
+      user_birthday = @user_default_profile["birthday"].gsub('/', '-')
+      unless user_birthday.nil?
+        get_user_age(user_birthday)
+      end
+      next_birthdate_diff = get_user_next_birthday_detail(user_birthday)
       if next_birthdate_diff.present?
         @next_birthday = []
         @next_birthday << "#{next_birthdate_diff[:month]} months" unless next_birthdate_diff[:month] == 0
@@ -205,20 +212,24 @@ class HomeController < ApplicationController
     end
   end
 
-  def get_user_next_birthday_detail
-    birthdate = @user_birthday.split('-')
+  def get_user_next_birthday_detail(user_birthday)
+    birthdate = user_birthday.split('-')
     next_birthday_date = birthdate[1]+'-'+birthdate[0]+'-'+(DateTime.now + 1.year).year.to_s
     Time.diff(Time.now, Time.parse(next_birthday_date))
   end
 
   def get_user_age(birthday)
     birthday = birthday.split('-')
-    birthdate = birthday[1]+'-'+birthday[0]+'-'+birthday[2]
-    @user_total_age = Time.diff(Time.parse(birthdate), Time.now)
-    @user_current_age = []
-    @user_current_age << "#{@user_total_age[:year]} years" unless @user_total_age[:year] == 0
-    @user_current_age << " old"
-    @user_current_age = @user_current_age.join(" ")
+    if birthday.size == 3
+      birthdate = birthday[1]+'-'+birthday[0]+'-'+birthday[2]
+      pars_date = birthdate
+      @user_birthday = Time.parse(pars_date).strftime('%A, %B %e %Y')
+      @user_total_age = Time.diff(Time.parse(birthdate), Time.now)
+      @user_current_age = []
+      @user_current_age << "#{@user_total_age[:year]} years" unless @user_total_age[:year] == 0
+      @user_current_age << " old"
+      @user_current_age = @user_current_age.join(" ")
+    end
   end
 
 

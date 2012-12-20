@@ -1,77 +1,83 @@
-%h3{:style => "color:#000;font-weight:bold;"}
-  Basic Details
-%table{:style => "font-size: 13px;"}
-  %tr
-    %td
-      = image_tag(@user_profile_image,:size => '100x100')
-    %td
-      %b
-        username:
-      = @user_default_profile["username"]
-  %tr
-    %th{:align=> 'center',:width => '20%'}
-      Birthday
-    %td{:align=> 'center'}
-      = @user_birthday
-  %tr
-    %th{:align=> 'center'}
-      Age
-    %td{:align=> 'center'}
-      = @user_current_age
-  %tr
-    %th{:align=> 'center'}
-      Next Birthday
-    %td{:align=> 'center'}
-      = "after #{@next_birthday}"
+.analyseBasicDetails
+  %strong
+    My Basic Details
 
-  %tr
-    %td
-      %strong
-        Education
-    %td
-      - if !@user_default_profile["education"].nil? && !@user_default_profile["education"].blank?
-        - if @user_default_profile["education"].size > 0
-          %table{:style => "font-size: 13px;"}
-            - @user_default_profile["education"].each do |education|
-              %tr
-                %td
-                  = education["type"]
-                %td{:width => '20px;'}
-                %td
-                  - degree = "#{(education["degree"].present?)? "(#{education['degree']['name']})" : ""}"
-                  = education["school"]["name"]
-                  %strong
-                    = degree
-
-  %tr
-    %th{:align=> 'center'}
-      Hometown
-    %td
-      = @user_default_profile["hometown"].present? ? @user_default_profile["hometown"]["name"] : "Not Available"
-  %tr
-    %th{:align=> 'center'}
-      Residence
-    %td
-      = @user_default_profile["location"].present? ? @user_default_profile["location"]["name"] : "Not Available"
-  %tr
-    %th{:align=> 'center'}
-      Friends
-    %td
-      %strong
-        = @friends_profile.count unless @friends_profile.nil?
-      %br
-      %em
-        = "(Total friends who have their Active profile.)"
-
-  %tr
-    %td
-      %strong
-        Languages
+%div{:style => "width:95%;margin-left: 20px;"}
+  %table{:style => "font-size: 13px;margin:0px"}
+    %tr
+      %td{:style => "vertical-align: top;"}
+        = image_tag(@user_profile_image,:size => '100x100')
       %td
-        - if @user_default_profile["languages"].present?
-          - if @user_default_profile["languages"].size > 0
-            - @user_default_profile["languages"].each_with_index do |language,index|
+        %table{:width=> '100%',:style => "font-size: 13px;"}
+          %tr
+            %th{:style => "padding: 3px 6px"}
+              username:
+            %td{:style => "padding: 3px 6px"}
+              = @user_default_profile["username"]
+          %tr
+            %th{:align=> 'center',:width => '20%'}
+              Birthday
+            %td{:align=> 'center',:style => "padding: 3px 6px"}
+              = @user_birthday.present? ? @user_birthday : "Not Found"
+          %tr{:style => "padding: 3px 6px"}
+            %th{:align=> 'center',:style => "padding: 3px 6px"}
+              Age
+            %td{:align=> 'center',:style => "padding: 3px 6px"}
+              = @user_current_age.present? ? @user_current_age : "Not Added DOB on facebook"
+          %tr
+            %th{:align=> 'center',:style => "padding: 3px 6px"}
+              Next Birthday
+            %td{:align=> 'center',:style => "padding: 3px 6px"}
+              = "after #{@next_birthday}"
+
+          %tr
+            %td{:style => 'vertical-align:top;'}
               %strong
-                = "#{index+1} :"
-              = language["name"]
+                Education
+            %td
+              - if !@user_default_profile["education"].nil? && !@user_default_profile["education"].blank?
+                - if @user_default_profile["education"].size > 0
+                  %table{:style => "font-size: 13px;margin:0px;"}
+                    - @user_default_profile["education"].each do |education|
+                      %tr
+                        %td{:style => "padding: 3px 6px"}
+                          = education["type"]
+                        %td{:width => '20px;',:style => "padding: 3px 6px"}
+                        %td{:style => "padding: 3px 6px"}
+                          - degree = "#{(education["degree"].present?)? "(#{education['degree']['name']})" : ""}"
+                          = education["school"]["name"]
+                          %strong
+                            = degree
+
+          %tr
+            %th{:align=> 'center',:style => "padding: 3px 6px"}
+              Hometown
+            %td{:style => "padding: 3px 6px"}
+              = @user_default_profile["hometown"].present? ? @user_default_profile["hometown"]["name"] : "Not Available"
+          %tr
+            %th{:align=> 'center',:style => "padding: 3px 6px"}
+              Residence
+            %td{:style => "padding: 3px 6px"}
+              = @user_default_profile["location"].present? ? @user_default_profile["location"]["name"] : "Not Available"
+          %tr
+            %th{:align=> 'center',:style => "padding: 3px 6px"}
+              Friends
+            %td{:style => "padding: 3px 6px"}
+              %strong
+                = @friends_profile.count unless @friends_profile.nil?
               %br
+              %em
+                = "(Total friends who have their Active profile.)"
+
+          %tr
+            %td{:style => "padding: 3px 6px"}
+              %strong
+                Languages
+              %td{:style => "padding: 3px 6px"}
+                - if @user_default_profile["languages"].present?
+                  - if @user_default_profile["languages"].size > 0
+                    - @user_default_profile["languages"].each_with_index do |language,index|
+                      %strong
+                        = "#{index+1} :"
+                      = language["name"]
+                      %br

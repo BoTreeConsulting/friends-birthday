@@ -49,3 +49,4 @@ gem 'carrierwave'
 
 # To use debugger
 # gem 'debugger'
+gem 'googlecharts'

@@ -407,6 +407,7 @@ table tr td {
   background: #FFF;
   color: #000;
   border-top: 1px solid #FFF;
+
 }
 
 ul.images {
@@ -708,12 +709,16 @@ ul#images li {
 }
 
 
-tr:hover td {
+tr#analysis:hover td {
     background-color:#DDDDDD;
     cursor: pointer;
 }
 
 tr#analysis:hover td {
-    color:#00008b;
+    color:#3B5998;
     cursor: pointer;
+}
+
+.analyseBasicDetails{
+    width:95%;text-align:center;background:#3B5998;height:28px;margin-left: 20px  ;color:white;line-height:25px;border-radius:14px;
 }

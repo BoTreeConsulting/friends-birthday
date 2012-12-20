@@ -12,7 +12,7 @@
       Set your message
   - friends.each do |friend|
     - get_custom_message = CustomMessage.find_by_friend_uid_and_user_id(friend["id"],current_user.id)
-    %tr{:id => "ontrhover"}
+    %tr{:id => "analysis"}
       %td{:style => 'text-align:center;width: 13%;'}
         = link_to image_tag(@graph.get_picture(friend["id"])),friend["link"],:target => "_blank"
       %td{:style => 'text-align:center;width: 25%;'}
