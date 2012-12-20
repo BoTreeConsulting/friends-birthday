@@ -1,18 +1,18 @@
 -#%script{:language => "JavaScript", :src => "http://files.main.bloggerstop.net/uploads/3/0/2/5/3025338/falling_snowflakes.js"}
 
-%table{:style => "width:100%;font-size: 14px;"}
+%table{:style => "width:95%;font-size: 12px;margin-left:19px",:cellspacing => 0,:cellpadding => 0}
   %tr
-    %th{:style => 'color: #3B5998; text-align: center; font-weight: normal;'}
+    %th.thHeader
       Image
-    %th{:style => 'color: #3B5998; text-align: center; font-weight: normal;'}
+    %th.thHeader
       Name
-    %th{:style => 'color: #3B5998; text-align: center; font-weight: normal;'}
+    %th.thHeader
       BithDate
-    %th{:style => 'color: #3B5998; text-align: center; font-weight: normal; '}
+    %th.thHeader
       Set your message
   - friends.each do |friend|
     - get_custom_message = CustomMessage.find_by_friend_uid_and_user_id(friend["id"],current_user.id)
-    %tr
+    %tr{:id => "ontrhover"}
       %td{:style => 'text-align:center;width: 13%;'}
         = link_to image_tag(@graph.get_picture(friend["id"])),friend["link"],:target => "_blank"
       %td{:style => 'text-align:center;width: 25%;'}

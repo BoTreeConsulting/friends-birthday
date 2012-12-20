@@ -38,9 +38,9 @@
             You have also an option for disconnect.
       %h4{:style => 'margin:5px 25px;font-size: 124%;'}
         Your suggestions
-      %div{:style => "background:white;padding: 20px;border:1px solid #C4CDE0;margin-left:20px;"}
+      %div{:style => "background:white;padding: 20px;border:1px solid #C4CDE0;margin-left:14px;width:91%"}
         .fb-like{"data-href" => "http://friends-birthday.heroku.com/", "data-send" => "true", "data-show-faces" => "true", "data-width" => "450"}
-      %div{:style => "background:#fff;border:1px solid #C4CDE0;margin-bottom:50px;padding-left:10;padding-top:10px;margin-left:20px;"}
+      %div{:style => "background:#fff;border:1px solid #C4CDE0;margin-bottom:50px;padding-top:10px;margin-left:14px;margin-top:5px;width:96%"}
         .fb-comments{"data-href" => "http://friends-birthday.herokuapp.com/", "data-num-posts" => "10", "data-width" => "470"}
 
     - else
@@ -64,7 +64,7 @@
             #{t 'home.no_one_birthday_message'}
           %br
         - if @nxt_upcoming_birthdays.present?
-          %h4{:style => "padding:6px 0 5px 20px;normal 120% arial,sans-serif;color:#fff;background:none repeat scroll 0 0 #3B5998"}
+          %h4{:style => "padding:10px 2px 0 20px;height:25px;normal 120% arial,sans-serif;color:#fff;background:none repeat scroll 0 0 #3B5998;margin-left: 22px;width:92%;"}
             #{t 'home.list_of_upcoming_heading'}
           = render :partial => 'birthday_list',:locals => {:friends => @nxt_upcoming_birthdays,:flag => 'upcoming_birthday'}
         - else
