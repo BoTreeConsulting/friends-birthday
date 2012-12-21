@@ -1,6 +1,6 @@
 %tr
   %td{:style=>"text-align: center;"}
-    = "Yes, I don't want to wish  #{friend['gender'] == 'male' ? 'him': 'her'}"
+    = "I don't want to wish  #{friend['gender'] == 'male' ? 'him': 'her'}"
     %br
     = check_box_tag "restricted_friend[uid][]","#{friend["id"]}",@restricted_friends.include?(friend["id"])
   %td{:align=>"center",:style=>"text-align: center;"}

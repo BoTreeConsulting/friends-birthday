@@ -28,6 +28,8 @@ class HomeController < ApplicationController
         token = fb_authentication.token
         uid =   fb_authentication.uid
         get_fb_graph_api_object(token)
+        friends = @graph.fql_query("SELECT uid2 FROM friend WHERE uid1=#{uid}")
+        render :text => friends.inspect and return false
         fields = "statuses,albums"
         @user_default_profile = get_my_fb_profile(uid,"")
         #render :text => @user_default_profile.inspect and return false
@@ -35,7 +37,8 @@ class HomeController < ApplicationController
         @user_profile_image = @graph.get_picture(uid,:type=>"large")
         @user_statuses_details = get_my_fb_extra_details(uid,"statuses")
         @total_user_statuses_count =  @user_statuses_details["statuses"].present? ? @user_statuses_details["statuses"]["data"].size : 0
-
+        #status = @graph.get_connections("#{uid}","statuses")
+        #render :text => status.next_page.next_page.next_page_params.inspect and return false
         get_user_album_with_most_likes_and_comments(uid)
         get_most_liked_and_commented_status()
         get_my_groups(uid)
@@ -303,19 +306,25 @@ class HomeController < ApplicationController
             @first_upcoming_birthday << {"name" => friend["name"], "birthMonth" => birthday[0], "birthDate" => birthday[1], "birthday" => birthday[1]+" #{current_month}", "id" => friend["id"], "link" => friend["link"], "flag" => 1, "gender" => friend["gender"]}
           end
 
-        elsif birthday[0].to_i == @current_date[0].to_i+1
+        elsif birthday[0].to_i == DateTime.now.new_offset(5.5/24).next_month.strftime('%m').to_i
           if birthday[1].to_i >=1 && birthday[1].to_i < (@upcoming-@total_days.to_i)
             @nxt_upcoming_birthday << {"name" => friend["name"], "birthMonth" => birthday[0], "birthDate" => birthday[1], "birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(5.5/24).strftime('%B')}", "id" => friend["id"], "link" => friend["link"], "gender" => friend["gender"]}
           end
           @next_month_bday << {"name" => friend["name"], "birthday" => birthday[1], "id" => friend["id"]}
         end
-        if !@nxt_upcoming_birthday.blank?
-          @nxt_upcoming_birthdays = @nxt_upcoming_birthday.sort_by { |hsh| hsh["birthday"] }
-          @nxt_upcoming_birthdays = @first_upcoming_birthday+@nxt_upcoming_birthday
-        else
-          @nxt_upcoming_birthdays = @first_upcoming_birthday.sort_by { |hsh| hsh["birthday"] } if @first_upcoming_birthday.present?
-        end
+        #Rails.logger.info("========================================================> #{@next_month_bday}")
       end
+    end
+    if !@nxt_upcoming_birthday.blank? && !@next_month_bday.blank?
+      nxt_upcoming_birthday = @next_month_bday + @nxt_upcoming_birthday
+      @nxt_upcoming_birthdays = nxt_upcoming_birthday.sort_by { |hsh| hsh["birthday"] }
+      @nxt_upcoming_birthdays = @first_upcoming_birthday+@nxt_upcoming_birthday
+    else
+      Rails.logger.info("====================================>False")
+      @nxt_upcoming_birthdays = @first_upcoming_birthday.sort_by { |hsh| hsh["birthday"] } if @first_upcoming_birthday.present?
+      next_month_bday =  @next_month_bday.sort_by { |hsh| hsh["birthday"]}
+      puts "===================================================> #{@next_month_bday}"
+      @nxt_upcoming_birthdays = @nxt_upcoming_birthdays + next_month_bday
     end
   end
 end

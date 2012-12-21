@@ -58,84 +58,84 @@
         Friends Relationship Status
       = render :partial => 'friends_relationship_status'
 
--#%table{:style => "width:100%;text-align:center;"}
--#  %tr{:id => "analysis"}
--#    %td{:style => "text-align:left;"}
--#      %a.openmodalbox{:href => "javascript:void(0);",:id => "basic_details"}
--#        Basic Details
--#        %span.modalboxContent
--#          = render :partial => 'basic_details'
--#    %td
--#      = image_tag "information.png"
--#
--#  %tr
--#    %td{:align=> 'center',:style => "text-align:left;"}
--#      %a.openmodalbox{:href => "javascript:void(0);"}
--#        Groups
--#        %span.modalboxContent
--#          = render :partial => 'my_groups'
--#    %td
--#    -#  = image_tag "group.png"
--#  %tr
--#    %td{:align=> 'center',:style => "text-align:left;"}
--#      %a.openmodalbox{:href => "javascript:void(0);"}
--#        Most Commented  Status
--#        %span.modalboxContent
--#          = render :partial => 'my_most_commented_status'
--#    -#%td
--#    -#  = image_tag "comments.png"
--#
--#
--#  %tr
--#    %td{:align=> 'center',:style => "text-align:left;"}
--#      %a.openmodalbox{:href => "javascript:void(0);"}
--#        Most Liked  Status
--#        %span.modalboxContent
--#          = render :partial => 'my_most_liked_status'
--#    -#%td
--#    -#  = image_tag "like.png"
--#  %tr
--#    %td{:align=> 'center',:style => "text-align:left;"}
--#      %a.openmodalbox{:href => "javascript:void(0);"}
--#        Best Commented Album
--#        %span.modalboxContent
--#          = render :partial => 'my_albums'
--#    %td
--#      = image_tag "album.png"
--#      = image_tag "likes.png"
--#
--#  %tr
--#    %td{:align=> 'center',:style => "text-align:left;"}
--#      %a.openmodalbox{:href => "javascript:void(0);"}
--#        Latest Best Liked Album
--#        %span.modalboxContent
--#          = render :partial => 'my_most_liked_album'
--#
--#
--#
--#  %tr
--#    %td{:align=> 'center',:style => "text-align:left;"}
--#      %a.openmodalbox{:href => "javascript:void(0);",:id => "friends_gender"}
--#        Friends Gender
--#        %span.modalboxContent
--#          = render :partial => 'friends_gender'
--#          #chart_div{:style => 'width:300px;height400px;'}
--#    -#%td
--#    -#  = image_tag "gender.png"
--#
--#  %tr
--#    %td{:align=> 'center',:style => "text-align:left;"}
--#      %a.openmodalbox{:href => "javascript:void(0);"}
--#        Friends Relationship Status
--#        %span.modalboxContent
--#          = render :partial => 'friends_relationship_status'
--#  %tr
--#    %td{:align=> 'center',:style => "text-align:left;"}
--#      %a.openmodalbox{:href => "javascript:void(0);"}
--#        Friend's Locations
--#        %span.modalboxContent
--#          = render :partial => 'friends_location'
--#    -#%td
--#    -#  = image_tag "locationmap.png"
+%table{:style => "width:100%;text-align:center;"}
+  %tr{:id => "analysis"}
+    %td{:style => "text-align:left;"}
+      %a.openmodalbox{:href => "javascript:void(0);",:id => "basic_details"}
+        Basic Details
+        %span.modalboxContent
+          = render :partial => 'basic_details'
+    %td
+      = image_tag "information.png"
+
+  %tr
+    %td{:align=> 'center',:style => "text-align:left;"}
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        Groups
+        %span.modalboxContent
+          = render :partial => 'my_groups'
+    %td
+    -#  = image_tag "group.png"
+  %tr
+    %td{:align=> 'center',:style => "text-align:left;"}
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        Most Commented  Status
+        %span.modalboxContent
+          = render :partial => 'my_most_commented_status'
+    -#%td
+    -#  = image_tag "comments.png"
+
+
+  %tr
+    %td{:align=> 'center',:style => "text-align:left;"}
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        Most Liked  Status
+        %span.modalboxContent
+          = render :partial => 'my_most_liked_status'
+    -#%td
+    -#  = image_tag "like.png"
+  %tr
+    %td{:align=> 'center',:style => "text-align:left;"}
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        Best Commented Album
+        %span.modalboxContent
+          = render :partial => 'my_albums'
+    %td
+      = image_tag "album.png"
+      = image_tag "likes.png"
+
+  %tr
+    %td{:align=> 'center',:style => "text-align:left;"}
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        Latest Best Liked Album
+        %span.modalboxContent
+          = render :partial => 'my_most_liked_album'
+
+
+
+  %tr
+    %td{:align=> 'center',:style => "text-align:left;"}
+      %a.openmodalbox{:href => "javascript:void(0);",:id => "friends_gender"}
+        Friends Gender
+        %span.modalboxContent
+          = render :partial => 'friends_gender'
+          #chart_div{:style => 'width:300px;height400px;'}
+    -#%td
+    -#  = image_tag "gender.png"
+
+  %tr
+    %td{:align=> 'center',:style => "text-align:left;"}
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        Friends Relationship Status
+        %span.modalboxContent
+          = render :partial => 'friends_relationship_status'
+  %tr
+    %td{:align=> 'center',:style => "text-align:left;"}
+      %a.openmodalbox{:href => "javascript:void(0);"}
+        Friend's Locations
+        %span.modalboxContent
+          = render :partial => 'friends_location'
+    -#%td
+    -#  = image_tag "locationmap.png"
 
 
