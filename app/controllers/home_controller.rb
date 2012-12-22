@@ -296,7 +296,7 @@ class HomeController < ApplicationController
           if birthday[1].to_i >=1 && birthday[1].to_i < (@upcoming-@total_days.to_i)
             @nxt_upcoming_birthday << {"name" => friend["name"], "birthMonth" => birthday[0], "birthDate" => birthday[1], "birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(5.5/24).strftime('%B')}", "id" => friend["id"], "link" => friend["link"], "gender" => friend["gender"]}
           end
-          @next_month_bday << {"name" => friend["name"], "birthday" => birthday[1], "id" => friend["id"]}
+          @next_month_bday << {"name" => friend["name"], "birthday" => birthday[1], "birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(5.5/24).strftime('%B')}", "id" => friend["id"]}
         end
         #Rails.logger.info("========================================================> #{@next_month_bday}")
       end
