@@ -3,7 +3,7 @@
 
 /* modalBoxBodyContent */
 div#modalBox div#modalBoxBody div.modalBoxBodyContent {
-	background-color:gray;
+	background-color:#E5E3E3;
 	padding:15px;
 }
 div#modalBox.modalBoxBodyContentImageContainer div#modalBoxBody div.modalBoxBodyContent {
