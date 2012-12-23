@@ -1,23 +1,48 @@
 class HomeController < ApplicationController
   require 'gchart'
+  #before_filter :require_login
+  #def require_login
+  #  unless user_signed_in?
+  #    redirect_to "/"
+  #  end
+  #end
+
   def index
     @custom_message = CustomMessage.new
-    begin
-      if current_user.present?
-        if current_user.fb_authentication.present?
-          current_month, token, uid = initialise_objects()
+    if current_user.present?
+      if current_user.fb_authentication.present?
+
+        current_month, token, uid = initialise_objects()
+        begin
           get_fb_graph_api_object(token)
-          fields = ""
-          get_my_fb_profile(uid,fields)
+        rescue Exception => e
+          Rails.logger.info("=================================>Error at Graph Api object initialization: #{e.message}")
+        end
+
+        begin
+          get_my_fb_profile(uid,"")
+        rescue Exception => e
+          Rails.logger.info("===================================> Error while getting user profile details: #{e.message}")
+        end
+
+        begin
           get_fb_friends_profile(uid)
-          @today_birthday = []
+        rescue Exception => e
+          Rails.logger.info("====================================> Error while getting user friends profile details: #{e.message}")
+        end
+
+        begin
           get_today_and_next_birthdays(current_month)
+        rescue Exception => e
+          Rails.logger.info("========================================> Error while getting user's friends today and upcoming birthday #{e.message}")
         end
       end
-    rescue Exception => e
-      flash[:notice]  = "Something went wrong.. Please check your internet connection."
-      Rails.logger.info("================================> #{e.message}")
     end
+  end
+
+  def get_total_tagged_pictures(uid)
+    user_picture_details = @graph.get_connections(uid, "?fields=photos.limit(100000)")
+    @total_user_tagged_picture = user_picture_details["photos"].present? ? user_picture_details["photos"]["data"].size : 0
   end
 
 
@@ -25,56 +50,36 @@ class HomeController < ApplicationController
     if current_user.present?
       fb_authentication = current_user.fb_authentication
       if fb_authentication.present?
+
         token = fb_authentication.token
         uid =   fb_authentication.uid
+
+        # it should be store in redis server.
+        #
         get_fb_graph_api_object(token)
-        friends = @graph.fql_query("SELECT uid2 FROM friend WHERE uid1=#{uid}")
-        
-        fields = "statuses,albums"
         @user_default_profile = get_my_fb_profile(uid,"")
-        #render :text => @user_default_profile.inspect and return false
-        calculate_user_present_and_future_birthday()
-        @user_profile_image = @graph.get_picture(uid,:type=>"large")
-        @user_statuses_details = get_my_fb_extra_details(uid,"statuses")
-        @total_user_statuses_count =  @user_statuses_details["statuses"].present? ? @user_statuses_details["statuses"]["data"].size : 0
-        #status = @graph.get_connections("#{uid}","statuses")
-        #render :text => status.next_page.next_page.next_page_params.inspect and return false
-        friends_locations = @graph.get_connections("#{uid}","?fields=friends.fields(locations.limit(10000))")
-        friends_location_analysis = {}
-        friends_location_analysis["country_not_defined"] = 0
-        if friends_locations["friends"]["data"].present?
-          friends_locations["friends"]["data"].each do |friend_location|
-
-            #country_name = friend_location["locations"]["data"][0]["place"]["location"]["country"]
-            if friend_location["locations"].present?
-              puts "=========================================> #{friend_location["locations"]["data"].last["place"]["location"]["country"]}"
-            end
-            #unless  country_name.size == 0
-            #  if friends_location_analysis.has_key?(country_name)
-            #    friends_location_analysis[country_name] = friends_location_analysis[country_name].to_i + 1
-            #  else
-            #    friends_location_analysis[country_name] = 1
-            #  end
-            #else
-            #  friends_location_analysis["country_not_defined"] = friends_location_analysis["country_not_defined"].to_i + 1
-            #end
-          end
-        end
-        render :text => friends_locations["friends"]["data"][0]["locations"]["data"].last["place"]["location"]["country"].inspect and return false
-
+        #
+        #
+        #get_total_tagged_pictures(uid)
+        calculate_user_present_age_and_upcoming_birthday()
+        get_large_user_profile_image(uid)
+        get_user_statues_details(uid)
+        friends_locations = get_friends_country_location(uid)
+        calculate_count_of_the_friends_with_same_country(friends_locations)
+        location_map_data()
         get_user_album_with_most_likes_and_comments(uid)
         get_most_liked_and_commented_status()
-        get_my_groups(uid)
+
+        get_user_groups(uid)
         get_fb_friends_profile(uid)
         initialize_objects_for_relationship_status()
-        initialize_location_objects()
+        #initialize_location_objects()
 
         @friends_profile.each do |friend|
           calculate_total_male_female_friends(friend)
           calculate_friends_relationship_status(friend)
           #analyse_friends_location(friend)
         end
-       #render :text => @ratio_img_male_female.inspect and return false
       else
         flash[:notice] = "Please Connect with facebook Apps"
         redirect_to root_url
@@ -82,17 +87,66 @@ class HomeController < ApplicationController
     end
   end
 
+  def get_large_user_profile_image(uid)
+    @user_profile_image = @graph.get_picture(uid, :type => "large")
+  end
+
+  def location_map_data
+    @friends_country = [['Country', 'Friends']]
+    @friends_location_analysis.delete("country_not_defined")
+    @friends_location_analysis.each do |country_name, count|
+      arr = []
+      arr << country_name
+      arr << count
+      @friends_country << arr
+    end
+  end
+
+  def calculate_count_of_the_friends_with_same_country(friends_locations)
+    @friends_location_analysis = {}
+    @total_friends_country_count = 0
+    @friends_location_analysis["country_not_defined"] = 0
+    if friends_locations.present?
+      friends_locations.each do |friend_location|
+        if friend_location["current_location"].present?
+          country_name = friend_location["current_location"]["country"]
+          if @friends_location_analysis.has_key?(country_name)
+            @friends_location_analysis[country_name] = @friends_location_analysis[country_name].to_i + 1
+          else
+            @friends_location_analysis[country_name] = 1
+          end
+          @total_friends_country_count = @total_friends_country_count + 1
+        else
+          @friends_location_analysis["country_not_defined"] = @friends_location_analysis["country_not_defined"].to_i + 1
+        end
+      end
+    end
+  end
+
+  def get_friends_country_location(uid)
+    friends_locations = @graph.fql_query("SELECT current_location.state,current_location.country FROM user WHERE uid in (SELECT uid2 FROM friend where uid1 = #{uid} ) LIMIT 100000")
+  end
+
+  def get_user_statues_details(uid)
+    @user_statuses_details = get_my_fb_extra_details(uid, "statuses")
+    @total_user_statuses_count = @user_statuses_details["statuses"].present? ? @user_statuses_details["statuses"]["data"].size : 0
+  end
+
   def get_user_album_with_most_likes_and_comments(uid)
-    user_albums_details = @graph.get_connections(uid, "?fields=albums.limit(100000).fields(name,likes.limit(10000000),count,comments.limit(1000000),cover_photo)")
+    user_albums_details = @graph.get_connections(uid, "?fields=albums.limit(100000).fields(name,likes.limit(10000000),count,comments.limit(1000000),cover_photo,type)")
+
+
     @total_user_albums_count = user_albums_details["albums"]["data"].size
     if user_albums_details["albums"]["data"].present?
       @user_albums = []
       user_albums_details["albums"]["data"].each do |album|
         user_album = {}
+
         user_album["likes_count"] = album["likes"].present? ? album["likes"]["data"].size : 0
         user_album["comments_count"] = album["comments"].present? ? album["comments"]["data"].size : 0
         user_album["name"] = album["name"]
         user_album["cover_photo"] = album["cover_photo"]
+
         @user_albums << user_album
       end
       user_most_liked_albums = @user_albums.sort_by { |hsh| hsh["likes_count"] }
@@ -121,7 +175,7 @@ class HomeController < ApplicationController
     @friends_location["no_location"]["location_name"] = "Location Not Defined"
   end
 
-  def get_my_groups(uid)
+  def get_user_groups(uid)
     begin
       @user_groups_details = @graph.get_connections("#{uid}", "groups", :fields => "name,owner,description")
     rescue Exception => e
@@ -132,41 +186,82 @@ class HomeController < ApplicationController
   def get_most_liked_and_commented_status
     if @user_statuses_details.present? && @user_statuses_details["statuses"].present?
       @user_statues = []
+      group_status_count = {}
+      @total_status_comments = 0
+      @total_status_likes = 0
       @user_statuses_details["statuses"]["data"].each do |status|
+        month_status_hsh_ky = Time.parse(status["updated_time"]).strftime("%m-%Y")
+        s = (status["comments"].present?) ? status["comments"]["data"].size : 0
+        l = (status["likes"].present?) ? status["likes"]["data"].size : 0
+        if group_status_count.has_key?("#{month_status_hsh_ky}")
+          group_status_count["#{month_status_hsh_ky}"]["count"] = group_status_count["#{month_status_hsh_ky}"]["count"].to_i + 1
+          group_status_count["#{month_status_hsh_ky}"]["comments"] = group_status_count["#{month_status_hsh_ky}"]["comments"].to_i + s
+          group_status_count["#{month_status_hsh_ky}"]["likes"] = group_status_count["#{month_status_hsh_ky}"]["likes"].to_i + l
+          puts "===============================If=============> #{group_status_count}"
+        else
+          group_status_count["#{month_status_hsh_ky}"] = {"count" => 1,"comments" => s,"likes" => l}
+          puts "=======================else======>#{group_status_count} "
+        end
+
+        @user_status_chart_data = [["Months","Statues","comments","likes"]]
+        if group_status_count.present?
+          reversed_group_status_count = Hash[group_status_count.to_a.reverse]
+          status_chart_data_count = 0
+          reversed_group_status_count .each do |grouped_status,v|
+            if status_chart_data_count < 6
+              arr = []
+              arr << grouped_status
+              arr << v["count"]
+              arr << v["comments"]
+              arr << v["likes"]
+              @user_status_chart_data << arr
+              status_chart_data_count = status_chart_data_count + 1
+            end
+          end
+        end
+        #puts "Time Time Time Time Time Time Time ================================>#{month_status_hsh_ky} : #{status["message"]}"
+        puts "#{@user_status_chart_data} ================================>#Test new"
         user_status = {}
         user_status["message"] = status["message"]
-        user_status["comments_count"] = (status["comments"].present?) ? status["comments"]["data"].size : 0
-        user_status["likes_count"] = (status["likes"].present?) ? status["likes"]["data"].size : 0
+        s = (status["comments"].present?) ? status["comments"]["data"].size : 0
+        user_status["comments_count"] = s
+
+        @total_status_comments = @total_status_comments + s
+        l = (status["likes"].present?) ? status["likes"]["data"].size : 0
+        user_status["likes_count"] = l
+        @total_status_likes = @total_status_likes + l
         unless user_status.blank?
           @user_statues << user_status
         end
       end
+      puts "==============================>Total Comments: #{@total_status_comments} "
+      puts "==============================>Total Likes: #{@total_status_likes}"
       user_most_commented_status = @user_statues.sort_by { |hsh| hsh["comments_count"] }
-      @user_most_commented_status = user_most_commented_status.reverse[0..9]
+      @user_most_commented_status = user_most_commented_status.reverse[0..4]
       user_most_liked_status = @user_statues.sort_by { |hsh| hsh["likes_count"] }
-      @user_most_liked_status = user_most_liked_status.reverse[0..9]
+      @user_most_liked_status = user_most_liked_status.reverse[0..4]
     end
   end
 
-  def analyse_friends_location(friend)
-
-    unless friend["location"].nil?
-      if @friends_location.has_key?(friend["location"]["id"])
-        @friends_location[friend["location"]["id"]]["count"] = @friends_location[friend["location"]["id"]]["count"] + 1
-        @friends_location[friend["location"]["id"]]["location_name"] = friend["location"]["name"]
-        @friends_location[friend["location"]["id"]]["picture_urls"] << friend["picture"]["data"]["url"]
-      else
-        @friends_location[friend["location"]["id"]] = {}
-        @friends_location[friend["location"]["id"]]["picture_urls"] = []
-        @friends_location[friend["location"]["id"]]["count"] = 1
-        @friends_location[friend["location"]["id"]]["location_name"] = friend["location"]["name"]
-        @friends_location[friend["location"]["id"]]["picture_urls"] << friend["picture"]["data"]["url"]
-      end
-    else
-      @friends_location["no_location"]["count"] = @friends_location["no_location"]["count"] + 1
-      @friends_location["no_location"]["picture_urls"] << friend["picture"]["data"]["url"]
-    end
-  end
+  #def analyse_friends_location(friend)
+  #
+  #  unless friend["location"].nil?
+  #    if @friends_location.has_key?(friend["location"]["id"])
+  #      @friends_location[friend["location"]["id"]]["count"] = @friends_location[friend["location"]["id"]]["count"] + 1
+  #      @friends_location[friend["location"]["id"]]["location_name"] = friend["location"]["name"]
+  #      @friends_location[friend["location"]["id"]]["picture_urls"] << friend["picture"]["data"]["url"]
+  #    else
+  #      @friends_location[friend["location"]["id"]] = {}
+  #      @friends_location[friend["location"]["id"]]["picture_urls"] = []
+  #      @friends_location[friend["location"]["id"]]["count"] = 1
+  #      @friends_location[friend["location"]["id"]]["location_name"] = friend["location"]["name"]
+  #      @friends_location[friend["location"]["id"]]["picture_urls"] << friend["picture"]["data"]["url"]
+  #    end
+  #  else
+  #    @friends_location["no_location"]["count"] = @friends_location["no_location"]["count"] + 1
+  #    @friends_location["no_location"]["picture_urls"] << friend["picture"]["data"]["url"]
+  #  end
+  #end
 
   def calculate_friends_relationship_status(friend)
     unless friend["relationship_status"].nil?
@@ -223,7 +318,7 @@ class HomeController < ApplicationController
     end
   end
 
-  def calculate_user_present_and_future_birthday
+  def calculate_user_present_age_and_upcoming_birthday
     unless @user_default_profile["birthday"].nil?
       user_birthday = @user_default_profile["birthday"].gsub('/', '-')
       unless user_birthday.nil?
@@ -233,6 +328,7 @@ class HomeController < ApplicationController
       if next_birthdate_diff.present?
         @next_birthday = []
         @next_birthday << "#{next_birthdate_diff[:month]} months" unless next_birthdate_diff[:month] == 0
+        @next_birthday << "#{next_birthdate_diff[:days]} days" if next_birthdate_diff[:days].present?
       end
       @next_birthday = @next_birthday.join(" ")
     end
@@ -309,6 +405,7 @@ class HomeController < ApplicationController
     @first_upcoming_birthday = []
     @nxt_upcoming_birthday = []
     @next_month_bday = []
+    @today_birthday = []
     uid = current_user.fb_authentication.uid
     token = current_user.fb_authentication.token
     return current_month, token, uid

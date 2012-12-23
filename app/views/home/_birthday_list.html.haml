@@ -1,38 +1,39 @@
 -#%script{:language => "JavaScript", :src => "http://files.main.bloggerstop.net/uploads/3/0/2/5/3025338/falling_snowflakes.js"}
-
-%table{:style => "width:95%;font-size: 12px;margin-left:19px",:cellspacing => 0,:cellpadding => 0}
+%table{:style => "width:95%;font-size: 12px;margin-left:19px;margin-bottom: 0px;",:cellspacing => 0,:cellpadding => 0}
   %tr
-    %th.thHeader
+    %th.thHeader{:width => "13%"}
       Image
-    %th.thHeader
+    %th.thHeader{:width => "25%"}
       Name
-    %th.thHeader
+    %th.thHeader{:width => "20%"}
       BithDate
     %th.thHeader
       Set your message
-  - friends.each do |friend|
-    - get_custom_message = CustomMessage.find_by_friend_uid_and_user_id(friend["id"],current_user.id)
-    %tr{:id => "analysis"}
-      %td{:style => 'text-align:center;width: 13%;'}
-        = link_to image_tag(@graph.get_picture(friend["id"])),friend["link"],:target => "_blank"
-      %td{:style => 'text-align:center;width: 25%;'}
-        = friend["name"]
-      %td{:style => 'text-align:center;width: 20%;font-weight: bold;'}
-        = friend["birthday"]
-      %td{:style => "text-align: center;"}
-        %a.openmodalbox{:href => "javascript:void(0);"}
-          - if flag == 'today_birthday'
-            Send Message
-          - else
-            Set Message
-          %span.modalboxContent
-            = render :partial => 'message_form',:locals => {:graph => @graph,
-                                                            :custom_message => @custom_message,
-                                                            :uid => friend["id"],
-                                                            :name => friend["name"],
-                                                            :gender => friend["gender"],
-                                                            :get_custom_message => get_custom_message,
-                                                            :flag => flag}
-        &nbsp;
-        - unless get_custom_message.nil?
-          = link_to 'Delete Message', get_custom_message, method: :delete, data: { confirm: 'Are you sure?' }
+%div{:style => "max-height:300px;overflow-y:auto;margin-top: 10px;width: 99%;"}
+  %table{:style => "width:97%;font-size: 12px;margin-left:19px;height:#{@height}px",:cellspacing => 0,:cellpadding => 0}
+    - friends.each do |friend|
+      - get_custom_message = CustomMessage.find_by_friend_uid_and_user_id(friend["id"],current_user.id)
+      %tr{:id => "analysis"}
+        %td{:style => 'text-align:center;width: 13%;'}
+          = link_to image_tag(@graph.get_picture(friend["id"])),friend["link"],:target => "_blank"
+        %td{:style => 'text-align:center;width: 25%;'}
+          = friend["name"]
+        %td{:style => 'text-align:center;width: 20%;font-weight: bold;'}
+          = friend["birthday"]
+        %td{:style => "text-align: center;"}
+          %a.openmodalbox{:href => "javascript:void(0);"}
+            - if flag == 'today_birthday'
+              Send Message
+            - else
+              Set Message
+            %span.modalboxContent
+              = render :partial => 'message_form',:locals => {:graph => @graph,
+                                                              :custom_message => @custom_message,
+                                                              :uid => friend["id"],
+                                                              :name => friend["name"],
+                                                              :gender => friend["gender"],
+                                                              :get_custom_message => get_custom_message,
+                                                              :flag => flag}
+          &nbsp;
+          - unless get_custom_message.nil?
+            = link_to 'Delete Message', get_custom_message, method: :delete, data: { confirm: 'Are you sure?' }

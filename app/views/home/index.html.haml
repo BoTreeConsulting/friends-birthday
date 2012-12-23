@@ -1,3 +1,7 @@
+- if flash[:notice].present?
+  .message.success
+    %h3
+      = flash[:notice]
 #site_content
   #sidebar_container
     .sidebar
@@ -14,9 +18,6 @@
       -#    %a{:href => "#"} Read more
   .content{:style => "width:100%"}
     - unless current_user.present?
-      - if flash[:notice].present?
-        %h3
-          = flash[:notice]
       %h1 Welcome to FriendsBirthday Apps
       %p
         Hi friends last time I made an apps for birthday wishing with a single click. Now I made a new version of this application.
@@ -44,9 +45,6 @@
         .fb-comments{"data-href" => "http://friends-birthday.herokuapp.com/", "data-num-posts" => "10", "data-width" => "470"}
 
     - else
-      - if flash[:notice].present?
-        %h3
-          = flash[:notice]
       - auth = current_user.fb_authentication
       - if auth
         %h4{:style => "padding:20px 1px 10px 2%;color:#3B5998;font-size:155%;font-weight:bold"}

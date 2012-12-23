@@ -40,9 +40,8 @@
                   %table{:style => "font-size: 13px;margin:0px;"}
                     - @user_default_profile["education"].each do |education|
                       %tr
-                        %td{:style => "padding: 3px 6px"}
+                        %td{:style => "padding: 3px 6px; width:28%;"}
                           = education["type"]
-                        %td{:width => '20px;',:style => "padding: 3px 6px"}
                         %td{:style => "padding: 3px 6px"}
                           - degree = "#{(education["degree"].present?)? "(#{education['degree']['name']})" : ""}"
                           = education["school"]["name"]
