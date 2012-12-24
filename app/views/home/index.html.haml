@@ -58,11 +58,11 @@
           = render :partial => 'birthday_list',:locals => {:friends => @today_birthday,:flag => 'today_birthday'}
         - else
           %br
-          %div{:style => 'margin-left:33%;font-size:120%;color:red;'}
+          %div{:style => 'padding-left: 20px;;font-size:120%;color:red;width: 95%;text-align: center;'}
             #{t 'home.no_one_birthday_message'}
           %br
         - if @nxt_upcoming_birthdays.present?
-          %h4{:style => "padding:10px 2px 0 20px;height:25px;normal 120% arial,sans-serif;color:#fff;background:none repeat scroll 0 0 #3B5998;margin-left: 22px;width:92%;"}
+          %h4{:style => "padding:10px 2px 0 20px;height:25px;normal 120% arial,sans-serif;color:#fff;background:none repeat scroll 0 0 #3B5998;margin-left: 20px;margin-right: 20px;"}
             #{t 'home.list_of_upcoming_heading'}
           = render :partial => 'birthday_list',:locals => {:friends => @nxt_upcoming_birthdays,:flag => 'upcoming_birthday'}
         - else
