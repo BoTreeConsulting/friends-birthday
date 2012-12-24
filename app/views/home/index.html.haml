@@ -16,32 +16,32 @@
       -#    2012 sees the redesign of our website. Take a look around and let us know what you think.
       -#    %br/
       -#    %a{:href => "#"} Read more
-  .content{:style => "width:100%"}
+  .content
     - unless current_user.present?
       %h1 Welcome to FriendsBirthday Apps
       %p
         Hi friends last time I made an apps for birthday wishing with a single click. Now I made a new version of this application.
         In this version I added some functionality.
-      .sidebar{:style => 'width:95%;'}
+      .sidebar
         %h4{:style => "font-size:140%"} New features
         %ul
-          %li{:style => 'padding: 0 0 10px 28px;'}
+          %li.addPadding
             Only once you need to connect with facebook.
-          %li{:style => 'padding: 0 0 10px 28px;'}
+          %li.addPadding
             It take care of your friends birthday wishing. If you forget to wish, then this apps wish them automatically on behalf of you.
-          %li{:style => 'padding: 0 0 10px 28px;'}
+          %li.addPadding
             You can set your own message before coming your friends birthday.(If you do not set your message then a system generated wishing message will send at your friends timeline)
-          %li{:style => 'padding: 0 0 10px 28px;'}
+          %li.addPadding
             If you add your email address then this apps will also send a notification mail to you, so that you have wished your friends birthday successfully.(optional)
-          %li{:style => 'padding: 0 0 10px 28px;'}
+          %li.addPadding
             If this apps get something wrong then it will disconnect you from facebook in this app and an email notification will be send to you for Reconnect with this apps.
-          %li{:style => 'padding: 0 0 10px 28px;'}
+          %li.addPadding
             You have also an option for disconnect.
-      %h4{:style => 'margin:5px 25px;font-size: 124%;'}
+      %h4.suggestionBox
         Your suggestions
-      %div{:style => "background:white;padding: 20px;border:1px solid #C4CDE0;margin-left:14px;width:91%"}
+      .fbLikeButton
         .fb-like{"data-href" => "http://friends-birthday.heroku.com/", "data-send" => "true", "data-show-faces" => "true", "data-width" => "450"}
-      %div{:style => "background:#fff;border:1px solid #C4CDE0;margin-bottom:50px;padding-top:10px;margin-left:14px;margin-top:5px;width:96%"}
+      .fbCommentBox
         .fb-comments{"data-href" => "http://friends-birthday.herokuapp.com/", "data-num-posts" => "10", "data-width" => "470"}
 
     - else
@@ -53,21 +53,21 @@
         %h5{:style => "padding:0 0 15px 14%;padding:0px 0 15px 2%;font-size:120%;color:#3F3F3F;font-weight:bold"}
           #{t 'home.connected_message'}
         - if @today_birthday.present?
-          %h4{:style => "padding:6px 0 5px 20px;font:normal 120% arial,sans-serif;color:#fff;background:none repeat scroll 0 0 #3B5998"}
+          %h4.friendsHvBirthday
             #{t 'home.list_of_friends_heading'}
           = render :partial => 'birthday_list',:locals => {:friends => @today_birthday,:flag => 'today_birthday'}
         - else
           %br
-          %div{:style => 'padding-left: 20px;;font-size:120%;color:red;width: 95%;text-align: center;'}
+          .birthdayMessage
             #{t 'home.no_one_birthday_message'}
           %br
         - if @nxt_upcoming_birthdays.present?
-          %h4{:style => "padding:10px 2px 0 20px;height:25px;normal 120% arial,sans-serif;color:#fff;background:none repeat scroll 0 0 #3B5998;margin-left: 20px;margin-right: 20px;"}
+          %h4.friendsHvBirthday
             #{t 'home.list_of_upcoming_heading'}
           = render :partial => 'birthday_list',:locals => {:friends => @nxt_upcoming_birthdays,:flag => 'upcoming_birthday'}
         - else
           %h4
-            %div{:style => 'margin-left:30%;'}
+            .upComingBirthdayHeading
               #{t 'home.no_upcoming_birthday_heading'}
       - else
         %p

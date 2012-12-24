@@ -66,20 +66,20 @@
     var chart = new google.visualization.GeoChart(document.getElementById('chart_location_div'));
     chart.draw(data, options);
   };
-%div{:style => "width:100%;text-align:center;background:white;border-radius: 10px 10px 10px 10px;padding-top: 10px;"}
+.middlePart
   = render :partial => 'basic_details'
   .analyseBasicDetails
     %strong
       Friends Analysis
-  %div{:style => "width:95%;margin-left: 20px;"}
+  .genderInfo
     -# Friends Gender information
     -#
-    %div{:style => "margin: 10px 10px 10px 30%;width:46%;text-align:center;background:white;"}
+    .genderDataChart
       #chart_gender_div{:style => "width: 500px; height: 400px;"}
 
     -# Friends Location information
     -#
-    %div{:style => "width:97%;text-align:center;background:white;height:400px;text-align: left;margin-top: -100px"}
+    .locationInfo
       %strong
         Friends Locations
       #chart_location_div{:style => "width: 750px;height:350px;"}

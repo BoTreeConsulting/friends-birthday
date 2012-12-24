@@ -1,5 +1,5 @@
 -#%script{:language => "JavaScript", :src => "http://files.main.bloggerstop.net/uploads/3/0/2/5/3025338/falling_snowflakes.js"}
-%table{:style => "width:95%;font-size: 12px;margin-left:20px;margin-right: 20px;margin-bottom: 0px;",:cellspacing => 0,:cellpadding => 0}
+%table{:style => "width:100%;font-size: 12px;margin-bottom: 0px;",:cellspacing => 0,:cellpadding => 0}
   %tr
     %th.thHeader{:width => "13%"}
       Image
@@ -10,7 +10,7 @@
     %th.thHeader
       Set your message
 %div{:style => "max-height:314px;overflow-y:auto;margin-top: 10px;width: 99%;margin-bottom: 25px;"}
-  %table{:style => "width:97%;font-size: 12px;margin-left:19px;height:#{@height}px",:cellspacing => 0,:cellpadding => 0}
+  %table{:style => "width:100%;font-size: 12px;height:#{@height}px",:cellspacing => 0,:cellpadding => 0}
     - friends.each do |friend|
       - get_custom_message = CustomMessage.find_by_friend_uid_and_user_id(friend["id"],current_user.id)
       %tr{:id => "analysis"}
