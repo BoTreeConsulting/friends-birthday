@@ -760,14 +760,14 @@ tr#most_commented_likes_status:hover td {
     width: 59%;
     border: 1px solid;
     color: #fff;
-    padding: 0 6px 6px;
+    padding: 6px 6px 6px;
     text-align: center;
     position: absolute;
     _position: absolute;
     text-shadow: 0 1px 0 rgba(0,0,0,.5);
     animation: animate-bg 5s linear infinite;
     border-radius: 7px 7px 7px 7px;
-    height: 25px;
+    height: 30px;
     font-size: 12px;
 }
 

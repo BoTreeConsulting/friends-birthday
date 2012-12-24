@@ -16,29 +16,29 @@
     %table{:border => "0px", "border-color" => "red", :height => "10%", :width => "100%",:cellspacing=> 0,:cellpadding=>0,:style => "margin:10px 0 3px"}
       %tbody
         %tr
-          %td{:style => "background-color:#E5E3E3"}
+          %td{:style => "background-color:#E5E3E3;font-size: 12px;padding: 5px 4px;"}
             = image_tag(graph.get_picture(uid))
-          %td{:style => "background-color:#E5E3E3"}
+          %td{:style => "background-color:#E5E3E3;font-size: 12px;padding: 5px 4px;"}
             %table
               %tbody
                 %tr
-                  %th{:style => "background-color:#E5E3E3"}
+                  %th{:style => "background-color:#E5E3E3;font-size: 12px;padding: 5px 4px;"}
                     Name:
-                  %td{:style => "background-color:#E5E3E3"}
+                  %td{:style => "background-color:#E5E3E3;font-size: 12px;padding: 5px 4px;"}
                     = name
                 %tr
-                  %th{:style => "background-color:#E5E3E3"}
+                  %th{:style => "background-color:#E5E3E3;font-size: 12px;padding: 5px 4px;"}
                     Birthday:
-                  %td{:style => "background-color:#E5E3E3"}
+                  %td{:style => "background-color:#E5E3E3;font-size: 12px;padding: 5px 4px;"}
                     = birthday
                 %tr
-                  %th{:style => "background-color:#E5E3E3"}
+                  %th{:style => "background-color:#E5E3E3;font-size: 12px;padding: 5px 4px;"}
                     Gender:
-                  %td{:style => "background-color:#E5E3E3"}
+                  %td{:style => "background-color:#E5E3E3;font-size: 12px;padding: 5px 4px;"}
                     = gender.capitalize
 
 
-    %span{:style => 'text-align:center;font-weight: bold;color: #0F0C0C;'}
+    %span{:style => 'text-align:center;font-weight: bold;color: #0050FF;text-align: center;'}
       = "#{name} will get this message on #{(gender == "male")? "his":"her"} birthday"
     %br
   = text_area_tag 'custom_message[message]',"#{(get_custom_message.nil?)? "": get_custom_message.message}",:rows=>6, :cols=>60,:style => 'resize:none;width: 100%; margin-top: 10px;'
