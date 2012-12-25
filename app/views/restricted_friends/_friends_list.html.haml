@@ -1,9 +1,11 @@
-%tr
-  %td{:style=>"text-align: center;"}
+%tr{:id => "analysis"}
+  %td{:style=>"text-align: center;padding-left: 20px;",:title => friend["name"]}
+    = image_tag friend["picture"]
+
+  %td{:align=>"center",:style=>"text-align: left;padding-left: 20%;",:title => friend["name"]}
+    = friend["name"]
+
+  %td{:style=>"text-align: center;",:title => friend["name"]}
     = "I don't want to wish  #{friend['gender'] == 'male' ? 'him': 'her'}"
     %br
     = check_box_tag "restricted_friend[uid][]","#{friend["id"]}",@restricted_friends.include?(friend["id"])
-  %td{:align=>"center",:style=>"text-align: center;"}
-    = image_tag friend["picture"]
-  %td{:style=>"text-align: center;"}
-    = friend["name"]

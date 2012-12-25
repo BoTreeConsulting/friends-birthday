@@ -8,15 +8,24 @@
   font-family: News Cycle; 
     src: url('/fonts/NewsCycle-Regular.eot');
     src: local("News Cycle"), url('/fonts/NewsCycle-Regular.ttf');
-} @font-face {
-  font-family: Arizonia Regular;
-    src: url('/fonts/Arizonia-Regular-OTF-webfont.eot');
-    src: local("News Cycle"), url('/fonts/Arizonia-Regular-OTF-webfont.ttf');
+}
+@font-face {
+    font-family: 'ArizoniaRegular';
+    src: url('Arizonia-Regular-OTF-webfont.eot');
+    src: url('Arizonia-Regular-OTF-webfont.eot?#iefix') format('embedded-opentype'),
+    url('Arizonia-Regular-OTF-webfont.woff') format('woff'),
+    url('Arizonia-Regular-OTF-webfont.ttf') format('truetype'),
+    url('Arizonia-Regular-OTF-webfont.svg#ArizoniaRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
 }
 
 html { 
   height: 100%;
 }
+#logo_text h1 a{font-family: 'ArizoniaRegular'; font-size: 46px;}
+#logo_text h1 a span{font-family: 'ArizoniaRegular';font-size: 46px;}
 
 * { 
   margin: 0;
@@ -39,6 +48,7 @@ body {
 p { 
   padding: 0 0 10px 20px;
   line-height: 22px;
+  font-size: 104%;
 }
 
 img { 
@@ -49,6 +59,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #FFF;
   letter-spacing: 0em;
   padding: 0 0 5px 0;
+
 }
 
 h1, h2, h3 { 
@@ -178,7 +189,7 @@ header {
 }
 
 #logo_text h1 a .logo_colour { 
-  color: #3B5998;
+  color: #21458C;
 }
 
 #logo_text a:hover .logo_colour { 
@@ -186,9 +197,10 @@ header {
 }
 
 #logo_text h2 { 
-  font-size: 112%;
+  font-size: 16px;
   padding: 0 0 0 0;
   color: #545454;
+  margin: -6px 0 -6px 208px;
 }
 
 nav { 
@@ -276,7 +288,7 @@ nav {
   width:100%;
   margin: 0px 0 0 0;
   float: left;
-  font-size: 97%;
+  font-size: 105%;
 }
   
 .content ul { 
@@ -666,9 +678,10 @@ ul#images li {
     text-align: center;
 }
 .friendsList{
-    width:98%;
+    width:100%;
     text-align: center;
     padding-left: 15px;
+    font-size: 13px;
 }
 
 
@@ -704,7 +717,7 @@ ul#images li {
     text-decoration: none;
     text-shadow: #0b0a0a -6px 1px 15px;
     transition: transform 0.1s ease;
-    width: 13%;
+    width: 22%;
 }
 
 .button:hover {
@@ -767,7 +780,7 @@ tr#most_commented_likes_status:hover td {
     transparent 50%, rgba(255, 255, 255, .05) 50%, rgba(255, 255, 255, .05) 75%,
     transparent 75%, transparent);
     box-shadow: inset 0 -1px 0 rgba(255,255,255,.4);
-    width: 59%;
+    width: 99%;
     border: 1px solid;
     color: #fff;
     padding: 6px 6px 6px;
@@ -832,20 +845,20 @@ tr#most_commented_likes_status:hover td {
 
 .fbLikeButton{
     background:white;
-    padding: 20px;
+    padding: 20px 23px;
     border:1px solid #C4CDE0;
     margin-left:14px;
-    width:91%
+    width:58%
 }
 
 .fbCommentBox{
     background:#fff;
     border:1px solid #C4CDE0;
     margin-bottom:50px;
-    padding-top:10px;
-    margin-left:14px;
+    padding: 20px 22px;
+    margin-left:17px;
     margin-top:5px;
-    width:96%
+    width:58%
 
 }
 

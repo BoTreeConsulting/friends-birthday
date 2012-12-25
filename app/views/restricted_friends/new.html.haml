@@ -1,7 +1,18 @@
-%div{:style => "font-size:23px;font-weight: bold;"}
+
+%div{:style => "width:40%;float: left;font-size:30px;font-weight: bold;margin-left:22px;color:#2C6BEA;height:45px;"}
   Friends list
-%em{:style => "font-size:12px;"}
-  %b
-    Select your friend(s) and update apps if you dont want to wish them.
+%div{:style => "width:100%;font-size:12px;font-weight: bold;margin-left:22px;color:#2C6BEA;height:45px;"}
+  %div{:style => "font-size: 17px;"}
+    %div{:style => "float:left;width: 11%;padding-top: 4px;font-size: 14px;color: black;"}
+      Total Friend:
+    %div
+      = @friends_profile.count.present? ? @friends_profile.count : 0
+    %div{:style => "float:left;width: 11%;padding:0px;font-size: 14px;color: black;"}
+      Restricted Friends:
+    %div{:style => "float:left;color:red;"}
+      = @restricted_friends.present? ? @restricted_friends.count : 0
+
+%em{:style => "font-size:14px;margin-left:22px"}
+  Select your friend(s) and update apps if you dont want to wish them.
 %br
 = render 'form'

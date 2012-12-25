@@ -10,17 +10,17 @@
     %th.thHeader
       Set your message
 %div{:style => "max-height:314px;overflow-y:auto;margin-top: 10px;width: 99%;margin-bottom: 25px;"}
-  %table{:style => "width:100%;font-size: 12px;height:#{@height}px",:cellspacing => 0,:cellpadding => 0}
+  %table{:style => "width:100%;font-size: 13px;height:#{@height}px",:cellspacing => 0,:cellpadding => 0}
     - friends.each do |friend|
       - get_custom_message = CustomMessage.find_by_friend_uid_and_user_id(friend["id"],current_user.id)
       %tr{:id => "analysis"}
-        %td{:style => 'text-align:center;width: 13%;font-size: 12px;padding: 5px 4px;'}
+        %td{:style => 'text-align:center;width: 13%;padding: 5px 4px;'}
           = link_to image_tag(@graph.get_picture(friend["id"])),friend["link"],:target => "_blank"
-        %td{:style => 'text-align:center;width: 25%;font-size: 12px;padding: 5px 4px;'}
+        %td{:style => 'text-align:center;width: 25%;font-size: 13px;padding: 5px 4px;'}
           = friend["name"]
-        %td{:style => 'text-align:center;width: 20%;font-weight: bold;font-size: 12px;padding: 5px 4px;'}
+        %td{:style => 'text-align:center;width: 22%;font-weight: bold;font-size: 13px;padding: 5px 4px;'}
           = friend["birthday"]
-        %td{:style => "text-align: center;font-size: 12px;padding: 5px 4px;"}
+        %td{:style => "text-align: center;font-size: 13px;padding: 5px 4px;"}
           %a.openmodalbox{:href => "javascript:void(0);"}
             - if flag == 'today_birthday'
               Send Message

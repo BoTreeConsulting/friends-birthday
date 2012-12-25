@@ -9,16 +9,18 @@
   %div{:style => "margin: 10px 0 0;;background-color: white;"}
     %table{:style => "padding-top: 10px;padding-bottom: 10px;width:98%;text-align: center;padding-left: 15px;margin: 0px 0 0px;background: none repeat scroll 0 0 white;"}
       %tr
-        %td{:style=>"width: 51px;"}
-          %em{:style => "font-weight:bold;"}
+        %td{:style=>"width: 51%;height:65px"}
+          %em{:style => "font-weight:normal;font-size:13px;"}
             If you do not want to wish someone else then u can restrict them through this.
             %br
             Please select checkbox associated with your friend and click on Update Now button.
+        %td{:align => "right",:width=> "30%",:height=>"61px"}
+          .actions
+            = f.submit 'Update Now',:class => 'button'
 
   %div{:style => "height:400px;background:white;margin-bottom: 20px;"}
     %div{:style => "max-height:349px;overflow-y:auto;background-color: white;margin: 0px 0 0px;"}
-      %table.friendsList
+      %table.friendsList{:cellspacing=>0,:cellpadding=>0}
         - if @friends_profile.present?
           = render :partial => "friends_list",:collection => @friends_profile,:as => :friend
-    .actions
-      = f.submit 'Update Now',:class => 'button'
+

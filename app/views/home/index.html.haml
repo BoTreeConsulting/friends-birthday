@@ -28,21 +28,34 @@
           %li.addPadding
             Only once you need to connect with facebook.
           %li.addPadding
-            It take care of your friends birthday wishing. If you forget to wish, then this apps wish them automatically on behalf of you.
+            It take care of your friends birthday wishing. If you forget to wish, then this apps wish them Automatically on behalf of you.
           %li.addPadding
-            You can set your own message before coming your friends birthday.(If you do not set your message then a system generated wishing message will send at your friends timeline)
+            You can set your own message before coming your friends birthday.(If you don't set your message then a system generated wishing message will send at your friends timeline)
+          -#%li.addPadding
+          -#  If you add your email address then this apps will also send a notification mail to you, so that you have wished your friends birthday successfully.(optional)
           %li.addPadding
-            If you add your email address then this apps will also send a notification mail to you, so that you have wished your friends birthday successfully.(optional)
-          %li.addPadding
-            If this apps get something wrong then it will disconnect you from facebook in this app and an email notification will be send to you for Reconnect with this apps.
-          %li.addPadding
+            Additionally there is a option for your facebook profile analysis which shows...
+            %ul
+              %li
+                Your total Active friends..
+              %li
+                Your total Male Female friends analysis.
+              %li
+                Your friends location analysis.
+              %li
+                Your friends relationship status analysis.
+              %li
+                Your total status updated by you on facebook wall.
+              %li
+                Your Best 5 most commented status on facebook wall.
+          %li
             You have also an option for disconnect.
       %h4.suggestionBox
         Your suggestions
       .fbLikeButton
         .fb-like{"data-href" => "http://friends-birthday.heroku.com/", "data-send" => "true", "data-show-faces" => "true", "data-width" => "450"}
       .fbCommentBox
-        .fb-comments{"data-href" => "http://friends-birthday.herokuapp.com/", "data-num-posts" => "10", "data-width" => "470"}
+        .fb-comments{"data-href" => "http://friends-birthday.herokuapp.com/", "data-num-posts" => "10", "data-width" => "800"}
 
     - else
       - auth = current_user.fb_authentication

@@ -1,14 +1,20 @@
-%h1 Listing Restricted friends
-%em
-  If you remove any friend from the list then removed friends will be enable for the automated system.
-%table{:width => '100%'}
-  %tr
-    %th
-    %th
-
-  - @restricted_friends.each do |restricted_friend|
+%div{:style => "font-size:30px;font-weight: bold;margin-left:22px;color:#2C6BEA;height:45px;"}
+  Restricted friends List
+%table{:width => '100%',:cellspacing => 0,:cellpadding => 0}
+  - if @restricted_friends.present?
     %tr
-      %td= image_tag @graph.get_picture(restricted_friend.uid)
-      %td{:style => "text-align:center"}= link_to 'Remove from the list', restricted_friend, method: :delete, data: { confirm: 'Are you sure?' }
+      %td{:colspan => 2,:style => "padding-left:20px;"}
+        If you remove any friend from the list then removed friends will be enable for the automated system.
+        - @restricted_friends.each do |restricted_friend|
+          %tr
+            %td{:style => "text-align:right"}
+              = image_tag @graph.get_picture(restricted_friend.uid)
+            %td{:style => "text-align:center"}= link_to 'Remove from the list', restricted_friend, method: :delete, data: { confirm: 'Are you sure?' }
+  - else
+    %tr
+      %td{:colspan => 2,:height=> "20%"}
+        .message.success
+          %span{:style => "font-size:17px;line-height: 2;"}
+            You have no restricted friend(s), who you don't want to wish birthday.
 
 %br
