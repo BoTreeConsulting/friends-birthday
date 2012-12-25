@@ -2,6 +2,11 @@
   .message.success
     %h3
       = flash[:notice]
+- if flash[:alert].present?
+  .message.error
+    %h3
+      = flash[:alert]
+
 #site_content
   #sidebar_container
     .sidebar

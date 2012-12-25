@@ -46,9 +46,13 @@ class CustomMessagesController < ApplicationController
     unless params[:is_birthday_today] == "true"
       if no_message_available
         @custom_message = CustomMessage.new(params[:custom_message])
-        @custom_message.user_id = current_user.id
-        if @custom_message.save
-          flash[:notice] = "Your message has been successfully added"
+        unless @custom_message.blank?
+          @custom_message.user_id = current_user.id
+          if @custom_message.save
+            flash[:notice] = "Your message has been successfully added"
+          end
+        else
+          flash[:alert] = "Please write something. Blank message will not be save."
         end
       else
         @custom_message = CustomMessage.find_by_friend_uid_and_user_id(friend_uid,current_id)
@@ -76,6 +80,8 @@ class CustomMessagesController < ApplicationController
             @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "#{params[:custom_message][:message]}" }, friend_uid)
             flash[:notice] = "Message posted at facebook wall"
             puts "==================================Successfully updated wall"
+          else
+
           end
         end
       rescue Exception => e
