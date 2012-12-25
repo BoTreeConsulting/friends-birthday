@@ -848,7 +848,7 @@ tr#most_commented_likes_status:hover td {
     padding: 20px 23px;
     border:1px solid #C4CDE0;
     margin-left:14px;
-    width:58%
+    width:800px;
 }
 
 .fbCommentBox{
@@ -858,7 +858,7 @@ tr#most_commented_likes_status:hover td {
     padding: 20px 22px;
     margin-left:17px;
     margin-top:5px;
-    width:58%
+    width:800px;
 
 }
 
