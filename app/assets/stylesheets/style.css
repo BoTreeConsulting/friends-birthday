@@ -717,7 +717,7 @@ ul#images li {
     text-decoration: none;
     text-shadow: #0b0a0a -6px 1px 15px;
     transition: transform 0.1s ease;
-    width: 22%;
+    width: 110px;
 }
 
 .button:hover {
