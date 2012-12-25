@@ -5,6 +5,6 @@ $(document).ready(function(){
     $(function() {
         setTimeout(function() {
             $(".message").hide('blind', {}, 500)
-         }, 3000);
+         }, 4000);
     });
 });
