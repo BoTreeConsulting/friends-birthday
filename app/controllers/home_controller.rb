@@ -9,6 +9,9 @@ class HomeController < ApplicationController
 
   def index
     @custom_message = CustomMessage.new
+    @user = User.find(1)
+    #@user.fb_profile  << 10
+    #render :text => @user.fb_profile.clear  and return false
     if current_user.present?
       if current_user.fb_authentication.present?
 
@@ -35,6 +38,12 @@ class HomeController < ApplicationController
           get_today_and_next_birthdays(current_month)
         rescue Exception => e
           Rails.logger.info("========================================> Error while getting user's friends today and upcoming birthday #{e.message}")
+        end
+
+        begin
+
+        rescue
+
         end
       end
     end

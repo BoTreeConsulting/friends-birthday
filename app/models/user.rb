@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
+  include Redis::Objects
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,:omniauthable
 
@@ -11,4 +13,7 @@ class User < ActiveRecord::Base
 
   has_one :fb_authentication
   has_many :restricted_friends
+
+  list :fb_profile
+
 end

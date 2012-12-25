@@ -32,6 +32,10 @@ gem 'koala'
 gem "haml-rails"
 gem 'time_diff'
 gem 'carrierwave'
+gem "redis"
+gem "hiredis"
+gem 'redis-objects', :require => 'redis/objects'
+
 #gem 'gruff'
 #gem "rmagick", :require => 'RMagick'
 
