@@ -2,11 +2,12 @@
   #logo
     #logo_text
       / class="logo_colour", allows you to change the colour of the text
-      %h1
-        %a{:href => "#{root_url}"}
-          My
-          %span.logo_colour Friends Birthday
-      %h2 Simple. Secure. Automated.
+      = image_tag "logo.png"
+      -#%h1
+      -#  %a{:href => "#{root_url}"}
+      -#    My
+      -#    %span.logo_colour Friends Birthday
+      -#%h2 Simple. Secure. Automated.
   %nav
     %ul#nav.sf-menu
       %li.selected

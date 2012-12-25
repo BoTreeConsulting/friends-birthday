@@ -170,7 +170,7 @@ header {
   height: 130px;
   background: transparent;
   color: #888;
-  padding: 0 18px 0 25px;
+  /*padding: 0 18px 0 25px;*/
   float: left;
 }
 
