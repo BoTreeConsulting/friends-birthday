@@ -36,8 +36,10 @@
             It take care of your friends birthday wishing. If you forget to wish, then this apps wish them Automatically on behalf of you.
           %li.addPadding
             You can set your own message before coming your friends birthday.(If you don't set your message then a system generated wishing message will send at your friends timeline)
-          -#%li.addPadding
-          -#  If you add your email address then this apps will also send a notification mail to you, so that you have wished your friends birthday successfully.(optional)
+          %li.addPadding
+            Here you have choice who will be get message from your side. If you don't want to wish someone else Go to Settings and make restrict to them.
+          %li.addPadding
+            If you add your email address then this apps will also send a notification mail to you, so that you have wished your friends birthday successfully.(optional)
           %li.addPadding
             Additionally there is a option for your facebook profile analysis which shows...
             %ul
@@ -55,13 +57,6 @@
                 Your Best 5 most commented status on facebook wall.
           %li
             You have also an option for disconnect.
-      %h4.suggestionBox
-        Your suggestions
-      .fbLikeButton
-        .fb-like{"data-href" => "http://friends-birthday.heroku.com/", "data-send" => "true", "data-show-faces" => "true", "data-width" => "450"}
-      .fbCommentBox
-        .fb-comments{"data-href" => "http://friends-birthday.herokuapp.com/", "data-num-posts" => "10", "data-width" => "800"}
-
     - else
       - auth = current_user.fb_authentication
       - if auth
@@ -92,3 +87,9 @@
           if you want to use automated birthday wishing for facebook friends, please connect with facebook app.
           Click On Use FB APP at top menu.
 
+    %h4.suggestionBox
+      Your suggestions
+    .fbLikeButton
+      .fb-like{"data-href" => "http://friends-birthday.heroku.com/", "data-send" => "true", "data-show-faces" => "true", "data-width" => "450"}
+    .fbCommentBox
+      .fb-comments{"data-href" => "http://friends-birthday.herokuapp.com/", "data-num-posts" => "10", "data-width" => "800"}

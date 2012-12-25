@@ -3,7 +3,7 @@
     My Basic Details
 
 %div{:style => "width:95%;margin-left: 20px;"}
-  %table{:style => "font-size: 13px;margin:0px"}
+  %table{:style => "font-size: 13px;margin:auto;"}
     %tr
       %td{:style => "vertical-align: top;"}
         = image_tag(@user_profile_image,:size => '100x100')
@@ -16,24 +16,24 @@
               = @user_default_profile["username"]
           %tr
             %th{:align=> 'center',:width => '20%'}
-              Birthday
+              Birthday:
             %td{:align=> 'center',:style => "padding: 3px 6px"}
               = @user_birthday.present? ? @user_birthday : "Not Found"
           %tr{:style => "padding: 3px 6px"}
             %th{:align=> 'center',:style => "padding: 3px 6px"}
-              Age
+              Age:
             %td{:align=> 'center',:style => "padding: 3px 6px"}
               = @user_current_age.present? ? @user_current_age : "Not Added DOB on facebook"
           %tr
             %th{:align=> 'center',:style => "padding: 3px 6px"}
-              Next Birthday
+              Next Birthday:
             %td{:align=> 'center',:style => "padding: 3px 6px"}
               = "after #{@next_birthday}"
 
           %tr
             %td{:style => 'vertical-align:top;'}
               %strong
-                Education
+                Education:
             %td
               - if !@user_default_profile["education"].nil? && !@user_default_profile["education"].blank?
                 - if @user_default_profile["education"].size > 0
@@ -50,17 +50,17 @@
 
           %tr
             %th{:align=> 'center',:style => "padding: 3px 6px"}
-              Hometown
+              Hometown:
             %td{:style => "padding: 3px 6px"}
               = @user_default_profile["hometown"].present? ? @user_default_profile["hometown"]["name"] : "Not Available"
           %tr
             %th{:align=> 'center',:style => "padding: 3px 6px"}
-              Residence
+              Residence:
             %td{:style => "padding: 3px 6px"}
               = @user_default_profile["location"].present? ? @user_default_profile["location"]["name"] : "Not Available"
           %tr
             %th{:align=> 'center',:style => "padding: 3px 6px"}
-              Friends
+              Friends:
             %td{:style => "padding: 3px 6px"}
               %strong
                 = @friends_profile.count unless @friends_profile.nil?
@@ -71,7 +71,7 @@
           %tr
             %td{:style => "padding: 3px 6px"}
               %strong
-                Languages
+                Languages:
               %td{:style => "padding: 3px 6px"}
                 - if @user_default_profile["languages"].present?
                   - if @user_default_profile["languages"].size > 0

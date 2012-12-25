@@ -11,12 +11,12 @@
     %ul#nav.sf-menu
       %li.selected
         = link_to "Home",root_url
-      %li#opener
-        %a#opener{:href => "javascript:void();",:style => "pointer-events: auto;",:onclick => "alert()"} How to use
+      -#%li#opener
+      -#  %a#opener{:href => "javascript:void();",:style => "pointer-events: auto;",:onclick => "alert()"} How to use
       %li
         - if user_signed_in?
           - if current_user.fb_authentication.present?
-            = link_to "Disconnect from FB Apps","/destroy_fb_authentication",:action => "destroy_fb_authentication", method: :delete, data: { confirm: 'Are you sure?' }
+
           - else
             = link_to "Use FB Apps",user_omniauth_authorize_path(:facebook)
         -else
@@ -34,7 +34,8 @@
               = link_to "Don't want to wish","/restricted_friends/new"
             %li
               = link_to "Restricted Friends list","/restricted_friends"
-
+            %li
+              = link_to "Disconnect from Apps","/destroy_fb_authentication",:action => "destroy_fb_authentication", method: :delete, data: { confirm: 'Are you sure, You want to Disconnect from this application?' }
       %li
         - if user_signed_in?
           = link_to "Logout",destroy_user_session_path
@@ -47,9 +48,3 @@
         -#      - if user_signed_in?
         -#        = link_to "Logout",destroy_user_session_path
 
-  #dialog{:title => "How to Use FriendsBirthday apps"}
-    %p
-      To use this application you need to connect with facebook.
-      At the top in Menu there is a option UseFbApps then click on it and
-      login with facebook my apps when you successfully authenticated by
-      facebook then it will ask some permission related to birthday wishing please allow all permissions.
