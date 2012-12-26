@@ -445,13 +445,16 @@ class HomeController < ApplicationController
       end
     end
 
-    if @first_upcoming_birthday.present? && @nxt_upcoming_birthday.present?
-      @nxt_upcoming_birthdays = @nxt_upcoming_birthday.sort_by { |hsh| hsh["birthday"] }
+    if !@nxt_upcoming_birthday.blank? && !@next_month_bday.blank?
+      nxt_upcoming_birthday = @next_month_bday + @nxt_upcoming_birthday
+      @nxt_upcoming_birthdays = nxt_upcoming_birthday.sort_by { |hsh| hsh["birthday"] }
       @nxt_upcoming_birthdays = @first_upcoming_birthday+@nxt_upcoming_birthday
     else
       Rails.logger.info("====================================>False")
-      @nxt_upcoming_birthdays = @nxt_upcoming_birthday.sort_by { |hsh| hsh["birthday"] } if @nxt_upcoming_birthday.present?
+      @nxt_upcoming_birthdays = @first_upcoming_birthday.sort_by { |hsh| hsh["birthday"] } if @first_upcoming_birthday.present?
+      next_month_bday =  @next_month_bday.sort_by { |hsh| hsh["birthday"]}
+      puts "===================================================> #{@next_month_bday}"
+      @nxt_upcoming_birthdays = @nxt_upcoming_birthdays + next_month_bday
     end
   end
-
 end
