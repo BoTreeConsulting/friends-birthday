@@ -439,21 +439,19 @@ class HomeController < ApplicationController
           if birthday[1].to_i >=1 && birthday[1].to_i < (@upcoming-@total_days.to_i)
             @nxt_upcoming_birthday << {"name" => friend["name"], "birthMonth" => birthday[0], "birthDate" => birthday[1], "birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(5.5/24).strftime('%B')}", "id" => friend["id"], "link" => friend["link"], "gender" => friend["gender"]}
           end
-          @next_month_bday << {"name" => friend["name"], "birthday" => birthday[1], "birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(5.5/24).strftime('%B')}", "id" => friend["id"]}
+          @nxt_upcoming_birthday << {"name" => friend["name"], "birthday" => birthday[1], "birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(5.5/24).strftime('%B')}", "id" => friend["id"], "link" => friend["link"], "gender" => friend["gender"]}
         end
         #Rails.logger.info("========================================================> #{@next_month_bday}")
       end
     end
-    if !@nxt_upcoming_birthday.blank? && !@next_month_bday.blank?
-      nxt_upcoming_birthday = @next_month_bday + @nxt_upcoming_birthday
-      @nxt_upcoming_birthdays = nxt_upcoming_birthday.sort_by { |hsh| hsh["birthday"] }
+
+    if @first_upcoming_birthday.present? && @nxt_upcoming_birthday.present?
+      @nxt_upcoming_birthdays = @nxt_upcoming_birthday.sort_by { |hsh| hsh["birthday"] }
       @nxt_upcoming_birthdays = @first_upcoming_birthday+@nxt_upcoming_birthday
     else
       Rails.logger.info("====================================>False")
-      @nxt_upcoming_birthdays = @first_upcoming_birthday.sort_by { |hsh| hsh["birthday"] } if @first_upcoming_birthday.present?
-      next_month_bday =  @next_month_bday.sort_by { |hsh| hsh["birthday"]}
-      puts "===================================================> #{@next_month_bday}"
-      @nxt_upcoming_birthdays = @nxt_upcoming_birthdays + next_month_bday
+      @nxt_upcoming_birthdays = @nxt_upcoming_birthday.sort_by { |hsh| hsh["birthday"] } if @nxt_upcoming_birthday.present?
     end
   end
+
 end
