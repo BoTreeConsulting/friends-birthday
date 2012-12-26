@@ -411,9 +411,8 @@ class HomeController < ApplicationController
     current_month = DateTime.now.new_offset(5.5/24).strftime('%B')
     @total_days = (Date.new(Time.now.year, 12, 31).to_date<<(12-(DateTime.now.strftime('%m')).to_i)).day
     @upcoming = @current_date[1].to_i+10
-    @first_upcoming_birthday = []
-    @nxt_upcoming_birthday = []
-    @next_month_bday = []
+    @upcoming_birthdays = []
+    @next_month_birthday = []
     @today_birthday = []
     uid = current_user.fb_authentication.uid
     token = current_user.fb_authentication.token
@@ -428,36 +427,36 @@ class HomeController < ApplicationController
           #month is same
           if @current_date[1]==birthday[1]
             #Date is same
-            #@today_birthday << friend["id"]
             @today_birthday << {"name" => friend["name"], "birthday" => "#{birthday[1]}"+" #{current_month}", "id" => friend["id"], "link" => friend["link"], "gender" => friend["gender"]}
           end
-          if birthday[1].to_i > @current_date[1].to_i && birthday[1].to_i < @upcoming
-            @first_upcoming_birthday << {"name" => friend["name"], "birthMonth" => birthday[0], "birthDate" => birthday[1], "birthday" => birthday[1]+" #{current_month}", "id" => friend["id"], "link" => friend["link"], "flag" => 1, "gender" => friend["gender"]}
+          if birthday[1].to_i > @current_date[1].to_i
+            @upcoming_birthdays << {"name" => friend["name"], "birthMonth" => birthday[0], "birthDate" => birthday[1], "birthday" => birthday[1]+" #{current_month}", "id" => friend["id"], "link" => friend["link"], "flag" => 1, "gender" => friend["gender"]}
           end
 
         elsif birthday[0].to_i == DateTime.now.new_offset(5.5/24).next_month.strftime('%m').to_i
-          if birthday[1].to_i >=1 && birthday[1].to_i < (@upcoming-@total_days.to_i)
-            @nxt_upcoming_birthday << {"name" => friend["name"], "birthMonth" => birthday[0], "birthDate" => birthday[1], "birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(5.5/24).strftime('%B')}", "id" => friend["id"], "link" => friend["link"], "gender" => friend["gender"]}
-          end
-          @next_month_bday << {"name" => friend["name"], "birthday" => birthday[1], "birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(5.5/24).strftime('%B')}", "id" => friend["id"], "link" => friend["link"], "gender" => friend["gender"]}
+          @next_month_birthday << {"name" => friend["name"], "birthday" => birthday[1], "birthday" => birthday[1]+" #{(DateTime.now + 1.month).new_offset(5.5/24).strftime('%B')}", "id" => friend["id"], "link" => friend["link"], "gender" => friend["gender"]}
         end
         #Rails.logger.info("========================================================> #{@next_month_bday}")
       end
     end
 
-    if @first_upcoming_birthday.present?
-      @first_upcoming_birthday = @first_upcoming_birthday.sort_by { |hsh| hsh["birthday"] }
+
+    if @upcoming_birthdays.present?
+      @upcoming_birthdays = @upcoming_birthdays.sort_by { |hsh| hsh["birthday"] }
+      puts  "==========================>"
+      puts  "==========================> upcoming birthday: #{@nxt_upcoming_birthdays} "
+      puts  "==========================> upcoming birthday END"
 
     end
 
-    if @nxt_upcoming_birthday.present?
-      @nxt_upcoming_birthday = @nxt_upcoming_birthday.sort_by { |hsh| hsh["birthday"] }
-      @nxt_upcoming_birthdays = @first_upcoming_birthday + @nxt_upcoming_birthday
-    end
+    if @next_month_birthday.present?
+      @next_month_birthday = @next_month_birthday.sort_by { |hsh| hsh["birthday"] }
+      @upcoming_birthdays = @upcoming_birthdays + @next_month_birthday
+      puts  "==========================>"
+      puts  "==========================> Next Month birthday: #{@upcoming_birthdays} "
+      puts  "==========================> Next Month birthday END"
 
-    if @next_month_bday.present?
-      @next_month_bday = @next_month_bday.sort_by { |hsh| hsh["birthday"] }
-      #@nxt_upcoming_birthdays = @nxt_upcoming_birthdays + @next_month_bday
+
     end
 
   end

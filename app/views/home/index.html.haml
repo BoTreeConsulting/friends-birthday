@@ -80,10 +80,10 @@
           .birthdayMessage
             #{t 'home.no_one_birthday_message'}
           %br
-        - if @nxt_upcoming_birthdays.present?
+        - if @upcoming_birthdays.present?
           %h4.friendsHvBirthday
             #{t 'home.list_of_upcoming_heading'}
-          = render :partial => 'birthday_list',:locals => {:friends => @nxt_upcoming_birthdays,:flag => 'upcoming_birthday'}
+          = render :partial => 'birthday_list',:locals => {:friends => @upcoming_birthdays,:flag => 'upcoming_birthday'}
         - else
           %h4
             .upComingBirthdayHeading
