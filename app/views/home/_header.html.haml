@@ -14,14 +14,14 @@
         = link_to "Home",root_url
       -#%li#opener
       -#  %a#opener{:href => "javascript:void();",:style => "pointer-events: auto;",:onclick => "alert()"} How to use
-      %li
-        - if user_signed_in?
-          - if current_user.fb_authentication.present?
-
-          - else
-            = link_to "Use FB Apps",user_omniauth_authorize_path(:facebook)
-        -else
-          = link_to "facebook connect",user_omniauth_authorize_path(:facebook)
+      -#%li
+      -#  - if user_signed_in?
+      -#    - if current_user.fb_authentication.present?
+      -#
+      -#    - else
+      -#      = link_to "Use FB Apps",user_omniauth_authorize_path(:facebook)
+      -#  -else
+      -#    = link_to "facebook connect",user_omniauth_authorize_path(:facebook)
 
         -#%a{:href => "/facebook_connect",:style => 'pointer-events: auto;'} Use FB Apps
       %li
@@ -32,7 +32,7 @@
           = link_to "Setting","javascript:void(0)"
           %ul
             %li
-              = link_to "Don't want to wish","/restricted_friends/new"
+              = link_to "Restrict Friend(s)","/restricted_friends/new"
             %li
               = link_to "Restricted Friends list","/restricted_friends"
             %li

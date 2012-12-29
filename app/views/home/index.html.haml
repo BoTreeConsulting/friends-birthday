@@ -27,6 +27,9 @@
       %p
         Hi friends last time I made an apps for birthday wishing with a single click. Now I made a new version of this application.
         In this version I added some functionality.
+      .fadeMe
+        = link_to "Click Here to Use this App",user_omniauth_authorize_path(:facebook),:class => "appConnectLink"
+
       .sidebar
         %h4{:style => "font-size:140%"} New features
         %ul

@@ -5,15 +5,16 @@
     %tr
       %td{:colspan => 2,:style => "padding-left:20px;"}
         If you remove any friend from the list then removed friends will be enable for the automated system.
-        - @restricted_friends.each do |restricted_friend|
-          %tr
-            %td{:style => "text-align:right"}
-              = image_tag @graph.get_picture(restricted_friend.uid)
-            %td{:style => "text-align:center"}= link_to 'Remove from the list', restricted_friend, method: :delete, data: { confirm: 'Are you sure?' }
+        %table{:width => '100%',:cellspacing => 0,:cellpadding => 0}
+          - @restricted_friends.each do |restricted_friend|
+            %tr
+              %td{:style => "text-align:right;"}
+                = image_tag @graph.get_picture(restricted_friend.uid)
+              %td{:style => "text-align:center"}= link_to 'Remove from the list', restricted_friend, method: :delete, data: { confirm: 'Are you sure?' }
   - else
     %tr
-      %td{:colspan => 2,:height=> "20%"}
-        .message.success
+      %td{:colspan => 2,:height=> "20%",:style => "padding: 0px 0px 21px;"}
+        .message-static.success
           %span{:style => "font-size:17px;line-height: 2;"}
             You have no restricted friend(s), who you don't want to wish birthday.
 
