@@ -1,0 +1,8 @@
+-#$('#editDeleteTd_#{@friend_uid}').html('')
+-#$('#editDeleteTd_#{@friend_uid}').append('<textarea rows="6" name="custom_message[message]" id="custom_message_#{@friend_uid}" cols="60" class="textArea"></textarea>')
+$("#custom_message_#{@friend_uid}").html('#{@custom_message.message}');
+- if @custome_message_create
+  $('#editDeleteTd_#{@friend_uid}').append('<div id="deleteMessage_#{@friend_uid}"><a rel="nofollow" data-method="delete" data-confirm="Are you sure, You want to delete this message?" href="/custom_messages/#{@custom_message.id}">Delete Message</a></div>')
+
+$.fn.modalBox("close");
+$('.message').show();

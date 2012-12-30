@@ -974,3 +974,21 @@ div.fadeMe {
     color: #ffffff;
 }
 
+.messageFormth{
+    background-color:#E5E3E3;
+    font-size: 12px;
+    padding: 5px 4px;
+}
+
+
+.textArea{
+    resize:none;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.birthdayListtd{
+    text-align: center;
+    font-size: 13px;
+    padding: 5px 4px;
+}

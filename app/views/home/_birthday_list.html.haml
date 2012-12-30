@@ -14,13 +14,14 @@
     - friends.each do |friend|
       - get_custom_message = CustomMessage.find_by_friend_uid_and_user_id(friend["id"],current_user.id)
       %tr{:id => "analysis"}
-        %td{:style => 'text-align:center;width: 13%;padding: 5px 4px;'}
+        %td.birthdayListtd{:style => 'width: 13%;'}
           = link_to image_tag(@graph.get_picture(friend["id"])),friend["link"],:target => "_blank"
-        %td{:style => 'text-align:center;width: 25%;font-size: 13px;padding: 5px 4px;'}
+        %td.birthdayListtd{:style => 'width: 25%;'}
           = friend["name"]
-        %td{:style => 'text-align:center;width: 22%;font-weight: bold;font-size: 13px;padding: 5px 4px;'}
+        %td.birthdayListtd{:style => 'width: 22%;font-weight: bold;'}
           = friend["birthday"]
-        %td{:style => "text-align: center;font-size: 13px;padding: 5px 4px;"}
+        %td.birthdayListtd{:id => "editDeleteTd_#{friend["id"]}"}
+          -#%div{:style=>"margin: 0px auto; width: 200px;"}
           %a.openmodalbox{:href => "javascript:void(0);"}
             - if flag == 'today_birthday'
               Send Message
@@ -37,4 +38,4 @@
                                                               :flag => flag}
           &nbsp;
           - unless get_custom_message.nil?
-            = link_to 'Delete Message', get_custom_message, method: :delete, data: { confirm: 'Are you sure?' }
+            = link_to 'Delete Message', get_custom_message, method: :delete, data: { confirm: 'Are you sure, You want to delete this message?'}
