@@ -28,11 +28,8 @@ def wishing_at_facebook_wall(users)
           @message = "Happy New year.. :)..!!!!"
           image_link = FestivalAvatar.find((1..12).to_a.sample).avatar.url
           begin
-            i = i + 1
             @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "#{@message}" }, friend["id"])
             puts "Posted on wall successfully"
-            break
-
           rescue Exception => e
             puts "==================================Facebook api graph error: #{e.message}"
           end
