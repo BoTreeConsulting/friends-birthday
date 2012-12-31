@@ -1,0 +1,15 @@
+= form_for @festival_avatar,  :url => {:action => "create"} do |f|
+  - if @festival_avatar.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@festival_avatar.errors.count, "error")} prohibited this festival_avatar from being saved:"
+      %ul
+        - @festival_avatar.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :avatar
+    = f.file_field :avatar
+  .actions
+    = f.submit 'Save'
+
+

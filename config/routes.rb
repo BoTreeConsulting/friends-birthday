@@ -1,12 +1,18 @@
 FriendsBirthday::Application.routes.draw do
+  get "festival_avatars/index"
+
+  get "festival_avatars/new"
+
   resources :restricted_friends
 
   get "birthday_avatars/index"
 
   get "birthday_avatars/new"
+  get "festival_avatars/new"
 
   get "birthday_avatars/edit"
   match "/birthday_avatars/create" => "birthday_avatars#create"
+  match "/festival_avatars/create" => "festival_avatars#create"
   resources :custom_messages
 
   devise_for :users , :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" } do
