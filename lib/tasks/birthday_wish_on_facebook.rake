@@ -60,6 +60,7 @@ def wishing_at_facebook_wall(users)
                   @message = "Wishing you a very special Happy Birthday..!!!!"
                 else
                   @message = custom_message.message
+                  custom_message.destroy
                 end
                 image_link = BirthdayAvatar.find((1..49).to_a.sample).avatar.url
 

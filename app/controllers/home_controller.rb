@@ -1,11 +1,5 @@
 class HomeController < ApplicationController
   require 'gchart'
-  #before_filter :require_login
-  #def require_login
-  #  unless user_signed_in?
-  #    redirect_to "/"
-  #  end
-  #end
 
   def index
     @custom_message = CustomMessage.new
