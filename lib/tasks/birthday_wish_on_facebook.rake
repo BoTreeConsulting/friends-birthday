@@ -64,8 +64,12 @@ def wishing_at_facebook_wall(users)
                 image_link = BirthdayAvatar.find((1..49).to_a.sample).avatar.url
 
                 begin
-                  #@graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "#{@message}" }, birthday_person["id"])
-                  #@graph.put_object(birthday_person["id"], "feed", :message => "#{@message}")
+                  begin
+                    @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "#{@message}" }, birthday_person["id"])
+                  rescue Exception => e
+                    puts "===============================> Cant Able to post image: #{e.message}"
+                    @graph.put_object(birthday_person["id"], "feed", :message => "#{@message}")
+                  end
                   puts "Posted on wall successfully"
                 rescue Exception => e
                   puts "==================================Facebook api graph error: #{e.message}"
