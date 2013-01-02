@@ -54,7 +54,7 @@ class CustomMessagesController < ApplicationController
           custom_message.user_id = current_user.id
           if custom_message.save
             @custom_message = custom_message
-            @custome_message_create = true
+            @custom_message_create = true
             flash[:notice] = "Your message has been added successfully"
           end
         else
@@ -63,7 +63,7 @@ class CustomMessagesController < ApplicationController
       else
         @custom_message = CustomMessage.find_by_friend_uid_and_user_id(@friend_uid,current_id)
         if @custom_message.update_attributes(params[:custom_message])
-          @custome_message_create = false
+          @custom_message_create = false
 
           flash[:notice] = "Your message has been updated successfully"
         else
