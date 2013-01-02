@@ -48,6 +48,7 @@ class CustomMessagesController < ApplicationController
     no_message_available = CustomMessage.find_by_friend_uid_and_user_id(params[:custom_message]["friend_uid"],current_id).nil?
     unless params[:is_birthday_today] == "true"
       if no_message_available
+        params[:custom_message][:message]  = params[:custom_message][:message].lstrip
         custom_message = CustomMessage.new(params[:custom_message])
         unless custom_message.blank?
           custom_message.user_id = current_user.id
@@ -123,10 +124,9 @@ class CustomMessagesController < ApplicationController
     @custom_message = CustomMessage.find(params[:id])
     @custom_message.destroy
     @friend_uid = @custom_message.friend_uid
-    #respond_to do |format|
-    #  format.js
-    #end
-    redirect_to root_url
+    respond_to do |format|
+      format.js
+    end
   end
 
 end

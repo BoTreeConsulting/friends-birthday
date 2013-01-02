@@ -992,3 +992,18 @@ div.fadeMe {
     font-size: 13px;
     padding: 5px 4px;
 }
+
+.setMessageMain{
+    width: 300px;
+    margin-left: 175px;
+}
+
+.setMessageBox{
+    width: 95px;
+    float: left;
+}
+
+.deleteSetMessage{
+    width: 112px;
+    float: left;
+}

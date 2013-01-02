@@ -20,22 +20,24 @@
           = friend["name"]
         %td.birthdayListtd{:style => 'width: 22%;font-weight: bold;'}
           = friend["birthday"]
-        %td.birthdayListtd{:id => "editDeleteTd_#{friend["id"]}"}
-          -#%div{:style=>"margin: 0px auto; width: 200px;"}
-          %a.openmodalbox{:href => "javascript:void(0);"}
-            - if flag == 'today_birthday'
-              Send Message
-            - else
-              Set Message
-            %span.modalboxContent
-              = render :partial => 'message_form',:locals => {:graph => @graph,
-                                                              :custom_message => @custom_message,
-                                                              :uid => friend["id"],
-                                                              :name => friend["name"],
-                                                              :gender => friend["gender"],
-                                                              :birthday => friend["birthday"],
-                                                              :get_custom_message => get_custom_message,
-                                                              :flag => flag}
-          &nbsp;
-          - unless get_custom_message.nil?
-            = link_to 'Delete Message', get_custom_message, method: :delete, data: { confirm: 'Are you sure, You want to delete this message?'}
+        %td.birthdayListtd
+          %div{:class => "setMessageMain",:id =>"editDeleteTd_#{friend["id"]}" }
+            .setMessageBox
+              %a.openmodalbox{:href => "javascript:void(0);"}
+                - if flag == 'today_birthday'
+                  Send Message
+                - else
+                  Set Message
+                %span.modalboxContent
+                  = render :partial => 'message_form',:locals => {:graph => @graph,
+                                                                  :custom_message => @custom_message,
+                                                                  :uid => friend["id"],
+                                                                  :name => friend["name"],
+                                                                  :gender => friend["gender"],
+                                                                  :birthday => friend["birthday"],
+                                                                  :get_custom_message => get_custom_message,
+                                                                  :flag => flag}
+            &nbsp;
+            - unless get_custom_message.nil?
+              %div{:class => "deleteSetMessage",:id=>"deleteMessage_#{friend["id"]}"}
+                = link_to 'Delete Message', get_custom_message, method: :delete, data: { confirm: 'Are you sure, You want to delete this message?',:remote => true}
