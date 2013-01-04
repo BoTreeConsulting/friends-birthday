@@ -45,10 +45,24 @@
   = text_area_tag 'custom_message[message]',"#{(get_custom_message.nil?)? "": get_custom_message.message}",:rows=>6, :cols=>60,:class => 'textArea',:id => "custom_message_#{uid}"
   %div{:style => "margin-top:10px;width:100%;height:20px;color:#0050FF;font-weight:bold;"}
     Add Greeting
+  - disable_avatar = BirthdayAvatarDisable.find_by_user_id_and_friend_uid(current_user.id,uid)
+  -#- if disable_avatar.present?
+  -#  - @yes_checked = "checked"
+  -#  - @no_checked  = "true"
+  -#- else
+  -#  - @yes_checked = false
+  -#  - @no_checked  = true
+
   %div{:class => "greeting_disabled",:id => "greeting_disabled_#{uid}"}
-    %input#addGreeting{:name => "addGreeting", :type => "radio", :value => "yes",:checked=>"checked"}
-      Yes
-    %input#addGreeting{:name => "addGreeting", :type => "radio", :value => "no"}
-      No
+    - if disable_avatar.present?
+      %input#addGreeting{:name => "addGreeting", :type => "radio", :value => "yes"}
+        Yes
+      %input#addGreeting{:name => "addGreeting", :type => "radio", :value => "no",:checked=>"checked"}
+        No
+    - else
+      %input#addGreeting{:name => "addGreeting", :type => "radio", :value => "yes",:checked=>"checked"}
+        Yes
+      %input#addGreeting{:name => "addGreeting", :type => "radio", :value => "no"}
+        No
   .actions{:style => 'margin:10px 0px;padding-left: 33%;'}
     = f.submit (flag == 'today_birthday')? 'Send Message' : 'Save Message',:class => "button",:style=> "width:35%;margin:9px auto auto 10%;"
