@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121231141918) do
+ActiveRecord::Schema.define(:version => 20130104141022) do
+
+  create_table "birthday_avatar_disables", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "friend_uid"
+    t.boolean  "disabled"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "birthday_avatars", :force => true do |t|
     t.string   "avatar"
