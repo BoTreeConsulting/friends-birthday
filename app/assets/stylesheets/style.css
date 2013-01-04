@@ -994,8 +994,8 @@ div.fadeMe {
 }
 
 .setMessageMain{
-    width: 300px;
-    padding-left: 110px;
+    width: 215px;
+    margin: auto;
 }
 
 .setMessageBox{
@@ -1012,4 +1012,12 @@ div.fadeMe {
     margin-top:10px;
     width:100%;
     height:20px;
+}
+
+#navlist li
+{
+    display: inline;
+    list-style-type: none;
+    padding-right: 20px;
+    background : none;
 }
