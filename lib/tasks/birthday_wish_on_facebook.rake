@@ -68,17 +68,18 @@ def wishing_at_facebook_wall(users)
                 begin
                   begin
                     if disabled_avatar_friends_uids_arr.present?
-                       if disabled_avatar_friends_uids_arr.include?(birthday_person["id"])
-                         @graph.put_object(birthday_person["id"], "feed", :message => "#{@message}")
-                       else
-                         @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "#{@message}" }, birthday_person["id"])
-                       end
+                       # if disabled_avatar_friends_uids_arr.include?(birthday_person["id"])
+                       #   @graph.put_object(birthday_person["id"], "feed", :message => "#{@message}")
+                       # else
+                       #   @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "#{@message}" }, birthday_person["id"])
+                       # end
                     else
                       @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "#{@message}" }, birthday_person["id"])
                     end
 
                   rescue Exception => e
                     puts "===============================> Cant Able to post image: #{e.message}"
+                    
                     @graph.put_object(birthday_person["id"], "feed", :message => "#{@message}")
                   end
                   puts "Posted on wall successfully"
