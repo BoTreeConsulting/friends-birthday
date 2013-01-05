@@ -73,6 +73,8 @@ def wishing_at_facebook_wall(users)
                        else
                          @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "#{@message}" }, birthday_person["id"])
                        end
+                    else
+                      @graph.put_picture("#{(Rails.root).join("public"+image_link)}", { "message" => "#{@message}" }, birthday_person["id"])
                     end
 
                   rescue Exception => e
