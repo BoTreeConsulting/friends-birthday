@@ -90,7 +90,7 @@ class CustomMessagesController < ApplicationController
     else
       begin
         restricted_friends_uids_arr = RestrictedFriend.where(:user_id =>current_id).pluck(:uid)
-        disabled_avatar_friends_uids_arr = BirthdayAvatarDisable.where(:user_id => user.id).pluck(:friend_uid)
+        disabled_avatar_friends_uids_arr = BirthdayAvatarDisable.where(:user_id => current_user.id).pluck(:friend_uid)
 
         flag = true
         if restricted_friends_uids_arr.present?
