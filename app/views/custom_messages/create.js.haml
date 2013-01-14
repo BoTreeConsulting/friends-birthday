@@ -1,13 +1,14 @@
 -#$('#editDeleteTd_#{@friend_uid}').html('')
 -#$('#editDeleteTd_#{@friend_uid}').append('<textarea rows="6" name="custom_message[message]" id="custom_message_#{@friend_uid}" cols="60" class="textArea"></textarea>')
 $("#custom_message_#{@friend_uid}").html('#{@custom_message.message}');
-- if @custom_message_create
-  $('#editDeleteTd_#{@friend_uid}').append('<div class = "deleteSetMessage" id="deleteMessage_#{@friend_uid}"><a rel="nofollow" data-remote = "true" data-method="delete" data-confirm="Are you sure, You want to delete this message?" href="/custom_messages/#{@custom_message.id}">Delete Message</a></div>')
--#$('.message').show();
+- unless @is_today_birthday
+  - if @custom_message_create
+    $('#editDeleteTd_#{@friend_uid}').append('<div class = "deleteSetMessage" id="deleteMessage_#{@friend_uid}"><a rel="nofollow" data-remote = "true" data-method="delete" data-confirm="Are you sure, You want to delete this message?" href="/custom_messages/#{@custom_message.id}">Delete Message</a></div>')
+  -#$('.message').show();
 
-- if @greeting_disabled
-  $('#greeting_disabled_#{@friend_uid}').html('<div id="greeting_disabled_1303185527" class="greeting_disabled"><input type="radio" value="yes" name="addGreeting" id="addGreeting" > Yes <input type="radio" value="no" name="addGreeting" id="addGreeting" checked="checked"> No </div>')
-- else
-  $('#greeting_disabled_#{@friend_uid}').html('<div id="greeting_disabled_1303185527" class="greeting_disabled"><input type="radio" value="yes" name="addGreeting" id="addGreeting" checked="checked"> Yes <input type="radio" value="no" name="addGreeting" id="addGreeting"> No </div>')
+  - if @greeting_disabled
+    $('#greeting_disabled_#{@friend_uid}').html('<div id="greeting_disabled_1303185527" class="greeting_disabled"><input type="radio" value="yes" name="addGreeting" id="addGreeting" > Yes <input type="radio" value="no" name="addGreeting" id="addGreeting" checked="checked"> No </div>')
+  - else
+    $('#greeting_disabled_#{@friend_uid}').html('<div id="greeting_disabled_1303185527" class="greeting_disabled"><input type="radio" value="yes" name="addGreeting" id="addGreeting" checked="checked"> Yes <input type="radio" value="no" name="addGreeting" id="addGreeting"> No </div>')
 $.fn.modalBox("close");
 

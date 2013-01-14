@@ -42,6 +42,7 @@ class CustomMessagesController < ApplicationController
   def create
     current_id = current_user.id
     token = current_user.fb_authentication.token
+    @is_today_birthday = false
     get_graph_api_object(token)
     @friend_uid = params[:custom_message]["friend_uid"]
     birthday_avatar_disable = BirthdayAvatarDisable.find_by_user_id_and_friend_uid(current_id,@friend_uid)
@@ -64,6 +65,7 @@ class CustomMessagesController < ApplicationController
     @friend_name  = params["friend_name"]
     no_message_available = CustomMessage.find_by_friend_uid_and_user_id(params[:custom_message]["friend_uid"],current_id).nil?
     unless params[:is_birthday_today] == "true"
+      @is_today_birthday = true
       if no_message_available
         params[:custom_message][:message]  = params[:custom_message][:message].lstrip
         custom_message = CustomMessage.new(params[:custom_message])
