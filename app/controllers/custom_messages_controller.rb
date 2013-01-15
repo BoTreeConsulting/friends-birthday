@@ -65,7 +65,6 @@ class CustomMessagesController < ApplicationController
     @friend_name  = params["friend_name"]
     no_message_available = CustomMessage.find_by_friend_uid_and_user_id(params[:custom_message]["friend_uid"],current_id).nil?
     unless params[:is_birthday_today] == "true"
-      @is_today_birthday = true
       if no_message_available
         params[:custom_message][:message]  = params[:custom_message][:message].lstrip
         custom_message = CustomMessage.new(params[:custom_message])
@@ -93,7 +92,7 @@ class CustomMessagesController < ApplicationController
       begin
         restricted_friends_uids_arr = RestrictedFriend.where(:user_id =>current_id).pluck(:uid)
         disabled_avatar_friends_uids_arr = BirthdayAvatarDisable.where(:user_id => current_user.id).pluck(:friend_uid)
-
+        @is_today_birthday = true
         flag = true
         if restricted_friends_uids_arr.present?
           if restricted_friends_uids_arr.include?(@friend_uid)
