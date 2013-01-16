@@ -28,21 +28,22 @@ def wishing_at_facebook_wall(users)
             set_messages_for_teminal(fb_user, user)
             restricted_friends_uids_arr = RestrictedFriend.where(:user_id => user.id).pluck(:uid)
             disabled_avatar_friends_uids_arr = BirthdayAvatarDisable.where(:user_id => user.id).pluck(:friend_uid)
+            @graph.batch do |batch_api|
+              @today_birthday.each do |birthday_person|
+                flag = get_restricted_friends(birthday_person, restricted_friends_uids_arr)
+                unless flag
+                  get_birthday_message(birthday_person)
 
-            @today_birthday.each do |birthday_person|
-              flag = get_restricted_friends(birthday_person, restricted_friends_uids_arr)
-              unless flag
-                get_birthday_message(birthday_person)
+                  image_link = BirthdayAvatar.find((1..49).to_a.sample).avatar.url
 
-                image_link = BirthdayAvatar.find((1..49).to_a.sample).avatar.url
-
-                begin
-                  post_at_wall(birthday_person, disabled_avatar_friends_uids_arr, image_link)
-                rescue Exception => e
-                  puts "==================>(line:42) Facebook Graph-Api Error: #{e.message}"
+                  begin
+                    post_at_wall(birthday_person, disabled_avatar_friends_uids_arr, image_link,batch_api)
+                  rescue Exception => e
+                    puts "==================>(line:42) Facebook Graph-Api Error: #{e.message}"
+                  end
+                else
+                  puts "==================>(line:45) #{fb_user["first_name"]} has restricted #{birthday_person["name"]} to wish via FriendsBirthday App. "
                 end
-              else
-                puts "==================>(line:45) #{fb_user["first_name"]} has restricted #{birthday_person["name"]} to wish via FriendsBirthday App. "
               end
             end
           else
@@ -116,25 +117,25 @@ def get_birthday_message(birthday_person)
   end
 end
 
-def post_at_wall(birthday_person, disabled_avatar_friends_uids_arr, image_link)
+def post_at_wall(birthday_person, disabled_avatar_friends_uids_arr, image_link,batch_api)
   begin
     if disabled_avatar_friends_uids_arr.present?
       if disabled_avatar_friends_uids_arr.include?(birthday_person["id"])
-        @graph.put_object(birthday_person["id"], "feed", :message => "#{@message}")
+        batch_api.put_object(birthday_person["id"], "feed", :message => "#{@message}")
         puts "==================>(line:124) Simple message has been posted successfully on #{birthday_person["name"]}'s wall"
       else
-        @graph.put_picture("#{(Rails.root).join("public"+image_link)}", {"message" => "#{@message}"}, birthday_person["id"])
+        batch_api.put_picture("#{(Rails.root).join("public"+image_link)}", {"message" => "#{@message}"}, birthday_person["id"])
         puts "==================>(line:127) Greeting with message has been posted successfully on #{birthday_person["name"]}'s wall"
       end
     else
-      @graph.put_picture("#{(Rails.root).join("public"+image_link)}", {"message" => "#{@message}"}, birthday_person["id"])
+      batch_api.put_picture("#{(Rails.root).join("public"+image_link)}", {"message" => "#{@message}"}, birthday_person["id"])
       puts "==================>(line:131) Greeting with message has been posted successfully on #{birthday_person["name"]}'s wall"
     end
   rescue Exception => e
     puts "==================>(line:134) Not posted at wall #{e.message}"
     puts "==================>(line:135) Trying to send simple message"
     begin
-      @graph.put_object(birthday_person["id"], "feed", :message => "#{@message}")
+      batch_api.put_object(birthday_person["id"], "feed", :message => "#{@message}")
       puts "==================>(line:138) Simple message has been posted successfully on #{birthday_person["name"]}'s wall"
     rescue Exception => e
       puts "==================>(line:140) Not able to send even simple message"
