@@ -24,6 +24,7 @@ FriendsBirthday::Application.routes.draw do
   match '/analysis/:provider' => 'home#analysis'
   match 'destroy_fb_authentication' => 'home#destroy_fb_authentication'
   match '/restricted_friends'  => "restricted_friends#index"
+  get '/m_get_friends_birthday'  => "home#m_get_friends_birthday",:format => "json"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

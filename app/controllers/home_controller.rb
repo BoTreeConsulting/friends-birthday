@@ -454,4 +454,8 @@ class HomeController < ApplicationController
     end
 
   end
+
+  def m_get_friends_birthday
+    render :text => params.inspect and return false
+  end
 end
