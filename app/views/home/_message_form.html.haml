@@ -36,11 +36,12 @@
                   %th.messageFormth
                     Gender:
                   %td.messageFormth
-                    = gender.capitalize
+                    - if gender.present?
+                      = gender.capitalize
 
 
     %span{:style => 'text-align:center;font-weight: bold;color: #0050FF;text-align: center;'}
-      = "#{name} will get this message on #{(gender == "male")? "his":"her"} birthday"
+      = "#{name} will get this message on #{(gender.present? ? (gender == "male")? "his":"her" : "")} birthday"
     %br
   = text_area_tag 'custom_message[message]',"#{(get_custom_message.nil?)? "": get_custom_message.message}",:rows=>6, :cols=>60,:class => 'textArea',:id => "custom_message_#{uid}"
   %div{:style => "margin-top:10px;width:100%;height:20px;color:#0050FF;font-weight:bold;"}
