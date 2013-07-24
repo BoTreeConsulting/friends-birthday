@@ -1,4 +1,4 @@
-- if @total_user_statuses_count.present?
+- if @total_user_statuses_count.present? &&  @total_user_statuses_count != 0
   %em
     = "Information is based on #{@total_user_statuses_count} statuses from #{@user_status_chart_data[1][0]} to #{Time.now.strftime("%m-%Y")}"
 
