@@ -316,8 +316,21 @@ class HomeController < ApplicationController
         else
           @gender_not_defined = @gender_not_defined + 1
       end
-      data = [10,100,300]
-      @ratio_img_male_female = Gchart.pie_3d(data: data, size: '300x200', bar_colors: '1277bd,519bcf,90c0e0,b0d2e9,ffdfaf,ffc875,ffb03a,7C0808', bg_color: 'fff')
+      data_table = GoogleVisualr::DataTable.new
+      data_table.new_column('string', 'Gender')
+      data_table.new_column('number', 'Total')
+      data_table.add_rows(3)
+      data_table.set_cell(0, 0, 'Male' )
+      data_table.set_cell(0, 1, @male_count )
+      data_table.set_cell(1, 0, 'Female' )
+      data_table.set_cell(1, 1, @female_count )
+      data_table.set_cell(2, 0, 'Undefined' )
+      data_table.set_cell(2, 1, @gender_not_defined )
+
+      opts = { :width => 500, :height => 400, :title => 'My Friends Gender Analysis', :is3D => true }
+      @chart = GoogleVisualr::Interactive::PieChart.new(data_table, opts)
+      #data = [10,100,300]
+      #@ratio_img_male_female = Gchart.pie_3d(data: data, size: '300x200', bar_colors: '1277bd,519bcf,90c0e0,b0d2e9,ffdfaf,ffc875,ffb03a,7C0808', bg_color: 'fff')
     end
   end
 

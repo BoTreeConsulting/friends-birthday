@@ -40,7 +40,7 @@ div#modalBoxFaderLayer {
 	z-index:9999;
 }
 div#modalBoxAjaxLoader {
-	background:transparent url(/assets/ajax-loader.gif) 50% 40% no-repeat;
+	background:transparent url(/assets/ajax_load.gif) 50% 40% no-repeat;
 	padding:120px 100px 80px 100px; 
 	text-align:center; 
 	overflow:hidden;

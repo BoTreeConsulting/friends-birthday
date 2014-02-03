@@ -53,5 +53,6 @@ gem 'redis-objects', :require => 'redis/objects'
 
 # To use debugger
 # gem 'debugger'
+gem "google_visualr", ">= 2.1"
 gem 'googlecharts'
 gem 'thin'

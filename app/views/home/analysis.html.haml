@@ -75,7 +75,9 @@
     -# Friends Gender information
     -#
     .genderDataChart
-      #chart_gender_div{:style => "width: 500px; height: 400px;"}
+      #chart{:style => "width: 500px; height: 400px;"}
+        = render_chart @chart, 'chart'
+      -##chart_gender_div{:style => "width: 500px; height: 400px;"}
 
     -# Friends Location information
     -#
